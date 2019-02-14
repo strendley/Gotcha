@@ -6,8 +6,13 @@ into their homes or work places without requiring a key. This project will suppo
 adding users, and unlocking the door remotely. 
 
 Contributers:
+
 George Ward
+
 Luke Malloy
+
 Tristen Luetkenhaus
+
 Gwen Werner
+
 Skylar Trendley

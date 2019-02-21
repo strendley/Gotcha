@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<TextView
+		android:text="Test your setup with a picture!"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="45.0dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/textView1"
+		android:textAlignment="center" />
+	<TextView
+		android:text="Click the image to crop"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView2" />
+	<ImageButton
+		android:src="@android:drawable/ic_menu_gallery"
+		android:layout_width="match_parent"
+		android:layout_height="271.5dp"
+		android:id="@+id/imageButton1" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1">
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Gallery"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5"
+			android:elegantTextHeight="true" />
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Camera"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5" />
+	</LinearLayout>
+	<Button
+		android:text="Test Picture!"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/button1" />
+	<TextView
+		android:text="Results:"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView3"
+		android:textAlignment="center" />
+	<TextView
+		android:text="ERROR: user not found"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="43.0dp"
+		android:id="@+id/textView4"
+		android:textAlignment="center"
+		android:textColor="#ff941c1c" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/linearLayout1">
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Menu"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5"
+			android:elegantTextHeight="true" />
+	</LinearLayout>
+
+</LinearLayout>

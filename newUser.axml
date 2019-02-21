@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25px"
+	android:minHeight="25px">
+	<TextView
+		android:text="First Name"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView2"
+		android:autoText="false"/>
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/firstName" />
+	<TextView
+		android:text="Last Name"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView2"
+		android:autoText="false" />
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/lastName" />
+	<TextView
+		android:text="Resident of house?"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView4" />
+	<RadioGroup
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/radioGroup2">
+		<RadioButton
+			android:text="Yes"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/yesResident"
+			android:defaultFocusHighlightEnabled="false"
+			android:focusedByDefault="false"
+			android:selectAllOnFocus="false"
+			android:checked="true" />
+		<RadioButton
+			android:text="No"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/noResident"
+			android:freezesText="false" />
+	</RadioGroup>
+	<TextView
+		android:text="Door Unlock Options"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView5" />
+	<RadioGroup
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/radioGroup1">
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true"
+			android:text="Always"
+			android:id="@+id/alwaysUnlock" />
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Ask me first"
+			android:id="@+id/askUnlock" />
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Never"
+			android:id="@+id/neverUnlock" />
+	</RadioGroup>
+	<TextView
+		android:text="Notify Me?"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView5" />
+	<RadioGroup
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/radioGroup2"
+		android:layout_marginBottom="49.5dp">
+		<RadioButton
+			android:text="Yes"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/yesNofity"
+			android:defaultFocusHighlightEnabled="false"
+			android:focusedByDefault="false"
+			android:selectAllOnFocus="false"
+			android:checked="true" />
+		<RadioButton
+			android:text="No"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/noNotify"
+			android:freezesText="false" />
+	</RadioGroup>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/linearLayout1">
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Menu"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5"
+			android:elegantTextHeight="true" />
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Continue Adding User"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5" />
+	</LinearLayout>
+	
+	
+</LinearLayout>

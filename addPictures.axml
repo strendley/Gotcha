@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<TextView
+		android:text="Please Add 8 User Photos"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView1"
+		android:textAlignment="center" />
+	<Button
+		android:text="Add old pictures from Gallery"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/addGallery" />
+	<Button
+		android:text="Add new pictures from Camera"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/addCamera" />
+	<TextView
+		android:text="Percent of Photos Added"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView2"
+		android:textAlignment="center" />
+	<ProgressBar
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/photoProgess" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1">
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton1" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton2" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton3" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton4" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1">
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton1" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton2" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton3" />
+		<ImageButton
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton4" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="104.5dp"
+		android:id="@+id/linearLayout2"
+		android:layout_marginBottom="0.0dp" >
+		<TextView
+			android:text="Click on an image to crop or remove it"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/textView3" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1"
+		android:layout_gravity="bottom"
+		android:layout_weight="0">
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Previous"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5"
+			android:elegantTextHeight="true" />
+		<Button
+			android:id="@+id/buttonCollect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Finish Adding User"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:width="0"
+			android:layout_weight="0.5" />
+	</LinearLayout>
+
+</LinearLayout>

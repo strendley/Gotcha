@@ -62,7 +62,7 @@ def send_mms(dest_phone, message, media_url):
     twilio_client.messages.create(
                                     to = dest_phone,
                                     from_ = src_phone,
-                                    body = 'Motion Detected!!",
+                                    body = 'Motion Detected!!',
                                     media_url = media_url)
 
 # Driver

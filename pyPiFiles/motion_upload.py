@@ -36,7 +36,7 @@ twilio_client = Client(twilio_account_sid, twilio_auth_token)
 
 # Cloudinary credentials
 cloudinary_cloud_name = "gotcha"
-cloudinary_api_key = "562151361162454"
+cloudinary_api_key = "737566516487886"
 cloudinary_api_secret = ""
 cloudinary.config(cloud_name = cloudinary_cloud_name, api_key = cloudinary_api_key , api_secret = cloudinary_api_secret)
 

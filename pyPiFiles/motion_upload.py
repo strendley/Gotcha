@@ -25,17 +25,19 @@ GPIO.setup(led, GPIO.OUT)   # setup GPIO pin for LED as output
 src_phone = "+15733045559"	# 'Purchased' (trial) Twilio phone number
 dest_phone = "+15736730302"
 
+message = 'Motion Detected!!'
+
 
 # Twilio credentials
 twilio_account_sid = "ACfcdff70258ab4367b08df0f0fcd0358d"
-twilio_auth_token = "redacted"
+twilio_auth_token = "34beea4e907e1748ef2379ac15f2e9ad"
 twilio_client = Client(twilio_account_sid, twilio_auth_token)
 
 
 # Cloudinary credentials
 cloudinary_cloud_name = "gotcha"
 cloudinary_api_key = "562151361162454"
-cloudinary_api_secret = "redacted"
+cloudinary_api_secret = "VRybvfzg3C8-CYlxJRNzTSi5G6E"
 cloudinary.config(cloud_name = cloudinary_cloud_name, api_key = cloudinary_api_key , api_secret = cloudinary_api_secret)
 
 
@@ -62,7 +64,7 @@ def send_mms(dest_phone, message, media_url):
     twilio_client.messages.create(
                                     to = dest_phone,
                                     from_ = src_phone,
-                                    body = 'Motion Detected!!',
+                                    body = message,
                                     media_url = media_url)
 
 # Driver
@@ -84,7 +86,7 @@ def main():
                 photo_location = take_photo()	# take photo, get path
                 
                 # Upload to Cloudinary
-                #public_url = upload_to_cloudinary(photo_location)
+                public_url = upload_to_cloudinary(photo_location)
                 print("Image uploaded to Cloudinary")
                 
                 # Delete local copy 
@@ -92,8 +94,8 @@ def main():
                 process = subprocess.Popen(remove_cmd, shell=True, stdout=subprocess.PIPE)
                 
                 # Send MMS to user via Twilio
-                #send_mms(dest_phone, message, public_url)
-                #print("MMS sent to +1-573-673-0302")                 
+                send_mms(dest_phone, message, public_url)
+                print("MMS sent to +1-573-673-0302")                 
                 
                 GPIO.output(led, False)         # turn off LED
                 time.sleep(0.1)

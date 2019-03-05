@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<TextView
+		android:text="Create Account"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/textView1"
+		android:textSize="20dp"
+		android:textColor="#ff000000"
+		android:layout_marginLeft="10dp" />
+	<android.support.v4.widget.Space
+		android:layout_width="match_parent"
+		android:layout_height="9.0dp"
+		android:id="@+id/space1" />
+	<TextView
+		android:text="Email"
+		android:layout_width="match_parent"
+		android:layout_height="31.5dp"
+		android:id="@+id/textView2"
+		android:textColor="#ff000000"
+		android:textSize="15dp"
+		android:layout_marginLeft="20dp" />
+	<EditText
+		android:inputType="textEmailAddress"
+		android:layout_width="262.0dp"
+		android:layout_height="37.0dp"
+		android:id="@+id/editText1"
+		android:background="#ffe6e6e6"
+		android:layout_marginBottom="49.0dp"
+		android:layout_marginLeft="20.0dp"
+		android:layout_marginRight="22.0dp" />
+	<TextView
+		android:text="Username"
+		android:layout_width="match_parent"
+		android:layout_height="29.0dp"
+		android:id="@+id/textView3"
+		android:textColor="#ff000000"
+		android:textSize="15dp"
+		android:layout_marginLeft="20dp" />
+	<EditText
+		android:layout_width="262.0dp"
+		android:layout_height="33.5dp"
+		android:background="#ffe6e6e6"
+		android:layout_marginBottom="49.0dp"
+		android:layout_marginLeft="20.0dp"
+		android:layout_marginRight="22.0dp"
+		android:id="@+id/editText2" />
+	<TextView
+		android:text="Password"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView4"
+		android:textColor="#ff000000"
+		android:textSize="15dp"
+		android:layout_marginLeft="20dp" />
+	<EditText
+		android:inputType="textPassword"
+		android:layout_width="262.0dp"
+		android:layout_height="36.5dp"
+		android:background="#ffe6e6e6"
+		android:layout_marginBottom="49.0dp"
+		android:layout_marginLeft="20.0dp"
+		android:layout_marginRight="22.0dp"
+		android:id="@+id/editText3" />
+	<TextView
+		android:text="Confirm Password"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView5"
+		android:textColor="#ff000000"
+		android:textSize="15dp"
+		android:layout_marginLeft="20dp" />
+	<EditText
+		android:inputType="textPassword"
+		android:layout_width="262.0dp"
+		android:layout_height="32.5dp"
+		android:background="#ffe6e6e6"
+		android:layout_marginBottom="49.0dp"
+		android:layout_marginLeft="20.0dp"
+		android:layout_marginRight="22.0dp"
+		android:id="@+id/editText4" />
+	<Button
+		android:text="Next"
+		android:layout_width="116.5dp"
+		android:layout_height="61.0dp"
+		android:id="@+id/button1"
+		android:layout_marginLeft="250dp"
+		android:background="#ffbebebe"
+		android:textSize="20dp" />
+
+
+</LinearLayout>

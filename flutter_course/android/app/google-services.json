@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "947747343379",
+    "firebase_url": "https://foodrec-eedd6.firebaseio.com",
+    "project_id": "foodrec-eedd6",
+    "storage_bucket": "foodrec-eedd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947747343379:android:18b5e58abeafcf1f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947747343379-k8faj99679u1eaai6dntv7onok8p9g7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAagA32BdWIoUjuAleSRCsbAe27F9_yIqQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

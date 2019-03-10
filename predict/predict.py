@@ -21,4 +21,4 @@ if __name__ == '__main__':
   with open(file_path, 'rb') as ff:
     content = ff.read()
 
-  print( get_prediction(content, project_id,  model_id))
+  print(get_prediction(content, project_id,  model_id))

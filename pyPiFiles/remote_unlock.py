@@ -21,19 +21,22 @@ from google.cloud.automl_v1beta1.proto import service_pb2
 
 project_id = 'gotcha-233622'
 model_id = 'ICN8341606992171376246'
+camera = picamera.PiCamera()
 
 pir = 8 # Assign pin 8 to PIR
 yellow = 10 # Assign pin 10 to yellow LED
 lock = 12 # Assign pin 12 to door lock
 green = 16 # Assign pin 16 to green LED
 red = 18 # Assign pin 18 to red LED
+blue = 22 # Assign pin 22 to blue LED
 
 GPIO.setmode(GPIO.BOARD)    # set GPIO mode to correct physical numbering
 GPIO.setup(pir, GPIO.IN)    # setup GPIO pin PIR as input
-GPIO.setup(yellow, GPIO.OUT)   # setup GPIO pin for LED as output
-GPIO.setup(lock, GPIO.OUT)   # setup GPIO pin for door lock as output
-GPIO.setup(green, GPIO.OUT)   # setup GPIO pin for LED as output
-GPIO.setup(red, GPIO.OUT)   # setup GPIO pin for LED as output
+GPIO.setup(yellow, GPIO.OUT)  # setup led outputs
+GPIO.setup(lock, GPIO.OUT)   
+GPIO.setup(green, GPIO.OUT)   
+GPIO.setup(red, GPIO.OUT)   
+GPIO.setup(blue, GPIO.OUT)
 
 # Run subprocess and wait to finish photo output to file
 def take_photo_raspistill():
@@ -49,7 +52,6 @@ def take_photo_raspistill():
     return file_location 
   
 def take_photo_picamera():
-    camera = picamera.PiCamera()
     camera.resolution = (1024, 768) 
     camera.rotation = 270
     output = numpy.empty((768,1024,3) , dtype = numpy.uint8)
@@ -71,11 +73,12 @@ def get_prediction(content, project_id, model_id):
 def main():
     
     print("Sensor initializing") # Warm-up sensor
-    #time.sleep(2)
-    #GPIO.output(lock, False)
-    #GPIO.output(yellow, True)          # yellow indicates sensor ready
-    #GPIO.output(green, True)        
-    #GPIO.output(red, True)
+    time.sleep(2)
+    GPIO.output(lock, False)
+    GPIO.output(yellow, True)
+    GPIO.output(green, True)        
+    GPIO.output(red, True)
+    GPIO.output(blue, False)                    # Blue ON
     print("Armed & Ready to detect motion")
     print("Press Ctrl + C to end program")
 	
@@ -83,48 +86,74 @@ def main():
     try: 
         while True:
             # If motion is detected
-            #if GPIO.input(pir) == True:
+            if GPIO.input(pir) == True:
+                    
+                GPIO.output(red, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
-                GPIO.output(yellow, False) # shut off sensor to indicate verification process underway
-		
+                
+                GPIO.output(yellow, False)      # Yellow ON - picture taken
                 print("Taking photo")			
-                #photo_location = take_photo()	# take photo, get path
-
-                #image = face_recognition.load_image_file(photo_location)
-                '''
+                
+                
+                # Take photo
                 output = take_photo_picamera()
                 picture = Image.fromarray(output)
-                picture.save('tristen_face.jpg')
-                '''
                 
-                face = face_recognition.load_image_file('tristen_face.jpg')
+                timestamp = datetime.datetime.now().strftime('%d_%b_%Hh_%Mm_%Ss')
+                name = 'face_{}.jpg'.format(timestamp)
+                
+                picture.save(name)
+                GPIO.output(yellow, True)  # Yellow OFF
+                
+                # Find faces
+                face = face_recognition.load_image_file('face.jpg')
                 face_locations = face_recognition.face_locations(face)
                 
-                #print(len(face_locations))
-                
-                for face_location in face_locations:
+                # If faces found, get_prediction()
+                if(len(face_locations) > 0):
                         
-                        top,right,bottom,left = face_location
-                        face_image = face[top-50:bottom+50, left-50:right+50]
-                        pil_image = Image.fromarray(face_image)
-                        pil_image.save("result.jpg")
+                        # Crop all faces from photo
+                        for face_location in face_locations:
+                                i = 1
+                                top,right,bottom,left = face_location
+                                face_image = face[top-50:bottom+50, left-50:right+50]
+                                pil_image = Image.fromarray(face_image)
+                                print(face_location)
+                                
+                                # save image to upload
+                                path = 'result_{}.jpg'.format(i)  
+                                pil_image.save(path)
+                                i = i + 1
+                                
+                                # Potential TODO: pass variables to cloud, store less local images, otherwise rm from system each round
+                                #img_byte_array = io.BytesIO()
+                                #pil_image.save(img_byte_array, format = 'PNG')
+                                #img_byte_array = img_byte_array.getvalue()
+
+                                # Read .jpg file as bytes
+                                with open(path, 'rb') as ff:
+                                        content = ff.read()
+                                
+                                # Cloud request
+                                print(get_prediction(content, project_id, model_id))
+                                
+                                #TODO: if at least one face is authorized, unlock door
+                                
+                                # Unlocks the door
+                                #GPIO.output(lock, False)
+                                
+                                #TODO: else, do not open the door, light up red LED
+                                #GPIO.output(red, False)
                         
-                #img_byte_array = io.BytesIO()
-                #pil_image.save(img_byte_array, format = 'PNG')
-                #img_byte_array = img_byte_array.getvalue()
                 
-                with open('run.jpg', 'rb') as ff:
-                        content = ff.read()
-                
-                print(get_prediction(content, project_id, model_id))
+                # No faces in image taken 
+                else:
+                        GPIO.output(red, False)
+                        print('No faces found')
                         
-               
-                exit(1)
+                        
                 #print(face_locations[0])
                 
-                
-                # Get Prediction
-                # print (get_prediction(content, project_id,  model_id))
                 
                 # Unlock door if prediction reliable and wait for entrance
                 #GPIO.output(lock, True)         # unlock door

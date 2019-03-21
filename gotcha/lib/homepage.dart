@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           new Container(
                             //color: Colors.blue[100],
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser())); },
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddUserPage())); },
                               title: new Text("Add New User"),
                               leading: new Icon(Icons.person_add, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),

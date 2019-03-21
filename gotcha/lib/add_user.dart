@@ -4,7 +4,37 @@ import 'test_pictures.dart';
 
 //void main() => runApp(MyApp());
 
-class AddUser extends StatelessWidget {
+class AddUserPage extends StatefulWidget {
+  @override
+  _AddUserState createState() => new _AddUserState();
+}
+
+class _AddUserState extends State<AddUserPage> {
+  int residentStatus = 0;
+  int unlockOptions = 0;
+  int notifyOptions = 0;
+
+  void handleResidentChange(int value)
+  {
+    setState(() {
+      residentStatus = value;
+    });
+  }
+
+  void handleUnlockChange(int value)
+  {
+    setState(() {
+      unlockOptions = value;
+    });
+  }
+
+  void handleNotifyChange(int value)
+  {
+    setState(() {
+      notifyOptions = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,7 +73,7 @@ class AddUser extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10, top: 15),
                 child: new Align(
                   alignment: Alignment.topLeft,
-                    child: new Text('Resident Status?', style: new TextStyle(fontSize: 25),)
+                    child: new Text('Resident Status:', style: new TextStyle(fontSize: 25),)
                 )
               ),
 
@@ -52,23 +82,23 @@ class AddUser extends StatelessWidget {
                child: new Row(
                  children: <Widget>[
                    new Radio(
-                     value: 0,
-                     groupValue: null,
-                     onChanged: null,
+                     value: 1,
+                     groupValue: residentStatus,
+                     onChanged: handleResidentChange,
                    ),
                    new Text('Resident'),
 
                    new Radio(
-                     value: 1,
-                     groupValue: null,
-                     onChanged: null,
+                     value: 2,
+                     groupValue: residentStatus,
+                     onChanged: handleResidentChange,
                    ),
                    new Text('Guest'),
 
                    new Radio(
-                     value: 1,
-                     groupValue: null,
-                     onChanged: null,
+                     value: 3,
+                     groupValue: residentStatus,
+                     onChanged: handleResidentChange,
                    ),
                    new Text('Unwelcomed'),
                  ],
@@ -79,7 +109,7 @@ class AddUser extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10, top: 15),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Door Unlock Options', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Door Unlock Options:', style: new TextStyle(fontSize: 25),)
                   )
               ),
 
@@ -88,23 +118,23 @@ class AddUser extends StatelessWidget {
                   child: new Row(
                     children: <Widget>[
                       new Radio(
-                        value: 2,
-                        groupValue: null,
-                        onChanged: null,
+                        value: 1,
+                        groupValue: unlockOptions,
+                        onChanged: handleUnlockChange,
                       ),
                       new Text('Always'),
 
                       new Radio(
-                        value: 3,
-                        groupValue: null,
-                        onChanged: null,
+                        value: 2,
+                        groupValue: unlockOptions,
+                        onChanged: handleUnlockChange,
                       ),
                       new Text('Ask Me First'),
 
                       new Radio(
-                        value: 4,
-                        groupValue: null,
-                        onChanged: null,
+                        value: 3,
+                        groupValue: unlockOptions,
+                        onChanged: handleUnlockChange,
                       ),
                       new Text('Never'),
                     ],
@@ -115,7 +145,7 @@ class AddUser extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10, top: 15),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Notify Me?', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Notify Me:', style: new TextStyle(fontSize: 25),)
                   )
               ),
 
@@ -124,16 +154,16 @@ class AddUser extends StatelessWidget {
                   child: new Row(
                     children: <Widget>[
                       new Radio(
-                        value: 5,
-                        groupValue: null,
-                        onChanged: null,
+                        value: 1,
+                        groupValue: notifyOptions,
+                        onChanged: handleNotifyChange,
                       ),
                       new Text('Yes'),
 
                       new Radio(
-                        value: 6,
-                        groupValue: null,
-                        onChanged: null,
+                        value: 2,
+                        groupValue: notifyOptions,
+                        onChanged: handleNotifyChange,
                       ),
                       new Text('No'),
                     ],

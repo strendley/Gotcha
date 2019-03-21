@@ -38,19 +38,7 @@ GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)   
 GPIO.setup(blue, GPIO.OUT)
 
-# Run subprocess and wait to finish photo output to file
-def take_photo_raspistill():
-    # timestamp the photo 
-    timestamp = datetime.datetime.now().strftime('%d_%b_%Hh_%Mm_%Ss')
-    name = timestamp + '.jpg'
-    take_photo_cmd = 'raspistill -w 1024 -h 768 -o ' + name
-    process = subprocess.Popen(take_photo_cmd, shell=True, stdout=subprocess.PIPE)
-    process.wait()
-    
-    file_location = '/home/pi/Desktop/gotcha_python_drivers/' + timestamp +'.jpg'
-    # return path to photo on disk
-    return file_location 
-  
+# Takes photo and returns output  
 def take_photo_picamera():
     camera.resolution = (1024, 768) 
     camera.rotation = 270
@@ -58,7 +46,7 @@ def take_photo_picamera():
     camera.capture(output, format = 'rgb')
     return output
   
- 
+# Contacts AutoML Vision and gets json response
 def get_prediction(content, project_id, model_id):
   prediction_client = automl_v1beta1.PredictionServiceClient()
 
@@ -88,12 +76,11 @@ def main():
             # If motion is detected
             if GPIO.input(pir) == True:
                     
-                GPIO.output(red, True)          # Blue OFF - motion detected
+                GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
                 
                 GPIO.output(yellow, False)      # Yellow ON - picture taken
                 print("Taking photo")			
-                
                 
                 # Take photo
                 output = take_photo_picamera()
@@ -106,7 +93,7 @@ def main():
                 GPIO.output(yellow, True)  # Yellow OFF
                 
                 # Find faces
-                face = face_recognition.load_image_file('face.jpg')
+                face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
                 # If faces found, get_prediction()
@@ -145,31 +132,24 @@ def main():
                                 #TODO: else, do not open the door, light up red LED
                                 #GPIO.output(red, False)
                         
-                
+                        # Delete local copies of photos and faces
+                        
+                        #remove_faces = 'rm -f result_*.jpg'
+                        #process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+                        #remove_photos = 'rm -f face_*.jpg'
+                        #process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+                        
+                        # Turn Blue LED ON to indicate motion sensor ready
+                        GPIO.output(blue, False)
+                        
                 # No faces in image taken 
                 else:
-                        GPIO.output(red, False)
+                        GPIO.output(red, False)          # Indicate no entry granted
                         print('No faces found')
+                        print("End of detection cycle")
                         
-                        
-                #print(face_locations[0])
-                
-                
-                # Unlock door if prediction reliable and wait for entrance
-                #GPIO.output(lock, True)         # unlock door
-                #GPIO.output(green, False)        # green ON
-                
-                # Else reject and do not wait 
-                #GPIO.output(red, False)          # red is on by default
-                
-                # Delete local copy 
-                #remove_cmd = 'rm ' + photo_location
-                #process = subprocess.Popen(remove_cmd, shell=True, stdout=subprocess.PIPE)
-
-                
-                
-                GPIO.output(yellow, True)
-                print("End of detection cycle")
+                        # Turn Blue LED ON to indicate motion sensor ready
+                        GPIO.output(blue, False)
 	
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 

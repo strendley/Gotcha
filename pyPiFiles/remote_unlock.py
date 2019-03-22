@@ -136,14 +136,11 @@ def main():
                         
                         #remove_faces = 'rm -f result_*.jpg'
                         #process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-                        #process1.wait()
                         #remove_photos = 'rm -f face_*.jpg'
                         #process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
-                        #process2.wait()
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
-                        print("End of detection cycle")
                         
                 # No faces in image taken 
                 else:
@@ -160,6 +157,7 @@ def main():
 	
     # Cleanup
     finally:
+        #GPIO.setmode(GPIO.BOARD)
         GPIO.cleanup()          # Reset all GPIO
         print('Exiting motion script')
 

@@ -170,7 +170,7 @@ class Household extends StatelessWidget {
             actions: <Widget>[
               new Padding(
                 padding: EdgeInsets.only(right:10),
-                child: new IconButton(icon: Icon(Icons.group_add, color: Colors.white), onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUserPage()));})
+                child: new IconButton(icon: Icon(Icons.group_add, color: Colors.white), onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser()));})
               )
             ],
             centerTitle: true,

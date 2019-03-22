@@ -4,37 +4,7 @@ import 'test_pictures.dart';
 
 //void main() => runApp(MyApp());
 
-class AddUserPage extends StatefulWidget {
-  @override
-  _AddUserState createState() => new _AddUserState();
-}
-
-class _AddUserState extends State<AddUserPage> {
-  int residentStatus = 0;
-  int unlockOptions = 0;
-  int notifyOptions = 0;
-
-  void handleResidentChange(int value)
-  {
-    setState(() {
-      residentStatus = value;
-    });
-  }
-
-  void handleUnlockChange(int value)
-  {
-    setState(() {
-      unlockOptions = value;
-    });
-  }
-
-  void handleNotifyChange(int value)
-  {
-    setState(() {
-      notifyOptions = value;
-    });
-  }
-
+class AddUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -73,7 +43,7 @@ class _AddUserState extends State<AddUserPage> {
                   padding: EdgeInsets.only(left: 10, top: 15),
                 child: new Align(
                   alignment: Alignment.topLeft,
-                    child: new Text('Resident Status:', style: new TextStyle(fontSize: 25),)
+                    child: new Text('Resident Status?', style: new TextStyle(fontSize: 25),)
                 )
               ),
 
@@ -82,23 +52,23 @@ class _AddUserState extends State<AddUserPage> {
                child: new Row(
                  children: <Widget>[
                    new Radio(
-                     value: 1,
-                     groupValue: residentStatus,
-                     onChanged: handleResidentChange,
+                     value: 0,
+                     groupValue: null,
+                     onChanged: null,
                    ),
                    new Text('Resident'),
 
                    new Radio(
-                     value: 2,
-                     groupValue: residentStatus,
-                     onChanged: handleResidentChange,
+                     value: 1,
+                     groupValue: null,
+                     onChanged: null,
                    ),
                    new Text('Guest'),
 
                    new Radio(
-                     value: 3,
-                     groupValue: residentStatus,
-                     onChanged: handleResidentChange,
+                     value: 1,
+                     groupValue: null,
+                     onChanged: null,
                    ),
                    new Text('Unwelcomed'),
                  ],
@@ -109,7 +79,7 @@ class _AddUserState extends State<AddUserPage> {
                   padding: EdgeInsets.only(left: 10, top: 15),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Door Unlock Options:', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Door Unlock Options', style: new TextStyle(fontSize: 25),)
                   )
               ),
 
@@ -118,23 +88,23 @@ class _AddUserState extends State<AddUserPage> {
                   child: new Row(
                     children: <Widget>[
                       new Radio(
-                        value: 1,
-                        groupValue: unlockOptions,
-                        onChanged: handleUnlockChange,
+                        value: 2,
+                        groupValue: null,
+                        onChanged: null,
                       ),
                       new Text('Always'),
 
                       new Radio(
-                        value: 2,
-                        groupValue: unlockOptions,
-                        onChanged: handleUnlockChange,
+                        value: 3,
+                        groupValue: null,
+                        onChanged: null,
                       ),
                       new Text('Ask Me First'),
 
                       new Radio(
-                        value: 3,
-                        groupValue: unlockOptions,
-                        onChanged: handleUnlockChange,
+                        value: 4,
+                        groupValue: null,
+                        onChanged: null,
                       ),
                       new Text('Never'),
                     ],
@@ -145,7 +115,7 @@ class _AddUserState extends State<AddUserPage> {
                   padding: EdgeInsets.only(left: 10, top: 15),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Notify Me:', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Notify Me?', style: new TextStyle(fontSize: 25),)
                   )
               ),
 
@@ -154,16 +124,16 @@ class _AddUserState extends State<AddUserPage> {
                   child: new Row(
                     children: <Widget>[
                       new Radio(
-                        value: 1,
-                        groupValue: notifyOptions,
-                        onChanged: handleNotifyChange,
+                        value: 5,
+                        groupValue: null,
+                        onChanged: null,
                       ),
                       new Text('Yes'),
 
                       new Radio(
-                        value: 2,
-                        groupValue: notifyOptions,
-                        onChanged: handleNotifyChange,
+                        value: 6,
+                        groupValue: null,
+                        onChanged: null,
                       ),
                       new Text('No'),
                     ],

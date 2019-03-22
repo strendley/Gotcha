@@ -76,7 +76,7 @@ class _PicturePageState extends State<Pictures> {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: const Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Please Add 10 User Photos", style: TextStyle(fontSize: 25)))
+                    child: Text("Please Add 8 User Photos", style: TextStyle(fontSize: 25)))
             ),
 
             ButtonTheme(
@@ -107,10 +107,10 @@ class _PicturePageState extends State<Pictures> {
               child: SafeArea(
                   child:
                     new GridView.count(
-                      crossAxisCount: 5,
-                      children: new List<Widget>.generate(10, (index) {
+                      crossAxisCount: 4,
+                      children: new List<Widget>.generate(8, (index) {
                         return new GridTile(
-                          child: new FadeInImage(placeholder: AssetImage('user-placeholder.png'), image: AssetImage('user-placeholder.png'))//image: FileImage(_image))
+                          child: new FadeInImage(placeholder: AssetImage('user_placeholder.png'), image: AssetImage('furry_george.jpg'))//image: FileImage(_image))
                            // child: new Image.asset('user-placeholder.png')
                         );
                     }),

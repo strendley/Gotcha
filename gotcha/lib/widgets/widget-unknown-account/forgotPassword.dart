@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart';
-
-class forgotPasswordPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gotcha App',
-      theme: ThemeData(
-          primaryColor: Colors.blue
-      ),
-      home: ForgotPassword(title: 'Create Account'),
-    );
-  }
-}
+import '../widget-account/widget-account.dart';
 
 class ForgotPassword extends StatefulWidget {
   ForgotPassword({Key key, this.title}) : super(key: key);
@@ -70,7 +57,7 @@ class _ForgotPassword extends State<ForgotPassword> {
           onPressed: () =>
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => MyHomePage(),),
+                MaterialPageRoute(builder: (BuildContext context) => Account(),),
               ),
           child: const Text('Send Email', style: TextStyle(fontSize: 15)),
         ),

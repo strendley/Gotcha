@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart';
-
+import '../widget-account/widget-account.dart';
 class PersonalInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     onPressed: () =>
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context) => MyHomePage(),),
+                          MaterialPageRoute(builder: (BuildContext context) => Account(),),
                         ),
                     child: const Text('Finish', style: TextStyle(fontSize: 20)),
                   ),

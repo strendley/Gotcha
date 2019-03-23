@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:async';
 import 'dart:io';
-
-class PicturesPage extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gotcha App',
-      theme: ThemeData(
-          primaryColor: Colors.blue
-      ),
-      home: Pictures(title: 'Picture Test'),
-    );
-  }
-}
 
 class Pictures extends StatefulWidget {
   Pictures({Key key, this.title}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'test_pictures.dart';
+import '../widget-camera/test_pictures.dart';
 
 class AddUser extends StatelessWidget {
   @override

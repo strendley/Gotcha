@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import '../widgets/widget-account/widget-account.dart';
 
-import 'widgets/widget-sign-in/sign-in.dart';
-
-void main() => runApp(Main());
-
-class Main extends StatelessWidget {
+class AccountPage extends StatelessWidget {
   // This widget is the root of your application.
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gothca App',
+      title: 'Gotcha App',
       theme: ThemeData(
           primaryColor: Colors.blue
-        //primaryColor: Color(0xffECEAD3)
       ),
-      home: SignIn(title: 'Account Settings'),
+      home: Account(title: 'Account Settings'),
     );
   }
 }

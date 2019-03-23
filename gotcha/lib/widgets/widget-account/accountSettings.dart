@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'account.dart';
 import 'pi_settings.dart';
 import 'household.dart';
 import 'add_user.dart';
-import 'test.dart';
 import 'features.dart';
-
-class MyApp extends StatelessWidget {
+import '../widget-camera/test.dart';
+class AccountSettings extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -15,13 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue
       ),
-      home: MyHomePage(title: 'Account Settings'),
+      home: AccountSettingsPage(title: 'Account Settings'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class AccountSettingsPage extends StatefulWidget {
+  AccountSettingsPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -29,7 +27,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<AccountSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Account())); },
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings())); },
                               title: new Text("Account Settings"),
                               leading: new Icon(Icons.account_circle, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color: Colors.grey, size:25.0),

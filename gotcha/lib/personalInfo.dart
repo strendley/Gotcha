@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'personalInfo.dart';
-//void main() => runApp(MyApp());
+import 'homepage.dart';
 
-class CreateAccountPage extends StatelessWidget {
+class PersonalInfoPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,21 +12,21 @@ class CreateAccountPage extends StatelessWidget {
           primaryColor: Colors.blue
         //primaryColor: Color(0xffECEAD3)
       ),
-      home: CreateAccount(title: 'Create Account'),
+      home: PersonalInfo(title: 'Create Account'),
     );
   }
 }
 
-class CreateAccount extends StatefulWidget {
-  CreateAccount({Key key, this.title}) : super(key: key);
+class PersonalInfo extends StatefulWidget {
+  PersonalInfo({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _CreateAccount createState() => _CreateAccount();
+  _PersonalInfo createState() => _PersonalInfo();
 }
 
-class _CreateAccount extends State<CreateAccount> {
+class _PersonalInfo extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -62,7 +61,7 @@ class _CreateAccount extends State<CreateAccount> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Username',
+                      'First Name',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
                     ),
@@ -82,7 +81,7 @@ class _CreateAccount extends State<CreateAccount> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Email',
+                      'Last Name',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
                     ),
@@ -102,7 +101,7 @@ class _CreateAccount extends State<CreateAccount> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Password',
+                      'Address',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
                     ),
@@ -110,7 +109,7 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
 
                 TextField(
-                  obscureText: true,
+                  //obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Color(0xffffffff), filled: true,
@@ -122,7 +121,7 @@ class _CreateAccount extends State<CreateAccount> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Confirm Password',
+                      'Phone number',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
                     ),
@@ -147,9 +146,9 @@ class _CreateAccount extends State<CreateAccount> {
                     onPressed: () =>
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo(),),
+                          MaterialPageRoute(builder: (BuildContext context) => MyHomePage(),),
                         ),
-                    child: const Text('Next', style: TextStyle(fontSize: 20)),
+                    child: const Text('Finish', style: TextStyle(fontSize: 20)),
                   ),
                 ),
 

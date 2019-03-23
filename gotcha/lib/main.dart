@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
-//import 'package:splashscreen/splashscreen.dart';
-import 'homepage.dart';
-import 'createAccount.dart';
-import 'forgotPassword.dart';
 
-void main() => runApp(gotcha());
+import 'widgets/homepage.dart';
+import 'widgets/createAccount.dart';
+import 'widgets/forgotPassword.dart';
+import 'services/authentication.dart';
 
-class gotcha extends StatelessWidget {
+void main() => runApp(Main());
+
+class Main extends StatelessWidget {
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gotcha App',
+      title: 'Gothca App',
       theme: ThemeData(
           primaryColor: Colors.blue
         //primaryColor: Color(0xffECEAD3)
       ),
-      home: signin(title: 'Account Settings'),
+      home: SignIn(title: 'Account Settings'),
     );
   }
 }
 
-class signin extends StatefulWidget {
-  signin({Key key, this.title}) : super(key: key);
+class SignIn extends StatefulWidget {
+  SignIn({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _signinState createState() => _signinState();
+  _SignInState createState() => _SignInState();
 }
 
-class _signinState extends State<signin> {
+class _SignInState extends State<SignIn> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

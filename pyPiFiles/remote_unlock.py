@@ -12,7 +12,9 @@ import sys
 import face_recognition
 import picamera 
 import numpy
-import io
+#import io
+
+import re
 
 from PIL import Image
 
@@ -59,7 +61,7 @@ def get_prediction(content, project_id, model_id):
 
 # Driver
 def main():
-    
+    '''
     print("Sensor initializing") # Warm-up sensor
     time.sleep(2)
     GPIO.output(lock, False)
@@ -68,6 +70,7 @@ def main():
     GPIO.output(red, True)
     GPIO.output(blue, False)                    # Blue ON
     print("Armed & Ready to detect motion")
+    '''
     print("Press Ctrl + C to end program")
 	
     # Sensing motion infinitely
@@ -83,16 +86,17 @@ def main():
                 print("Taking photo")			
                 
                 # Take photo
-                output = take_photo_picamera()
-                picture = Image.fromarray(output)
+                #output = take_photo_picamera()
+                #picture = Image.fromarray(output)
                 
-                timestamp = datetime.datetime.now().strftime('%d_%b_%Hh_%Mm_%Ss')
-                name = 'face_{}.jpg'.format(timestamp)
+                #timestamp = datetime.datetime.now().strftime('%d_%b_%Hh_%Mm_%Ss')
+                #name = 'face_{}.jpg'.format(timestamp)
                 
-                picture.save(name)
+                #picture.save(name)
                 GPIO.output(yellow, True)  # Yellow OFF
                 
                 # Find faces
+                name = 'luke_hat.jpg'
                 face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
@@ -112,7 +116,7 @@ def main():
                                 pil_image.save(path)
                                 i = i + 1
                                 
-                                # Potential TODO: pass variables to cloud, store less local images, otherwise rm from system each round
+                                # Potential TODO: pass images as variables to cloud, store less local images, otherwise rm from system each round
                                 #img_byte_array = io.BytesIO()
                                 #pil_image.save(img_byte_array, format = 'PNG')
                                 #img_byte_array = img_byte_array.getvalue()
@@ -122,15 +126,26 @@ def main():
                                         content = ff.read()
                                 
                                 # Cloud request
-                                print(get_prediction(content, project_id, model_id))
+                                json_response = get_prediction(content, project_id, model_id)
+                                json_str = str(json_response)
                                 
-                                #TODO: if at least one face is authorized, unlock door
+                                # Regex for score 
+                                match = re.search('([0-9]*\.[0-9]+|[0-9]+)', json_str)
+                                score = match.group(0)
                                 
-                                # Unlocks the door
-                                #GPIO.output(lock, False)
+                                #If score is above 89.999%, unlock door
+                                if float(score) > 0.8999999999999999:
+                                        # Unlock the door
+                                        print('face_{} Authorized'.format(i))
+                                        print('Door Unlocking')
+                                        GPIO.output(lock, False)
+                                        GPIO.output(green, False)
+                                        
                                 
-                                #TODO: else, do not open the door, light up red LED
-                                #GPIO.output(red, False)
+                                #Else, do not open the door, light up red LED
+                                else:
+                                print('face_{} Not Authorized'.format(i))
+                                GPIO.output(red, False)
                         
                         # Delete local copies of photos and faces
                         
@@ -141,6 +156,7 @@ def main():
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
+                        print("End of detection cycle")
                         
                 # No faces in image taken 
                 else:
@@ -157,7 +173,7 @@ def main():
 	
     # Cleanup
     finally:
-        #GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BOARD)    
         GPIO.cleanup()          # Reset all GPIO
         print('Exiting motion script')
 

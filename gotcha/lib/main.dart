@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/widget-sign-in/sign-in.dart';
+import './services/authentication.dart';
 
 void main() => runApp(Main());
 
@@ -15,7 +16,7 @@ class Main extends StatelessWidget {
           primaryColor: Colors.blue
         //primaryColor: Color(0xffECEAD3)
       ),
-      home: SignIn(title: 'Account Settings'),
+      home: SignIn(auth: new Auth()),
     );
   }
 }

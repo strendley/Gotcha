@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class LoginInBox extends StatelessWidget {
+class UsernameLoginInBox extends StatelessWidget {
   final String title;
-
-  LoginInBox({Key key, this.title}) : super(key: key);
+  final TextEditingController username;
+  
+  UsernameLoginInBox({Key key, this.title, this.username}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
-    return Column ( 
+    return new Column ( 
       children: <Widget> [
-      new Row(
+        Row(
         children: <Widget>[
           Text(
             title,

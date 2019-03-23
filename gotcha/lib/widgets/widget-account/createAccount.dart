@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../services/authentication.dart';
 import '../widget-account/personalInfo.dart';
 
 class CreateAccount extends StatefulWidget {
-  CreateAccount({Key key, this.title}) : super(key: key);
-
+  CreateAccount({Key key, this.title, this.auth}) : super(key: key);
+  final BaseAuth auth;
   final String title;
 
   @override
@@ -11,6 +12,51 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccount extends State<CreateAccount> {
+  var _email = new TextEditingController();
+  var _password = new TextEditingController();
+  var _check_password = new TextEditingController();
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Failed Sign Up"),
+          content: new Text("Passwords for " + _email.text+" are not the same " +_password.text +" != " +_check_password.text),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _signUp() async {
+    try{
+      String userId = await Auth().signUp(_email.text, _password.text);
+      if(userId != null)
+      {
+        print("user signed in "+ userId );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
+        );
+      }
+    }catch(e)
+    {
+      _showDialog();
+      print(e);
+    }
+    
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +76,7 @@ class _CreateAccount extends State<CreateAccount> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Create Account',
+                      'Sign Up',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -38,26 +84,6 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
 
                 SizedBox(height: 20),
-
-                new Row(
-                  children: <Widget>[
-                    Text(
-                      'Username',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
-                    ),
-                  ],
-                ),
-
-                TextField(
-                  //obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    fillColor: Colors.white, filled: true,
-                  ),
-                ),
-
-                SizedBox(height: 10),
 
                 new Row(
                   children: <Widget>[
@@ -70,7 +96,7 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
 
                 TextField(
-                  //obscureText: true,
+                  controller: _email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Color(0xffffffff), filled: true,
@@ -90,6 +116,7 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
 
                 TextField(
+                  controller: _password,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -110,6 +137,7 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
 
                 TextField(
+                  controller: _check_password,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -125,10 +153,7 @@ class _CreateAccount extends State<CreateAccount> {
                   child: RaisedButton(
                     color: Color(0xffFFF0D1),
                     onPressed: () =>
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo(),),
-                        ),
+                        _signUp(),
                     child: const Text('Next', style: TextStyle(fontSize: 20)),
                   ),
                 ),

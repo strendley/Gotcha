@@ -1,19 +1,67 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
+import '../widget-boxes/username-login-box.dart';
+import '../widget-boxes/password-login-box.dart';
 import '../../services/authentication.dart';
 import '../widget-unknown-account/forgotPassword.dart';
+import '../widget-buttons/sign-in-button.dart';
 import '../widget-account/widget-account.dart';
 import '../widget-account/createAccount.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn({Key key, this.title}) : super(key: key);
-
-  final String title;
+  SignIn({Key key, this.auth}) : super(key: key);
+  final BaseAuth auth;
 
   @override
-  _SignInState createState() => _SignInState();
+  _SignInState createState() => new _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  var _email = new TextEditingController();
+  var _password = new TextEditingController();
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Failed Sign In"),
+          content: new Text("Invalid Email or Password"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _signIn() async {
+    try{
+      String userId = await widget.auth.signIn(_email.text, _password.text);
+      if(userId != null)
+      {
+        print("user signed in "+ userId );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => Account())
+        );
+      }
+    }catch(e)
+    {
+      _showDialog();
+      print('ERROR: ' + e.message);
+    }
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +82,50 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: 50),
                   Image.asset('gotcha.png'),
                   SizedBox(height: 40),
-                  new Row(
-                    children: <Widget>[
-                      Text(
-                        'USERNAME',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      fillColor: Color(0xffD9E8FD), filled: true,
-                    ),
-                  ),
-                  //),
-                  SizedBox(height: 20,),
-                  new Row(
-                    children: <Widget>[
-                      Text(
-                        'PASSWORD',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
 
-                      ),
-                    ],
-                  ),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      fillColor: Color(0xffD9E8FD), filled: true,
+                
+                  Column ( 
+                    children: <Widget> [
+                      Row(
+                      children: <Widget>[
+                        Text(
+                          'USERNAME',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
+                    TextField(
+                      controller: _email,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        fillColor: Color(0xffD9E8FD), filled: true,
+                      ),
+                    ),
+                  ]
+                  ),
+                
+                  SizedBox(height: 20,),
+                
+                  Column ( 
+                    children: <Widget> [
+                      Row(
+                      children: <Widget>[
+                        Text(
+                          'PASSWORD',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      controller: _password,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        fillColor: Color(0xffD9E8FD), filled: true,
+                      ),
+                    ),
+                  ]
                   ),
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -92,11 +151,7 @@ class _SignInState extends State<SignIn> {
                     height: 60,
                     child: RaisedButton(
                       color: Color(0xffFFF0D1),
-                      onPressed: () =>
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (BuildContext context) => Account(),),
-                          ),
+                      onPressed: () =>_signIn(),
                       child: const Text('Sign-in', style: TextStyle(fontSize: 20)),
                     ),
                   ),

@@ -114,7 +114,6 @@ def main():
                                 # save image to upload
                                 path = 'result_{}.jpg'.format(i)  
                                 pil_image.save(path)
-                                i = i + 1
                                 
                                 # Potential TODO: pass images as variables to cloud, store less local images, otherwise rm from system each round
                                 #img_byte_array = io.BytesIO()
@@ -144,15 +143,19 @@ def main():
                                 
                                 #Else, do not open the door, light up red LED
                                 else:
-                                print('face_{} Not Authorized'.format(i))
-                                GPIO.output(red, False)
+                                        print('face_{} Not Authorized'.format(i))
+                                        GPIO.output(red, False)
+                                
+                                # face counter++        
+                                i = i + 1
                         
                         # Delete local copies of photos and faces
-                        
                         #remove_faces = 'rm -f result_*.jpg'
                         #process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
                         #remove_photos = 'rm -f face_*.jpg'
                         #process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+                        #process1.wait()
+                        #process2.wait()
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
@@ -172,8 +175,7 @@ def main():
         pass # Do nothing, continue to finally
 	
     # Cleanup
-    finally:
-        GPIO.setmode(GPIO.BOARD)    
+    finally:   
         GPIO.cleanup()          # Reset all GPIO
         print('Exiting motion script')
 

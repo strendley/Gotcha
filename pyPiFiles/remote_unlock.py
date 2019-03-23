@@ -61,16 +61,15 @@ def get_prediction(content, project_id, model_id):
 
 # Driver
 def main():
-    '''
-    print("Sensor initializing") # Warm-up sensor
-    time.sleep(2)
+  
+    print("Sensor initializing")
     GPIO.output(lock, False)
     GPIO.output(yellow, True)
     GPIO.output(green, True)        
     GPIO.output(red, True)
     GPIO.output(blue, False)                    # Blue ON
     print("Armed & Ready to detect motion")
-    '''
+
     print("Press Ctrl + C to end program")
 	
     # Sensing motion infinitely
@@ -86,17 +85,17 @@ def main():
                 print("Taking photo")			
                 
                 # Take photo
-                #output = take_photo_picamera()
-                #picture = Image.fromarray(output)
+                output = take_photo_picamera()
+                picture = Image.fromarray(output)
                 
-                #timestamp = datetime.datetime.now().strftime('%d_%b_%Hh_%Mm_%Ss')
-                #name = 'face_{}.jpg'.format(timestamp)
+                timestamp = datetime.datetime.now().strftime('%d_%b_%H:%M:%S')
+                name = 'face_{}.jpg'.format(timestamp)
                 
-                #picture.save(name)
+                picture.save(name)
                 GPIO.output(yellow, True)  # Yellow OFF
                 
                 # Find faces
-                name = 'luke_hat.jpg'
+                #name = 'luke_hat.jpg'
                 face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
@@ -135,7 +134,7 @@ def main():
                                 #If score is above 89.999%, unlock door
                                 if float(score) > 0.8999999999999999:
                                         # Unlock the door
-                                        print('face_{} Authorized'.format(i))
+                                        print('face_{} Authorized with prediction score: {}'.format(i,score))
                                         print('Door Unlocking')
                                         GPIO.output(lock, False)
                                         GPIO.output(green, False)
@@ -143,7 +142,7 @@ def main():
                                 
                                 #Else, do not open the door, light up red LED
                                 else:
-                                        print('face_{} Not Authorized'.format(i))
+                                        print('face_{} Not Authorized with prediction score: {}'.format(i,score))
                                         GPIO.output(red, False)
                                 
                                 # face counter++        

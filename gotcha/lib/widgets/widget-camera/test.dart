@@ -127,7 +127,20 @@ class _TestCameraState extends State<TestCamera> {
                     child: Padding(
                       child: RaisedButton(
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
-                        onPressed: () => null,
+                        onPressed: () {
+                          // get prediction here
+                          //String score;
+                          showDialog(
+                              context: context, child:
+                              AlertDialog(
+                              title: new Text("Prediction score of: "),
+                          actions: <Widget>[
+                          //new FlatButton(onPressed:() {}, child: new Text("Yes")),
+                          new FlatButton(onPressed:() {Navigator.of(context).pop();}, child: new Text("Okay")),
+                          ],
+                          ),
+                          );
+                        },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(3)
                         ),

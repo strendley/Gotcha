@@ -125,6 +125,7 @@ def main():
                                 
                                 # Cloud request
                                 json_response = get_prediction(content, project_id, model_id)
+                                print(json_response)
                                 json_str = str(json_response)
                                 
                                 # Regex for score 
@@ -149,12 +150,12 @@ def main():
                                 i = i + 1
                         
                         # Delete local copies of photos and faces
-                        #remove_faces = 'rm -f result_*.jpg'
-                        #process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-                        #remove_photos = 'rm -f face_*.jpg'
-                        #process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
-                        #process1.wait()
-                        #process2.wait()
+                        remove_faces = 'rm -f result_*.jpg'
+                        remove_photos = 'rm -f face_*.jpg'
+                        process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+                        process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+                        process1.wait()
+                        process2.wait()
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)

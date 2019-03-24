@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c8da5df-352c-4fc9-8a34-6b2546981047" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Gotcha.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gotcha.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9c8da5df-352c-4fc9-8a34-6b2546981047" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,13 +76,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dart" value="113" />
-          <entry key="txt" value="16" />
+          <entry key="txt" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Dart" value="113" />
-          <entry key="PLAIN_TEXT" value="16" />
+          <entry key="PLAIN_TEXT" value="48" />
         </counts>
       </usages-collector>
     </session>
@@ -111,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="16" column="51" lean-forward="true" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+              <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -123,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
+              <caret column="23" selection-start-column="23" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -225,11 +219,12 @@
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/gotcha" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -261,6 +256,14 @@
       <option name="presentableId" value="Default" />
       <updated>1553020173598</updated>
     </task>
+    <task id="LOCAL-00001" summary="made changes to navigation">
+      <created>1553398294967</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553398294967</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -274,10 +277,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2295302" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2295302" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -286,7 +288,7 @@
       <window_info anchor="bottom" id="Dart Analysis" weight="0.32907802" />
       <window_info anchor="bottom" id="Find" />
       <window_info anchor="bottom" id="Messages" />
-      <window_info anchor="bottom" id="Run" order="0" visible="true" weight="0.32907802" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.32907802" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="3" />
@@ -307,6 +309,8 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/flutter_course" />
     </ignored-roots>
+    <MESSAGE value="made changes to navigation" />
+    <option name="LAST_COMMIT_MESSAGE" value="made changes to navigation" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/flutter_course/android/gradlew" />
@@ -493,7 +497,7 @@
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -510,7 +514,7 @@
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" column="51" lean-forward="true" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

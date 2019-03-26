@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:async';
-import 'dart:io';
+// import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
+// import 'dart:async';
+// import 'dart:io';
 
-abstract class BaseCamera {
-  Future<String> getImageFromCam();
-  Future<String> getImageFromGallery();
-}
+// abstract class BaseCamera {
+//   Future<String> getImageFromCam();
+//   Future<String> getImageFromGallery();
+// }
 
 // class Camera implements BaseCamera {
 //   final File _image;

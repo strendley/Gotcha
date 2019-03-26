@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widget-account/widget-account.dart';
-class PersonalInfoPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gotcha App',
-      theme: ThemeData(
-          primaryColor: Colors.blue
-      ),
-      home: PersonalInfo(title: 'Create Account'),
-    );
-  }
-}
+import '../../services/firebase-firestore-users.dart';
+import '../../data/model/user.dart';
 
 class PersonalInfo extends StatefulWidget {
   PersonalInfo({Key key, this.title}) : super(key: key);
@@ -23,6 +16,38 @@ class PersonalInfo extends StatefulWidget {
 }
 
 class _PersonalInfo extends State<PersonalInfo> {
+  var firstName = new TextEditingController();
+  var middleName = new TextEditingController();
+  var lastName = new TextEditingController();
+  var addressCity = new TextEditingController();
+  var addressState = new TextEditingController();
+  var addressStreet = new TextEditingController();
+  var addressZip = new TextEditingController();
+  var phoneNumber = new TextEditingController();
+  var country = new TextEditingController();
+  List<User> users;
+  FirebaseFirestoreService db = new FirebaseFirestoreService();
+  
+  StreamSubscription<QuerySnapshot> userSub;
+  
+  @override
+  void initState() {
+    super.initState();
+ 
+    users = new List();
+ 
+    userSub?.cancel();
+    userSub = db.getNoteList().listen((QuerySnapshot snapshot) {
+      final List<User> users = snapshot.documents
+          .map((documentSnapshot) => User.fromMap(documentSnapshot.data))
+          .toList();
+ 
+      setState(() {
+        this.users = users;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,9 +86,30 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 TextField(
+                  controller: firstName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Colors.white, filled: true,
+                  ),
+                ),
+
+                SizedBox(height: 10),
+
+                new Row(
+                  children: <Widget>[
+                    Text(
+                      'Middle Name',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  controller: middleName,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Color(0xffffffff), filled: true,
                   ),
                 ),
 
@@ -80,7 +126,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 TextField(
-                  //obscureText: true,
+                  controller: lastName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Color(0xffffffff), filled: true,
@@ -92,7 +138,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                 new Row(
                   children: <Widget>[
                     Text(
-                      'Address',
+                      'Street Address',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
                     ),
@@ -100,7 +146,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 TextField(
-                  //obscureText: true,
+                  controller: addressStreet,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Color(0xffffffff), filled: true,
@@ -109,6 +155,45 @@ class _PersonalInfo extends State<PersonalInfo> {
 
                 SizedBox(height: 10),
 
+                new Row(
+                  children: <Widget>[
+                    Text(
+                      'City',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  controller: addressCity,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Color(0xffffffff), filled: true,
+                  ),
+                ),
+
+                SizedBox(height: 10),
+                
+                new Row(
+                  children: <Widget>[
+                    Text(
+                      'Zipcode',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  controller: addressZip,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Color(0xffffffff), filled: true,
+                  ),
+                ),
+
+                SizedBox(height: 10),
                 new Row(
                   children: <Widget>[
                     Text(
@@ -120,7 +205,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 TextField(
-                  obscureText: true,
+                  controller: phoneNumber,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     fillColor: Color(0xffffffff), filled: true,
@@ -128,17 +213,37 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 SizedBox(height: 50),
+                new Row(
+                  children: <Widget>[
+                    Text(
+                      'Country',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  controller: country,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Color(0xffffffff), filled: true,
+                  ),
+                ),
+
+                SizedBox(height: 10),
 
                 SizedBox(
                   width: 125,
                   height: 60,
                   child: RaisedButton(
                     color: Color(0xffFFF0D1),
-                    onPressed: () =>
+                    onPressed: () =>{
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (BuildContext context) => Account(),),
-                        ),
+                        )
+                    },
                     child: const Text('Finish', style: TextStyle(fontSize: 20)),
                   ),
                 ),

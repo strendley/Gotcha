@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import '../widget-camera/test_pictures.dart';
 
-class AddUser extends StatelessWidget {
+class AddUser extends StatefulWidget {
+  AddUser({Key key, this.email}) : super(key: key);
+  final String email;
+
+  @override
+  _AddUserState createState() => _AddUserState();
+}
+
+class _AddUserState extends State<AddUser>{
+  var _first_name = new TextEditingController();
+  var _middle_name = new TextEditingController();
+  var _last_name = new TextEditingController();
+  var _resident_status = new TextEditingController();
+  var _unlock_status = new TextEditingController();
+  var _notify_me = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

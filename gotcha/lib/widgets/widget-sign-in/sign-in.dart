@@ -9,6 +9,7 @@ import '../widget-buttons/sign-in-button.dart';
 import '../widget-account/widget-account.dart';
 import '../widget-account/createAccount.dart';
 import '../widget-account/homepage.dart';
+import '../widget-account/personalInfo.dart';
 class SignIn extends StatefulWidget {
   SignIn({Key key, this.auth}) : super(key: key);
   final BaseAuth auth;
@@ -52,7 +53,7 @@ class _SignInState extends State<SignIn> {
         print("user signed in "+ userId );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => HomePage())
+          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
         );
       }
     }catch(e)

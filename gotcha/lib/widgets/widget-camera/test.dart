@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+//import 'package:gotcha/creds.dart'; //
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -143,13 +144,13 @@ class _TestCameraState extends State<TestCamera> {
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
                         onPressed: () {
                           // get prediction here
-                          //String score;
-                          // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
 
+                          /*
+                          // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
                           debugPrint("trying to publish a message...");
 
-                          final jsonCredentials = new File("assets/george_credentials.json").readAsStringSync();
-                          final _credentials = new ServiceAccountCredentials.fromJson(jsonCredentials);
+                          //final jsonCredentials = new File("assets/george_credentials.json").readAsStringSync();
+                          //final _credentials = new ServiceAccountCredentials.fromJson(jsonCredentials);
 
                           debugPrint(_SCOPES[0]);
 
@@ -173,7 +174,7 @@ class _TestCameraState extends State<TestCamera> {
                               debugPrint(e.toString());
                             });
                           }); // clientViaServiceAccount
-
+*/
                           showDialog(
                               context: context, child:
                               AlertDialog(

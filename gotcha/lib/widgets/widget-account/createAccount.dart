@@ -3,8 +3,7 @@ import '../../services/authentication.dart';
 import '../widget-account/personalInfo.dart';
 
 class CreateAccount extends StatefulWidget {
-  CreateAccount({Key key, this.title, this.auth}) : super(key: key);
-  final BaseAuth auth;
+  CreateAccount({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -15,18 +14,16 @@ class _CreateAccount extends State<CreateAccount> {
   var _email = new TextEditingController();
   var _password = new TextEditingController();
   var _check_password = new TextEditingController();
+  BaseAuth _auth;
 
   void _showDialog() {
-    // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: new Text("Failed Sign Up"),
           content: new Text("Passwords for " + _email.text+" are not the same " +_password.text +" != " +_check_password.text),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
               onPressed: () {
@@ -41,18 +38,23 @@ class _CreateAccount extends State<CreateAccount> {
 
   Future _signUp() async {
     try{
-      String userId = await Auth().signUp(_email.text, _password.text);
-      if(userId != null)
+      if(_password.text ==_check_password.text)
       {
-        print("user signed in "+ userId );
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
-        );
+        String userId = await Auth().signUp(_email.text, _password.text);
+        if(userId != null)
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
+          );
+        }
+      }
+      else
+      {
+        _showDialog();
       }
     }catch(e)
     {
-      _showDialog();
       print(e);
     }
     

@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
         print("user signed in "+ userId );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
+          MaterialPageRoute(builder: (BuildContext context) => Home())
         );
       }
     }catch(e)

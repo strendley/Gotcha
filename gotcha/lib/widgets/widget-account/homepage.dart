@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue
       ),
-      home: HomePage(title: 'Account Settings'),
+      home: HomePage(title: 'Gotcha'),
     );
   }
 }

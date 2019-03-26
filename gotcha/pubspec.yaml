@@ -47,9 +47,10 @@ flutter:
   uses-material-design: true
 
   assets:
-  - user-placeholder.png
-  - furry_george.jpg
-  - gotcha.png
+    - assets/george_credentials.json
+    - user-placeholder.png
+    - furry_george.jpg
+    - gotcha.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

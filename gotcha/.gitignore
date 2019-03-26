@@ -72,3 +72,4 @@
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 android/app/george_credentials.json
+assets/george_credentials.json

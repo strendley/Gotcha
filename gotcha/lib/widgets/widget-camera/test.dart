@@ -4,11 +4,14 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
-//var jsonCredentials = new File('george_credentials.json').readAsStringSync();
-//final _credentials = new ServiceAccountCredentials.fromJson(george_credentials.json)
+//final jsonCredentials = new File('~/app/george_credentials.json').readAsStringSync();
+//final _credentials = new ServiceAccountCredentials.fromJson(jsonCredentials);
 
 //void main() => runApp(MyApp());
 
@@ -51,6 +54,11 @@ class _TestCameraState extends State<TestCamera> {
       _image = image;
     }
     );
+  }
+
+  //load json credentials
+  Future<String> _loadJsonAsset() async {
+    return await rootBundle.loadString('assets/george_credentials.json');
   }
 
   @override
@@ -137,10 +145,35 @@ class _TestCameraState extends State<TestCamera> {
                           // get prediction here
                           //String score;
                           // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
-                          {
-                            debugPrint("trying to publish a message...");
 
-                          }
+                          debugPrint("trying to publish a message...");
+
+                          final jsonCredentials = new File("assets/george_credentials.json").readAsStringSync();
+                          final _credentials = new ServiceAccountCredentials.fromJson(jsonCredentials);
+
+                          debugPrint(_SCOPES[0]);
+
+                          //debugPrint(json_string);
+                          clientViaServiceAccount(_credentials, _SCOPES)
+                          .then((http_client) {
+                            var pubSubClient = new PubsubApi(http_client);
+                            var messages = {
+                              'messages': [
+                                {
+                                  'data': base64Encode(utf8.encode('{"foo": "bar"}')),
+                                },
+                              ]
+                            };
+
+                            pubSubClient.projects.topics
+                                .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/test")
+                                .then((publishResponse) {
+                              debugPrint(publishResponse.toString());
+                            }).catchError((e,m){
+                              debugPrint(e.toString());
+                            });
+                          }); // clientViaServiceAccount
+
                           showDialog(
                               context: context, child:
                               AlertDialog(
@@ -150,8 +183,8 @@ class _TestCameraState extends State<TestCamera> {
                           new FlatButton(onPressed:() {Navigator.of(context).pop();}, child: new Text("Okay")),
                           ],
                           ),
-                          );
-                        },
+                          ); // showDialog()
+                        }, // onPressed:
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(3)
                         ),

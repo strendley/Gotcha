@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:googleapis/pubsub//v1.dart';
+import 'package:googleapis_auth/auth_io.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
+
+const _SCOPES = const [PubsubApi.PubsubScope];
+
+//var jsonCredentials = new File('george_credentials.json').readAsStringSync();
+//final _credentials = new ServiceAccountCredentials.fromJson(george_credentials.json)
 
 //void main() => runApp(MyApp());
 
@@ -130,6 +136,11 @@ class _TestCameraState extends State<TestCamera> {
                         onPressed: () {
                           // get prediction here
                           //String score;
+                          // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
+                          {
+                            debugPrint("trying to publish a message...");
+
+                          }
                           showDialog(
                               context: context, child:
                               AlertDialog(

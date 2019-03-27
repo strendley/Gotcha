@@ -3,23 +3,31 @@
 #
 #  Remote unlock triggered via motion sensor and verified by AutoML API
 #  
+#  Must run before startup: TODO - (write bash script, load at network connection after boot)
+#  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/george_credentials.json"
+
 
 import RPi.GPIO as GPIO
 import time
 import datetime
+import picamera 
+import base64
+#'''
 import subprocess
 import sys
 import face_recognition
-import picamera 
 import numpy
+import re
 #import io
 
-import re
-
 from PIL import Image
+#'''
 
 from google.cloud import automl_v1beta1
 from google.cloud.automl_v1beta1.proto import service_pb2
+from google.cloud import pubsub_v1
+
+subscriber_door = pubsub_v1.SubscriberClient()
 
 project_id = 'gotcha-233622'
 model_id = 'ICN8341606992171376246'
@@ -58,23 +66,48 @@ def get_prediction(content, project_id, model_id):
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
 
+# Message pulled from subscription 'door_sub'
+# encoded_message is a byte string literal, utf-8
+def callback1(encoded_message): #encoded in, 
+
+    data_str = bytes.decode(encoded_message.data)
+    decoded_message = data_str
+    
+    # Unlocks door at app user's will
+    if decoded_message == '{"door": "unlock"}':
+      print('Door Unlocking\n')
+      GPIO.output(lock, False)
+      GPIO.output(green, False)
+      
+    # option 2
+    elif decoded_message == '':
+      print('...\n\n')
+      
+    print(decoded_message)
+    #Acknowledge message
+    encoded_message.ack()
+
 
 # Driver
 def main():
   
-    print("Sensor initializing")
+    print("Sensor initializing\n")
     GPIO.output(lock, False)
     GPIO.output(yellow, True)
     GPIO.output(green, True)        
     GPIO.output(red, True)
     GPIO.output(blue, False)                    # Blue ON
-    print("Armed & Ready to detect motion")
+    print("Armed & Ready to detect motion\n")
 
-    print("Press Ctrl + C to end program")
+    print("Press Ctrl + C to end program\n")
 	
     # Sensing motion infinitely
     try: 
+        # Open the subscription, passing the callback async with While loop
+        future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
+        
         while True:
+          
             # If motion is detected
             if GPIO.input(pir) == True:
                     
@@ -169,7 +202,7 @@ def main():
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
-	
+            
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 
         pass # Do nothing, continue to finally

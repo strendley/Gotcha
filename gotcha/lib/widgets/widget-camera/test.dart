@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:gotcha/creds.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
@@ -54,10 +53,6 @@ class _TestCameraState extends State<TestCamera> {
     );
   }
 
-  //load json credentials
-  Future<String> _loadJsonAsset() async {
-    return await rootBundle.loadString('assets/george_credentials.json');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,34 +138,6 @@ class _TestCameraState extends State<TestCamera> {
                           // get prediction here
 
 
-                          // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
-                          debugPrint("trying to publish a message...");
-
-                          //final jsonCredentials = new File("assets/george_credentials.json").readAsStringSync();
-                          //final _credentials = new ServiceAccountCredentials.fromJson(jsonCredentials);
-
-                          debugPrint(_SCOPES[0]);
-                          final _credentials = returnJson();
-                          //debugPrint(json_string);
-                          clientViaServiceAccount(_credentials, _SCOPES)
-                          .then((http_client) {
-                            var pubSubClient = new PubsubApi(http_client);
-                            var messages = {
-                              'messages': [
-                                {
-                                  'data': base64Encode(utf8.encode('{"foo": "bar"}')),
-                                },
-                              ]
-                            };
-
-                            pubSubClient.projects.topics
-                                .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/test")
-                                .then((publishResponse) {
-                              debugPrint(publishResponse.toString());
-                            }).catchError((e,m){
-                              debugPrint(e.toString());
-                            });
-                          }); // clientViaServiceAccount
 
                           showDialog(
                               context: context, child:

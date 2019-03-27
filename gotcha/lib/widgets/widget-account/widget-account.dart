@@ -31,11 +31,9 @@ class _AccountPageState extends State<Account> {
   void onChangedDoor(bool value) => setState(() => openDoor = value);
   void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
 
-  // Works!!
-  void onChangedDoor_test(){
-
-    // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
-    debugPrint("trying to publish a message...");
+  // Publishes a message to open the door, pi will pull from subscription and unlock door
+  void publishDoorTopic(){
+    debugPrint("Publishing a message to the door topic");
 
     //debugPrint(_SCOPES[0]);
     final _credentials = returnJson();
@@ -46,13 +44,13 @@ class _AccountPageState extends State<Account> {
       var messages = {
         'messages': [
           {
-            'data': base64Encode(utf8.encode('{"foo": "bar"}')),
+            'data': base64Encode(utf8.encode('{"door": "unlock"}')),
           },
         ]
       };
 
       pubSubClient.projects.topics
-          .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/test")
+          .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/door")
           .then((publishResponse) {
         debugPrint(publishResponse.toString());
       }).catchError((e,m){

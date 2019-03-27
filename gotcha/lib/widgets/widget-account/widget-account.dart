@@ -44,7 +44,7 @@ class _AccountPageState extends State<Account> {
       var messages = {
         'messages': [
           {
-            'data': base64Encode(utf8.encode('{"door": "unlock"}')),
+            'data': base64Encode(utf8.encode('{"foo": "bar"}')),
           },
         ]
       };
@@ -202,8 +202,8 @@ class _AccountPageState extends State<Account> {
                                           ),
                                         controller: addressController,
                                       ),
-                                      actions: <Widget>[
-                                        new FlatButton(onPressed:() { onAddressChange(addressController.text); Navigator.of(context).pop();}, child: new Text("OK"))
+                                      actions: <Widget>[              //publishDoorTopic() here only for testing, TODO: Assign to first switch on this page
+                                        new FlatButton(onPressed:() { publishDoorTopic(); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
                                       ],
                                     )
                                     );

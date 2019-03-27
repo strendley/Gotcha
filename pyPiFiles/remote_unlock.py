@@ -70,9 +70,8 @@ def get_prediction(content, project_id, model_id):
 # encoded_message is a byte string literal, utf-8
 def callback1(encoded_message): #encoded in, 
 
-    data_str = bytes.decode(encoded_message.data)
-    decoded_message = data_str
-    
+    decoded_message = bytes.decode(encoded_message.data)
+     
     # Unlocks door at app user's will
     if decoded_message == '{"door": "unlock"}':
       print('Door Unlocking\n')

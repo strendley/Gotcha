@@ -75,8 +75,7 @@ def callback1(encoded_message): #encoded in,
     # Unlocks door at app user's will
     if decoded_message == '{"door": "unlock"}':
       print('Door Unlocking\n')
-      GPIO.output(lock, False)
-      GPIO.output(green, False)
+      unlocked()
       
     # option 2
     elif decoded_message == '':
@@ -85,7 +84,34 @@ def callback1(encoded_message): #encoded in,
     print(decoded_message)
     #Acknowledge message
     encoded_message.ack()
+    
+def delete_local_data():
+    remove_faces = 'rm -f result_*.jpg'
+    remove_photos = 'rm -f face_*.jpg'
+    process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+    process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+    process1.wait()
+    process2.wait()
 
+    
+### Functions for locked and unlocked states, updating configuration states in db
+
+### TODO
+#def write_to_db(collection, document, value):
+
+def locked():
+    # Set pi_config_states -> door -> locked : true
+  
+    GPIO.output(lock, False)
+    GPIO.output(red, False)
+    GPIO.output(green, True)
+    
+def unlocked():
+    # Set pi_config_states -> door -> locked : false
+  
+    GPIO.output(lock, True)
+    GPIO.output(red,True)
+    GPIO.output(green, False)
 
 # Driver
 def main():
@@ -97,6 +123,8 @@ def main():
     GPIO.output(red, True)
     GPIO.output(blue, False)                    # Blue ON
     print("Armed & Ready to detect motion\n")
+    
+    locked() 
 
     print("Press Ctrl + C to end program\n")
 	
@@ -109,7 +137,8 @@ def main():
           
             # If motion is detected
             if GPIO.input(pir) == True:
-                    
+                # Set pi_config_states -> motion -> detected : true
+                
                 GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
                 
@@ -133,6 +162,9 @@ def main():
                 
                 # If faces found, get_prediction()
                 if(len(face_locations) > 0):
+                  
+                        # Set pi_config_states -> faces -> detected : true
+                        
                         
                         # Crop all faces from photo
                         for face_location in face_locations:
@@ -169,25 +201,18 @@ def main():
                                         # Unlock the door
                                         print('face_{} Authorized with prediction score: {}'.format(i,score))
                                         print('Door Unlocking')
-                                        GPIO.output(lock, False)
-                                        GPIO.output(green, False)
+                                        unlocked()
                                         
                                 
                                 #Else, do not open the door, light up red LED
                                 else:
                                         print('face_{} Not Authorized with prediction score: {}'.format(i,score))
-                                        GPIO.output(red, False)
+                                        locked()
                                 
                                 # face counter++        
                                 i = i + 1
                         
-                        # Delete local copies of photos and faces
-                        remove_faces = 'rm -f result_*.jpg'
-                        remove_photos = 'rm -f face_*.jpg'
-                        process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-                        process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
-                        process1.wait()
-                        process2.wait()
+                        delete_local_data()
                         
                         # Turn Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
@@ -195,6 +220,9 @@ def main():
                         
                 # No faces in image taken 
                 else:
+                        # Set pi_config_states -> faces -> detected : false
+                        
+                        
                         GPIO.output(red, False)          # Indicate no entry granted
                         print('No faces found')
                         print("End of detection cycle")

@@ -4,11 +4,11 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
+import 'dart:async' show Future;
+import 'package:gotcha/creds.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
-
-//var jsonCredentials = new File('george_credentials.json').readAsStringSync();
-//final _credentials = new ServiceAccountCredentials.fromJson(george_credentials.json)
 
 //void main() => runApp(MyApp());
 
@@ -52,6 +52,7 @@ class _TestCameraState extends State<TestCamera> {
     }
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,12 +136,9 @@ class _TestCameraState extends State<TestCamera> {
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
                         onPressed: () {
                           // get prediction here
-                          //String score;
-                          // Publish a message to google cloud topic, connected device will unlock if subscribed to topic
-                          {
-                            debugPrint("trying to publish a message...");
 
-                          }
+
+
                           showDialog(
                               context: context, child:
                               AlertDialog(
@@ -150,8 +148,8 @@ class _TestCameraState extends State<TestCamera> {
                           new FlatButton(onPressed:() {Navigator.of(context).pop();}, child: new Text("Okay")),
                           ],
                           ),
-                          );
-                        },
+                          ); // showDialog()
+                        }, // onPressed:
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(3)
                         ),

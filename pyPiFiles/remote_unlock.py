@@ -6,7 +6,7 @@
 #  Remote unlock triggered via motion sensor and verified by AutoML API 
 #       & Bluetooth proximity of a registered user's smartphone MAC address
 #  
-#  
+#  Manual operation of the lock (firestore update) availiable through flutter app
 #
 #  Must run before startup: TODO - (write bash script, load at network connection after boot)
 #  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/george_credentials.json"
@@ -108,7 +108,24 @@ def update_document(doc, field, value):
 
     # Set the specified field
     door_ref.update({u'{}'.format(field): value})
+
+def check_user_requests():
+    db = firestore.Client()
+    requests_ref = db.collection(u'pi_config_states').document(u'{flutter_request}')
+    print(requests_ref)
     
+'''
+# Listen for updates
+def on_snapshot(doc_snapshot, changes, read_time):
+        for doc in doc_snapshot:
+          print(doc.to_dict())
+        
+def listen_requests():
+    doc_ref = db.collection(u'pi_config_states').document(u'flutter_request')
+    doc_watch = doc_ref.on_snapshot(on_snapshot)
+    print(doc_watch)
+'''
+
 def locked():
     # Set pi_config_states -> door -> locked : true
     update_document('door', 'locked', True)
@@ -235,7 +252,7 @@ def main():
                 update_document('motion', 'detected', False)
                 # Set pi_config_states -> faces -> detected : false
                 update_document('faces', 'detected', False)
-          
+                
             
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 

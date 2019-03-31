@@ -3,6 +3,7 @@ import 'package:googleapis/pubsub//v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
 import 'package:gotcha/creds.dart'; //isolate sensitive data
+import 'package:gotcha/crud.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -23,6 +24,8 @@ class _AccountPageState extends State<Account> {
   String emailAddress = "example@gmail.com";
   String address = "1234 Example Street";
 
+  bool piLocked = true;
+
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController addressController = new TextEditingController();
@@ -31,9 +34,14 @@ class _AccountPageState extends State<Account> {
   void onChangedDoor(bool value) => setState(() => openDoor = value);
   void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
 
-  // Publishes a message to open the door, pi will pull from subscription and unlock door
-  void publishDoorTopic(){
-    debugPrint("Publishing a message to the door topic");
+  void onNameChange(String user) { if(user != "") setState(() => userName = user);}
+  void onEmailChange(String email) { if(email != "") setState(() => emailAddress = email);}
+  void onAddressChange(String addr) { if(addr != "") setState(() => address = addr);}
+
+
+  // Publishes a message to open the door, pi will pull from subscription
+  void publishTopic(topic){
+    debugPrint("Publishing a message to a topic");
 
     //debugPrint(_SCOPES[0]);
     final _credentials = returnJson();
@@ -44,13 +52,13 @@ class _AccountPageState extends State<Account> {
       var messages = {
         'messages': [
           {
-            'data': base64Encode(utf8.encode('{"foo": "bar"}')),
+            'data': base64Encode(utf8.encode('{"door": "unlock"}')),
           },
         ]
       };
 
       pubSubClient.projects.topics
-          .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/door")
+          .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/$topic")
           .then((publishResponse) {
         debugPrint(publishResponse.toString());
       }).catchError((e,m){
@@ -60,9 +68,21 @@ class _AccountPageState extends State<Account> {
 
   }
 
-  void onNameChange(String user) { if(user != "") setState(() => userName = user);}
-  void onEmailChange(String email) { if(email != "") setState(() => emailAddress = email);}
-  void onAddressChange(String addr) { if(addr != "") setState(() => address = addr);}
+  // This will update the data within the specified collection & document in firestore
+  void updateData(collection, document, data){
+
+    CrudMethods crudObj = new CrudMethods();
+
+    crudObj.updateData(collection, document, {
+      'locked': data
+    }).then((result) {
+      // dialogTrigger(context);
+    }).catchError((e) {
+      print(e);
+    });
+
+  }
+
 
   @override
   void dispose()
@@ -202,8 +222,8 @@ class _AccountPageState extends State<Account> {
                                           ),
                                         controller: addressController,
                                       ),
-                                      actions: <Widget>[              //publishDoorTopic() here only for testing, TODO: Assign to first switch on this page
-                                        new FlatButton(onPressed:() { publishDoorTopic(); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
+                                      actions: <Widget>[              // here for testing, TODO: Assign to first switch on this page
+                                        new FlatButton(onPressed:() { updateData('pi_config_states','door', true); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
                                       ],
                                     )
                                     );

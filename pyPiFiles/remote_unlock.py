@@ -33,7 +33,7 @@ from google.cloud.automl_v1beta1.proto import service_pb2
 from google.cloud import pubsub_v1
 from google.cloud import firestore
 
-#subscriber_door = pubsub_v1.SubscriberClient()
+subscriber_door = pubsub_v1.SubscriberClient()
 
 project_id = 'gotcha-233622'
 model_id = 'ICN8341606992171376246'
@@ -55,7 +55,7 @@ GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)   
 GPIO.setup(blue, GPIO.OUT)
 
-'''
+
 # Example: Message pulled from subscription 'door_sub'
 # encoded_message is a byte string literal, utf-8
 def callback1(encoded_message): #encoded in, 
@@ -73,7 +73,7 @@ def callback1(encoded_message): #encoded in,
     
 # Open the subscription, passing the callback async with While loop
     #future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
-'''
+
 
 # Takes photo and returns output  
 def take_photo_picamera():
@@ -163,6 +163,7 @@ def main():
 	
     # Sensing motion infinitely
     try:
+        future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
         
         while True:
             # If motion is detected

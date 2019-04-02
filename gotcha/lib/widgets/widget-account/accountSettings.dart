@@ -38,8 +38,8 @@ class _MyHomePageState extends State<AccountSettingsPage> {
             new SliverAppBar(
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                background: Image.asset(
+                  "lib/data/img/gotcha_placeholder.png",
                   fit: BoxFit.cover,
 
                 ),

@@ -222,8 +222,8 @@ class _AccountPageState extends State<Account> {
                                           ),
                                         controller: addressController,
                                       ),
-                                      actions: <Widget>[              // here for testing, TODO: Assign to first switch on this page
-                                        new FlatButton(onPressed:() { updateData('pi_config_states','door', true); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
+                                      actions: <Widget>[              // here for testing, TODO: Assign to first switch on this page // updateData('pi_config_states','door', true)
+                                        new FlatButton(onPressed:() { publishTopic('door'); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
                                       ],
                                     )
                                     );

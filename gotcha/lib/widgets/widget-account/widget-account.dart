@@ -125,7 +125,7 @@ class _AccountPageState extends State<Account> {
                 ),
                 centerTitle: true,
               ),
-              backgroundColor: Colors.blue,
+              backgroundColor: Color(0xff314C66),
               pinned: true,
               floating: false,
               actions: <Widget>[

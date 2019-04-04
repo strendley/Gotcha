@@ -46,6 +46,7 @@ lock = 12   # Pin 12 : door lock
 green = 16  # Pin 16 : green LED
 red = 18    # Pin 18 : red LED
 blue = 22   # Pin 22 : blue LED
+pair_switch = 24 #   : user pairing button
 
 GPIO.setmode(GPIO.BOARD)      # set GPIO mode to correct physical numbering
 GPIO.setup(pir, GPIO.IN)      # setup GPIO pin PIR as input
@@ -54,11 +55,12 @@ GPIO.setup(lock, GPIO.OUT)
 GPIO.setup(green, GPIO.OUT)   
 GPIO.setup(red, GPIO.OUT)   
 GPIO.setup(blue, GPIO.OUT)
+GPIO.setup(pair_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 # Example: Message pulled from subscription 'door_sub'
 # encoded_message is a byte string literal, utf-8
-def callback1(encoded_message): #encoded in, 
+def callback1(encoded_message): 
 
     decoded_message = bytes.decode(encoded_message.data)
      
@@ -91,7 +93,7 @@ def get_prediction(content, project_id, model_id):
     payload = {'image': {'image_bytes': content }}
     params = {}
     request = prediction_client.predict(name, payload, params)
-    return request  # waits till request is returned
+    return request  # waits until request is returned
   
 def format_picture():
     output = take_photo_picamera()
@@ -150,6 +152,12 @@ def delete_local_data():
     process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
     process1.wait()
     process2.wait()
+    
+def is_user_present():
+    return True
+    
+def pair_smartphone():
+    return True
 
 # Driver
 def main():
@@ -166,22 +174,28 @@ def main():
         future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
         
         while True:
+            # Check if pairing button is pressed
+            if GPIO.input(pair_switch) == False:
+                time.sleep(0.5)
+                print('Attempting to pair devices')
+                pair_smartphone()
+            
             # If motion is detected
             if GPIO.input(pir) == True:
                 # Set pi_config_states -> motion -> detected : true
-                update_document('motion', 'detected', True)
+                update_document('motion', 'detected', 'true')
                 
                 GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
                 print("Taking photo")	
                 GPIO.output(yellow, False)      # Yellow ON - picture being taken
-                
+               
                 # Take photo and format picture
                 name = format_picture()
                 GPIO.output(yellow, True)       # Yellow OFF
                 
                 # Find faces
-                #name = 'luke_hat.jpg'
+                #name = 'sample.jpg'
                 face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
@@ -189,7 +203,7 @@ def main():
                 if(len(face_locations) > 0):
                   
                         # Set pi_config_states -> faces -> detected : true
-                        update_document('faces', 'detected', True)
+                        update_document('faces', 'detected', 'true')
                         
                         # Crop all faces from photo
                         for face_location in face_locations:
@@ -216,12 +230,16 @@ def main():
                                 match = re.search('([0-9]*\.[0-9]+|[0-9]+)', json_str)
                                 score = match.group(0)
                                 
-                                #If score is above 89.999%, unlock door          #TODO: Require user's phone in close proximity -> bluetooth MAC
-                                if float(score) > 0.8999999999999999:
+                                #If score is above 89.999%, unlock door  
+                                if ((float(score) > 0.8999999999999999) and (is_user_present())):
                                         # Unlock the door
                                         print('face_{} Authorized with prediction score: {}'.format(i,score))
                                         print('Door Unlocking')
                                         unlocked()
+                                        
+                                        # Allow user to enter before arming 
+                                        #time.sleep(60)
+                                        #locked()
                                         
                                 #Else, unauthorized entry
                                 else:
@@ -233,26 +251,25 @@ def main():
                         
                         delete_local_data()
                         
-                        # Turn Blue LED ON to indicate motion sensor ready
+                        ## Reset for next cycle
+                        # Set pi_config_states -> faces -> detected : false
+                        update_document('faces', 'detected', 'false')
+                        # Set pi_config_states -> motion -> detected : true
+                        update_document('motion', 'detected', 'false')
+                        
+                        # Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
                         print("End of detection cycle")
                         
                 # No faces in image taken 
                 else:
-                        # Set pi_config_states -> faces -> detected : false
-                        update_document('faces', 'detected', False)
-                        
                         print('No faces found')
                         print("End of detection cycle")
+                        # Set pi_config_states -> motion -> detected : true
+                        update_document('motion', 'detected', 'false')
                         
-                        # Turn Blue LED ON to indicate motion sensor ready
+                        # Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
-                        
-            else: 
-                # Set pi_config_states -> motion -> detected : false
-                update_document('motion', 'detected', False)
-                # Set pi_config_states -> faces -> detected : false
-                update_document('faces', 'detected', False)
                 
             
     # At keyboard interrupt, cease to sense motion

@@ -38,7 +38,7 @@ subscriber_door = pubsub_v1.SubscriberClient()
 project_id = 'gotcha-233622'
 model_id = 'ICN8341606992171376246'
 camera = picamera.PiCamera()
-db = firestore.Client()
+#db = firestore.Client()
 
 pir = 8     # Pin 8  : PIR
 yellow = 10 # Pin 10 : yellow LED
@@ -73,10 +73,6 @@ def callback1(encoded_message):
     #Acknowledge message
     encoded_message.ack()
     
-# Open the subscription, passing the callback async with While loop
-    #future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
-
-
 # Takes photo and returns output  
 def take_photo_picamera():
     camera.resolution = (1024, 768) 
@@ -157,6 +153,8 @@ def is_user_present():
     return True
     
 def pair_smartphone():
+    # process = subprocess.Popen('./button_pair_auth.sh', shell=True, stdout=subprocess.PIPE)
+    # process.wait
     return True
 
 # Driver
@@ -171,6 +169,7 @@ def main():
 	
     # Sensing motion infinitely
     try:
+        # Open the subscription, passing the callback async with While loop
         future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
         
         while True:

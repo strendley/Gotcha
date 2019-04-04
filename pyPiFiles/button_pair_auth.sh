@@ -2,7 +2,7 @@
 
 set prompt "#"
 
-#spawn sudo service bluetooth restart
+spawn sudo service bluetooth restart
 sleep 1
 spawn sudo bluetoothctl
 sleep 1
@@ -27,6 +27,12 @@ expect "Default agent request successful"
 expect -re $prompt
 expect "Request confirmation"
 expect "(yes/no):" {send "yes\r"}
+
+send "discoverable no\r"
+sleep 1
+expect "Changing discoverable off succeeded"
+expect -re $prompt
+sleep 1
 
 send "quit\r"
 expect eof

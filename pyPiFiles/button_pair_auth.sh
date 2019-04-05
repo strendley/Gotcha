@@ -28,9 +28,11 @@ expect -re $prompt
 expect "Request confirmation"
 expect "(yes/no):" {send "yes\r"}
 
+
+sleep 1
 send "discoverable no\r"
 sleep 1
-expect "Changing discoverable off succeeded"
+#expect "Changing discoverable off succeeded"
 expect -re $prompt
 sleep 1
 

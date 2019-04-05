@@ -6,7 +6,7 @@
 #  Remote unlock triggered via motion sensor and verified by AutoML API 
 #       & Bluetooth proximity of a registered user's smartphone MAC address
 #  
-#  Manual operation of the lock (firestore update) availiable through flutter app
+#  Manual unlock triggered by Flutter app publishing to topic, pi is subscribed, parses new config -> unlocks
 #
 #  Must run before startup: TODO - (write bash script, load at network connection after boot)
 #  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/george_credentials.json"
@@ -144,18 +144,25 @@ def unlocked():
 def delete_local_data():
     remove_faces = 'rm -f result_*.jpg'
     remove_photos = 'rm -f face_*.jpg'
-    process1 = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-    process2 = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
-    process1.wait()
-    process2.wait()
+    p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+    p_photos = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+    
+    p_faces.wait()
+    p_photos.wait()
+    
+def get_paired_devices():
+    paired = []
+    
+    return paired
     
 def is_user_present():
+    # access paired devices list -> extract from bluetoothctl -> devices
+    # exe expect script
     return True
     
 def pair_smartphone():
-    # process = subprocess.Popen('./button_pair_auth.sh', shell=True, stdout=subprocess.PIPE)
-    # process.wait
-    return True
+    p_pair = subprocess.Popen('./button_pair_auth.sh', shell=True, stdout=subprocess.PIPE)
+    p_pair.wait()
 
 # Driver
 def main():
@@ -198,7 +205,7 @@ def main():
                 face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
-                # If faces found, get_prediction()
+                # Get a prediction from AutoML only if faces are found
                 if(len(face_locations) > 0):
                   
                         # Set pi_config_states -> faces -> detected : true
@@ -236,7 +243,7 @@ def main():
                                         print('Door Unlocking')
                                         unlocked()
                                         
-                                        # Allow user to enter before arming 
+                                        # Allow user to enter before arming
                                         #time.sleep(60)
                                         #locked()
                                         

@@ -8,7 +8,7 @@
 #  
 #  Manual unlock triggered by Flutter app publishing to topic, pi is subscribed, parses new config -> unlocks
 #
-#  Must run before startup: TODO - (write bash script, load at network connection after boot)
+#  Must run before startup:
 #  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/george_credentials.json"
 
 
@@ -151,19 +151,39 @@ def delete_local_data():
     p_photos.wait()
     
 def get_paired_devices():
-    paired = []
-    
-    return paired
-    
-def is_user_present():
-    # access paired devices list -> extract from bluetoothctl -> devices
-    # exe expect script
-    return True
+    p_devices = subprocess.Popen('./get_paired_devices.sh', shell=True, stdout=subprocess.PIPE)
+    p_devices.wait()
+    # parse paired_devices.log
+    with open('paired_devices.log') as log: 
+        lines = log.read().splitlines()
+        # get macs
+        pair_macs = []
+        
+        
+        
+    return pair_macs
     
 def pair_smartphone():
     p_pair = subprocess.Popen('./button_pair_auth.sh', shell=True, stdout=subprocess.PIPE)
     p_pair.wait()
+    
+def scan_for_devices():
+    prox_macs = []
+    
+    
+    
+    return prox_macs
+    
+def is_user_present():
+    # get paired & nearby macs
+    get_paired_devices()
+    scan_for_devices()
 
+    # if any paired macs exist in the output
+    #     return True
+    # else
+    #     return False
+    
 # Driver
 def main():
   

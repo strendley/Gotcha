@@ -150,40 +150,60 @@ def delete_local_data():
     p_faces.wait()
     p_photos.wait()
     
-def get_paired_devices():
-    p_devices = subprocess.Popen('./get_paired_devices.sh', shell=True, stdout=subprocess.PIPE)
-    p_devices.wait()
-    # parse paired_devices.log
-    with open('paired_devices.log') as log: 
-        lines = log.read().splitlines()
-        # get macs
-        pair_macs = []
-        
-        
-        
-    return pair_macs
-    
 def pair_smartphone():
     p_pair = subprocess.Popen('./button_pair_auth.sh', shell=True, stdout=subprocess.PIPE)
     p_pair.wait()
     
-def scan_for_devices():
-    prox_macs = []
+def get_paired_devices():
+    p_devices = subprocess.Popen('./get_paired_devices.sh', shell=True, stdout=subprocess.PIPE)
+    p_devices.wait()
+    # parse paired_devices.log
+    pair_macs = []
+    with open('paired_devices.log') as log: 
+        lines = log.read().splitlines()
+        for line in lines:
+            mac = re.compile('([a-fA-F0-9]{2}[:|\-]?){6}').search(line)
+            if mac:
+                pair_macs.append(line[mac.start():mac.end()])
+                
+        del pair_macs[-1]   #last mac is raspberry pi mac address
+        print('Paired macs:\n {}'.format(pair_macs))
     
-    
-    
-    return prox_macs
-    
-def is_user_present():
-    # get paired & nearby macs
-    get_paired_devices()
-    scan_for_devices()
+    log.close()
+    return pair_macs  # returns list of macs paired with the device
 
+# Consistent RSSI data is proving to be difficult to obtain when device is connected, yet not discoverable:
+# User considered present if ping of paired device is successful
+def is_phone_present():
+    pair_macs = get_paired_devices()
+    
+    for mac in range(1, len(pair_macs)):
+        ping_addr = pair_macs[mac]
+        with Popen('sudo l2ping -c 1 {}'.format(ping_addr), stdin=PIPE, stdout=PIPE, universal_newline=TRUE) as p:
+            for line in p.stdout:
+                print(line)
+        
+    
     # if any paired macs exist in the output
     #     return True
     # else
     #     return False
     
+    return prox_macs
+    
+def is_user_home():
+    # getter for auth user home/away settings
+    # user can allow system to know which registered occupants are inside 
+    
+    return False
+    
+def on_lockdown():
+    # getter for vacation setting in app
+    # disables all entry
+    
+    return False
+
+
 # Driver
 def main():
   
@@ -225,78 +245,88 @@ def main():
                 face = face_recognition.load_image_file(name)
                 face_locations = face_recognition.face_locations(face)
                 
-                # Get a prediction from AutoML only if faces are found
-                if(len(face_locations) > 0):
-                  
-                        # Set pi_config_states -> faces -> detected : true
-                        update_document('faces', 'detected', 'true')
-                        
-                        # Crop all faces from photo
-                        for face_location in face_locations:
-                                i = 1                       # face id
-                                top,right,bottom,left = face_location
-                                face_image = face[top-50:bottom+50, left-50:right+50]
-                                pil_image = Image.fromarray(face_image)
-                                print(face_location)
-                                
-                                # save image to upload
-                                path = 'result_{}.jpg'.format(i)  
-                                pil_image.save(path)
+                # No need to predict while all occupants are away from home 
+                if (not on_lockdown()):
+                    
+                    # Get a prediction from AutoML only if faces are found
+                    if(len(face_locations) > 0):
+                      
+                            # Set pi_config_states -> faces -> detected : true
+                            update_document('faces', 'detected', 'true')
+                            
+                            # Crop all faces from photo
+                            for face_location in face_locations:
+                                    i = 1                       # face id
+                                    top,right,bottom,left = face_location
+                                    face_image = face[top-50:bottom+50, left-50:right+50]
+                                    pil_image = Image.fromarray(face_image)
+                                    print(face_location)
+                                    
+                                    # save image to upload
+                                    path = 'result_{}.jpg'.format(i)  
+                                    pil_image.save(path)
 
-                                # Read .jpg file as bytes
-                                with open(path, 'rb') as ff:
-                                        content = ff.read()
-                                
-                                # AutoML request
-                                json_response = get_prediction(content, project_id, model_id)
-                                print(json_response)
-                                json_str = str(json_response)
-                                
-                                # Regex for score 
-                                match = re.search('([0-9]*\.[0-9]+|[0-9]+)', json_str)
-                                score = match.group(0)
-                                
-                                #If score is above 89.999%, unlock door  
-                                if ((float(score) > 0.8999999999999999) and (is_user_present())):
-                                        # Unlock the door
-                                        print('face_{} Authorized with prediction score: {}'.format(i,score))
-                                        print('Door Unlocking')
-                                        unlocked()
-                                        
-                                        # Allow user to enter before arming
-                                        #time.sleep(60)
-                                        #locked()
-                                        
-                                #Else, unauthorized entry
-                                else:
-                                        print('face_{} Not Authorized with prediction score: {}'.format(i,score))
-                                        locked()
-                                
-                                # face counter++        
-                                i += 1
-                        
-                        delete_local_data()
-                        
-                        ## Reset for next cycle
-                        # Set pi_config_states -> faces -> detected : false
-                        update_document('faces', 'detected', 'false')
-                        # Set pi_config_states -> motion -> detected : true
-                        update_document('motion', 'detected', 'false')
-                        
-                        # Blue LED ON to indicate motion sensor ready
-                        GPIO.output(blue, False)
-                        print("End of detection cycle")
-                        
-                # No faces in image taken 
-                else:
-                        print('No faces found')
-                        print("End of detection cycle")
-                        # Set pi_config_states -> motion -> detected : true
-                        update_document('motion', 'detected', 'false')
-                        
-                        # Blue LED ON to indicate motion sensor ready
-                        GPIO.output(blue, False)
-                
+                                    # Read .jpg file as bytes
+                                    with open(path, 'rb') as ff:
+                                            content = ff.read()
+                                    
+                                    # AutoML request
+                                    json_response = get_prediction(content, project_id, model_id)
+                                    print(json_response)
+                                    json_str = str(json_response)
+                                    
+                                    # Regex for score 
+                                    match = re.search('([0-9]*\.[0-9]+|[0-9]+)', json_str)
+                                    score = match.group(0)
+                                    
+                                    # Regex for model prediciton
+                                    #user = 
+                                    
+                                    # If user is not home proceed to assess face credentials and ping phone
+                                    if (not is_user_home())):
+                                    
+                                        #If score is above 89.999%, unlock door  
+                                        if (float(score) > 0.8999999999999999) and (is_phone_present()): 
+                                              
+                                                # Unlock the door
+                                                print('face_{} Authorized with prediction score: {}'.format(i,score))
+                                                print('Door Unlocking')
+                                                unlocked()
+                                                
+                                                # Allow user to enter before arming
+                                                #time.sleep(60)
+                                                #locked()
+                                                
+                                        #Else, unauthorized entry
+                                        else:
+                                                print('face_{} Not Authorized with prediction score: {}'.format(i,score))
+                                                locked()
+                                    
+                                    # face counter++        
+                                    i += 1
+                            
+                            delete_local_data()
+                            
+                            ## Reset for next cycle
+                            # Set pi_config_states -> faces -> detected : false
+                            update_document('faces', 'detected', 'false')
+                            # Set pi_config_states -> motion -> detected : true
+                            update_document('motion', 'detected', 'false')
+                            
+                            # Blue LED ON to indicate motion sensor ready
+                            GPIO.output(blue, False)
+                            print("End of detection cycle")
+                            
+                    # No faces in image taken 
+                    else:
+                            print('No faces found')
+                            print("End of detection cycle")
+                            # Set pi_config_states -> motion -> detected : true
+                            update_document('motion', 'detected', 'false')
+                            
+                            # Blue LED ON to indicate motion sensor ready
+                            GPIO.output(blue, False)
+                            
             
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 

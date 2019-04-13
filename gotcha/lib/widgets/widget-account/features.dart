@@ -7,7 +7,7 @@ class FeaturesPage extends StatelessWidget {
     return MaterialApp(
       title: 'Gotcha App',
       theme: ThemeData(
-          primaryColor: Colors.blue
+          primaryColor: Color(0xff314c66)
       ),
       home: Features(title: 'Features'),
     );
@@ -27,6 +27,9 @@ class _FeaturesState extends State<Features> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Features',
+      theme: ThemeData(
+          primaryColor: Color(0xff314c66)
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);}),

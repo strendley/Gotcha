@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
+import 'homepage.dart';
 
-
-import '../widget-camera/test_pictures.dart';
+//import '../widget-camera/test_pictures.dart';
 
 class AddUser extends StatefulWidget {
   AddUser({Key key, this.email}) : super(key: key);
@@ -96,6 +96,9 @@ class _AddUserState extends State<AddUser>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Color(0xff314C66),
+      ),
       title: 'Add New User',
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -103,15 +106,27 @@ class _AddUserState extends State<AddUser>{
           leading: new IconButton(icon: Icon(Icons.arrow_back, color: Colors.white,), onPressed: () {Navigator.pop(context);}),
           title: Text('Add New User'),
           centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                );
+              },
+            ),
+          ],
         ),
         body: Center(
           child: Column(
             children: <Widget>[
               new Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.only(left: 15, right: 20, top: 15),
                   child: TextFormField(
                     controller: _first_name,
                     decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: 'First Name:'
                     ),
                     style: new TextStyle(fontSize: 20),
@@ -119,10 +134,11 @@ class _AddUserState extends State<AddUser>{
               ),
 
               new Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 15, right: 20, top: 10),
                   child: TextFormField(
                     controller: _middle_name,
                     decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: 'Middle Name:'
                     ),
                     style: new TextStyle(fontSize: 20),
@@ -130,21 +146,24 @@ class _AddUserState extends State<AddUser>{
               ),
 
               new Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 15, right: 20, top: 10, bottom: 5),
                   child: TextFormField(
                     controller: _last_name,
                     decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: 'Last Name:'
                     ),
                     style: new TextStyle(fontSize: 20),
                   )
               ),
 
+              new Divider(color:Colors.black,),// indent:5.0),
+
               new Padding(
-                  padding: EdgeInsets.only(left: 10, top: 15),
+                  padding: EdgeInsets.only(left: 15, top: 4),
                 child: new Align(
                   alignment: Alignment.topLeft,
-                    child: new Text('Resident Status?', style: new TextStyle(fontSize: 25),)
+                    child: new Text('Resident Status:', style: new TextStyle(fontSize: 22),)
                 )
               ),
 
@@ -176,11 +195,13 @@ class _AddUserState extends State<AddUser>{
                )
               ),
 
+              new Divider(color:Colors.black,),
+
               new Padding(
-                  padding: EdgeInsets.only(left: 10, top: 15),
+                  padding: EdgeInsets.only(left: 15, top: 4),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Door Unlock Options', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Door Unlock Options:', style: new TextStyle(fontSize: 22),)
                   )
               ),
 
@@ -212,11 +233,13 @@ class _AddUserState extends State<AddUser>{
                   )
               ),
 
+              new Divider(color:Colors.black,),
+
               new Padding(
-                  padding: EdgeInsets.only(left: 10, top: 15),
+                  padding: EdgeInsets.only(left: 15, top: 4),
                   child: new Align(
                       alignment: Alignment.topLeft,
-                      child: new Text('Notify Me?', style: new TextStyle(fontSize: 25),)
+                      child: new Text('Notify Me?', style: new TextStyle(fontSize: 22),)
                   )
               ),
 
@@ -243,9 +266,11 @@ class _AddUserState extends State<AddUser>{
 
               new Row(
                 children: <Widget>[
+                  /*
                   new Expanded(
                       child: Padding(
                         child: RaisedButton(
+                          color: Color(0xffFFF0D1),
                           child: Text("Menu", style: new TextStyle(fontSize: 20),),
                           onPressed: () => {
                             Navigator.of(context).pop()
@@ -257,19 +282,21 @@ class _AddUserState extends State<AddUser>{
                         padding: EdgeInsets.only(left: 5, right: 5),
                       )
                   ),
+                  */
                   new Expanded(
                       child: Padding(
                         child: RaisedButton(
+                          color: Color(0xffFFF0D1),
                           child: Text("Continue", style: new TextStyle(fontSize: 20),),
                           onPressed: () { 
                             _add();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures()));
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures()));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)
                           ),
                         ),
-                        padding: EdgeInsets.only(left: 7, right: 7),
+                        padding: EdgeInsets.only(left: 50, right: 50),
                       )
                   ),
                 ],

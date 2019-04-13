@@ -13,7 +13,11 @@ class _PiSettingsState extends State<PiSettings> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'Pi Settings',
+      theme: ThemeData(
+        primaryColor: Color(0xff314c66),
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);}),

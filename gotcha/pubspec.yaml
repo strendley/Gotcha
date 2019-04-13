@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   cloud_firestore: ^0.8.2+3
   firebase_auth: ^0.6.5
-  image_picker: 0.4.0
+  multi_image_picker: ^2.2.55
   firebase_core: 0.2.5+1
   googleapis: ^0.53.0
   googleapis_auth: any
@@ -46,7 +46,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  
   assets:
     #- assets/george_credentials.json
     - user-placeholder.png

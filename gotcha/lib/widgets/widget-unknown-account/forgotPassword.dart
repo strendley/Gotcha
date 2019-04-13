@@ -15,10 +15,20 @@ class _ForgotPassword extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Color(0xff314c66),
         ),
         home: Scaffold(
-        appBar: AppBar(title: Text('Gotcha')),
+        appBar: AppBar(title: Text('Gotcha'),
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+                
+              },
+            ),
+          ],
+
+        ),
     body: Container(
     decoration: BoxDecoration(color: Color(0xff314C66)),
     child: SingleChildScrollView(
@@ -28,12 +38,12 @@ class _ForgotPassword extends State<ForgotPassword> {
 
     children: <Widget>[
 
-      SizedBox(height: 175),
+      SizedBox(height: 170),
 
       new Row(
         children: <Widget>[
           Text(
-            'Please enter email',
+            'Please Enter Email:',
             textAlign: TextAlign.left,
             style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold,),
           ),
@@ -63,7 +73,7 @@ class _ForgotPassword extends State<ForgotPassword> {
         ),
       ),
 
-      SizedBox(height: 160),
+      SizedBox(height: 200),
 
     ],
     ),

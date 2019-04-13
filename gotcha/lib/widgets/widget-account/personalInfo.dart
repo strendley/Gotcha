@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../widget-account/homepage.dart';
 import '../widget-account/widget-account.dart';
 import '../../services/firebase-firestore-users.dart';
 import '../../data/model/user.dart';
@@ -241,7 +241,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     onPressed: () =>{
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context) => Account(),),
+                          MaterialPageRoute(builder: (BuildContext context) => Home(),),
                         )
                     },
                     child: const Text('Finish', style: TextStyle(fontSize: 20)),

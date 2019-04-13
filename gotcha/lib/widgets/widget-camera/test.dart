@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/pubsub//v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
@@ -37,8 +38,8 @@ class TestCamera extends StatefulWidget {
 }
 
 class _TestCameraState extends State<TestCamera> {
-
   File _image;
+
   Future getImageFromCam() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
@@ -52,7 +53,6 @@ class _TestCameraState extends State<TestCamera> {
     }
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _TestCameraState extends State<TestCamera> {
                 padding: EdgeInsets.only(top:15.0),
                 child: new Align(
                   alignment: Alignment.topCenter,
-                child: new Text('click the image to crop', style: new TextStyle(fontSize: 15),)
+                //child: new Text('click the image to crop', style: new TextStyle(fontSize: 15),)
                 ),
               ),
 
@@ -87,7 +87,7 @@ class _TestCameraState extends State<TestCamera> {
                 children: <Widget>[
                   new Container(
                     alignment: Alignment.center,
-                    child: new FadeInImage(placeholder: AssetImage('user-placeholder.png'), image: AssetImage('user-placeholder.png')),
+                    child: _image == null? new Text('No Image to show'): new Image.file(_image),
                     height: 250.0,
                     width: 250.0,
                   ),

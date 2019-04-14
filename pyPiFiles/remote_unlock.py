@@ -176,20 +176,19 @@ def get_paired_devices():
 # User considered present if ping of paired device is successful
 def is_phone_present():
     pair_macs = get_paired_devices()
-    
-    for mac in range(1, len(pair_macs)):
-        ping_addr = pair_macs[mac]
-        with Popen('sudo l2ping -c 1 {}'.format(ping_addr), stdin=PIPE, stdout=PIPE, universal_newline=TRUE) as p:
-            for line in p.stdout:
-                print(line)
-        
-    
+    '''
+    with open('paired_devices.log') as log: 
+        for mac in range(1, len(pair_macs)):
+            ping_addr = pair_macs[mac]
+            p = subrpocess.Popen('sudo l2ping -c 1 {}'.format(ping_addr), stdin=PIPE, stdout=PIPE, universal_newline=TRUE)
+            #print sys.stdin.read()
+    '''
     # if any paired macs exist in the output
     #     return True
     # else
     #     return False
     
-    return prox_macs
+    return True
     
 def is_user_home():
     # getter for auth user home/away settings
@@ -289,7 +288,7 @@ def main():
                                         if (float(score) > 0.8999999999999999) and (is_phone_present()): 
                                               
                                                 # Unlock the door
-                                                print('face_{} Authorized with prediction score: {}'.format(i,score))
+                                                print(f'face_{i} Authorized with prediction score: {score}')
                                                 print('Door Unlocking')
                                                 unlocked()
                                                 
@@ -299,7 +298,7 @@ def main():
                                                 
                                         #Else, unauthorized entry
                                         else:
-                                                print('face_{} Not Authorized with prediction score: {}'.format(i,score))
+                                                print(f'face_{i} Not Authorized with prediction score: {score}')
                                                 locked()
                                     
                                     # face counter++        
@@ -326,7 +325,10 @@ def main():
                             
                             # Blue LED ON to indicate motion sensor ready
                             GPIO.output(blue, False)
-                            
+            
+            
+    # End of testing TODO item: create and modify permissions for /etc/network/if-up.d/{bash_script_name.sh}
+    # *.sh will execute this python script when the network becomes availiable
             
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 

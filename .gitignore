@@ -4,3 +4,7 @@
 ./gotcha/lib/creds_dart_readme
 
 multi_image
+
+*.txt
+*.log
+*.h264

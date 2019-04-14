@@ -3,7 +3,7 @@ import 'pi_settings.dart';
 import 'household.dart';
 import 'add_user.dart';
 import 'features.dart';
-import '../widget-camera/test.dart';
+//import '../widget-camera/test.dart';
 import '../widget-account/widget-account.dart';
 
 class Home extends StatelessWidget {
@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
       title: 'Gotcha App',
       theme: ThemeData(
-        primaryColor: Colors.blue
+        primaryColor: Color(0xff314c66),
       ),
       home: HomePage(title: 'Gotcha'),
     );
@@ -51,8 +51,11 @@ class _MyHomePageState extends State<HomePage> {
               floating: false,
             ),
             SliverFillRemaining(
+
               child: new ListView(
+
                 children: <Widget>[
+
                   new Card(
                       child: new Column(
                         children: <Widget>[
@@ -76,7 +79,7 @@ class _MyHomePageState extends State<HomePage> {
                           new Divider(color:Colors.grey, indent:5.0),
                           new Container(
                               child: new ListTile(
-                                onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => TestCamera())); },
+                                //onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => TestCamera())); },
                                 title: new Text("Test Camera"),
                                 leading: new Icon(Icons.linked_camera, color:Colors.grey, size:25.0),
                                 trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),

@@ -19,19 +19,26 @@ class _UserRowState extends State<UserRow> {
 
   Widget get userThumbnail {
     return new Container(
-      margin: new EdgeInsets.symmetric(vertical: 16.0),
+      margin: new EdgeInsets.symmetric(vertical: 10.0),
       alignment: FractionalOffset.centerLeft,
       child: new CircleAvatar(
         backgroundImage: AssetImage(user.image),
         maxRadius: 50,
       ),
+        width: 105.0,
+        height: 105.0,
+        padding: const EdgeInsets.all(5.0), // borde width
+        decoration: new BoxDecoration(
+          color: const Color(0xFF4c346d), // border color
+          shape: BoxShape.circle,
+        )
     );
   }
 
   Widget get userCard {
     return new Container(
       height: 124.0,
-      margin: new EdgeInsets.only(left: 46.0),
+      margin: new EdgeInsets.only(left: 30.0),
       decoration: new BoxDecoration(
         color: new Color(0xff4c346d),
           shape: BoxShape.rectangle,
@@ -72,8 +79,8 @@ class _UserRowState extends State<UserRow> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  new Text(user.residentStatus + ' ' + user.unlockOptions,
-                    style: TextStyle(fontSize: 18, color: Colors.white),),
+                  new Text(user.residentStatus + ', ' + user.unlockOptions,
+                    style: TextStyle(fontSize: 15, color: Colors.white),),
                   new Container(
                     alignment: Alignment.bottomRight,
                     child: new IconButton(
@@ -143,6 +150,9 @@ class Household extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Color(0xff314C66),
+      ),
       title: 'Gotcha',
       home: Scaffold(
           appBar: AppBar(

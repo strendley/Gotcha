@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widget-account/widget-account.dart';
 import '../../services/firebase-firestore-users.dart';
 import '../../data/model/user.dart';
+import 'homepage.dart';
 
 class PersonalInfo extends StatefulWidget {
   PersonalInfo({Key key, this.title}) : super(key: key);
@@ -52,12 +53,23 @@ class _PersonalInfo extends State<PersonalInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xff314C66),
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('Gotcha')),
+        appBar: AppBar(title: Text('Gotcha'),
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+
+              },
+            ),
+          ],
+
+        ),
+
         body: Container(
-          decoration: BoxDecoration(color: Color(0xffD9E8FD)),
+          decoration: BoxDecoration(color: Colors.grey[100]),//(0xffD9E8FD)),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -135,6 +147,13 @@ class _PersonalInfo extends State<PersonalInfo> {
 
                 SizedBox(height: 10),
 
+                Divider(
+                  color: Colors.black,
+
+                ),
+
+                SizedBox(height: 10),
+
                 new Row(
                   children: <Widget>[
                     Text(
@@ -194,25 +213,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                 ),
 
                 SizedBox(height: 10),
-                new Row(
-                  children: <Widget>[
-                    Text(
-                      'Phone number',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
-                    ),
-                  ],
-                ),
 
-                TextField(
-                  controller: phoneNumber,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
-                  ),
-                ),
-
-                SizedBox(height: 50),
                 new Row(
                   children: <Widget>[
                     Text(
@@ -233,6 +234,33 @@ class _PersonalInfo extends State<PersonalInfo> {
 
                 SizedBox(height: 10),
 
+                Divider(
+                  color: Colors.black,
+
+                ),
+
+                SizedBox(height: 10),
+
+                new Row(
+                  children: <Widget>[
+                    Text(
+                      'Phone number',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  controller: phoneNumber,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Color(0xffffffff), filled: true,
+                  ),
+                ),
+
+                SizedBox(height: 50),
+
                 SizedBox(
                   width: 125,
                   height: 60,
@@ -241,7 +269,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     onPressed: () =>{
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context) => Account(),),
+                          MaterialPageRoute(builder: (BuildContext context) => Home(),),
                         )
                     },
                     child: const Text('Finish', style: TextStyle(fontSize: 20)),

@@ -10,6 +10,7 @@ import '../widget-account/widget-account.dart';
 import '../widget-account/createAccount.dart';
 import '../widget-account/homepage.dart';
 import '../widget-account/personalInfo.dart';
+
 class SignIn extends StatefulWidget {
   SignIn({Key key, this.auth}) : super(key: key);
   final BaseAuth auth;
@@ -68,7 +69,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xff314C66)
       ),
       home: Scaffold(
         body: Container(
@@ -90,7 +91,7 @@ class _SignInState extends State<SignIn> {
                       Row(
                       children: <Widget>[
                         Text(
-                          'USERNAME',
+                          'EMAIL',
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
                         ),
@@ -121,6 +122,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     TextField(
                       controller: _password,
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         fillColor: Color(0xffD9E8FD), filled: true,

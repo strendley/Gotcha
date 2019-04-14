@@ -4,6 +4,7 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
 import 'package:gotcha/creds.dart'; //isolate sensitive data
 import 'package:gotcha/crud.dart';
+import 'homepage.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -132,7 +133,10 @@ class _AccountPageState extends State<Account> {
                 new IconButton(
                   icon: Image.asset("gotcha.png"),
                   onPressed: () {
-                    /* ... */
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                    );
                   },
                 ),
               ],
@@ -268,7 +272,7 @@ class _AccountPageState extends State<Account> {
                                   trailing: new Switch(value: enablePush, onChanged: onChangedSwitch, activeColor:Colors.blue[700])
                               ),
                             ),
-
+/*
                             new Divider(color:Colors.grey, indent:5.0),
 
                             new Container(
@@ -279,6 +283,7 @@ class _AccountPageState extends State<Account> {
                                   trailing: new Switch(value: selfDestruct, onChanged: onChangedDestruct, activeColor:Colors.blue[700])
                               ),
                             )
+                            */
                           ],
                         )
 

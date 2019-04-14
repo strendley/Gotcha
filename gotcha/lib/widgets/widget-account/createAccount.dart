@@ -63,12 +63,22 @@ class _CreateAccount extends State<CreateAccount> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xff314C66),
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('Gotcha')),
+        appBar: AppBar(title: Text('Gotcha'),
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+
+              },
+            ),
+          ],
+
+        ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xffD9E8FD)),
+          decoration: BoxDecoration(color: Colors.grey[100]),//(0xffD9E8FD)),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -160,7 +170,7 @@ class _CreateAccount extends State<CreateAccount> {
                   ),
                 ),
 
-                SizedBox(height: 100),
+                SizedBox(height: 150),
 
               ],
             ),

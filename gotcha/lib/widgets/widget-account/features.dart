@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'homepage.dart';
+
 
 class FeaturesPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -31,14 +33,32 @@ class _FeaturesState extends State<Features> {
           primaryColor: Color(0xff314c66)
       ),
       home: Scaffold(
+        backgroundColor: Color(0xff314c66),
         appBar: AppBar(
           leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);}),
-          title: Text('Features'),
+          title: Text('About'),
           centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                );
+              },
+            ),
+          ],
         ),
-        body: Center(
-          child: Text('Hello World'),
+        body: Container(
+          child: SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Text('Gotcha was designed and developed by a small team of undergradute students at MST.'
+              ' The project was done for Software Systems Development, a class taught by our lord and savior,'
+              ' Mr. Gilbert Gosenell.',textAlign: TextAlign.center,
+            style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold, fontSize: 18),),
         ),
+      ),
       ),
     );
   }

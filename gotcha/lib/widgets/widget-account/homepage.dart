@@ -3,10 +3,10 @@ import 'pi_settings.dart';
 import 'household.dart';
 import 'add_user.dart';
 import 'features.dart';
-//import '../widget-camera/test.dart';
-import '../widget-account/widget-account.dart';
 import '../widget-camera/test.dart';
+import '../widget-account/widget-account.dart';
 import '../widget-camera/test_pictures.dart';
+
 class Home extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -126,8 +126,8 @@ class _MyHomePageState extends State<HomePage> {
                           new Container(
                             child: new ListTile(
                               onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Features()));},
-                              title: new Text("More Features"),
-                              leading: new Icon(Icons.vpn_lock, color:Colors.grey, size:25.0),
+                              title: new Text("About"),
+                              leading: new Icon(Icons.favorite_border, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),
                             ),
                           )

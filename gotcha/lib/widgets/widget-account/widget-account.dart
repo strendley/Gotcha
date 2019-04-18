@@ -21,9 +21,9 @@ class _AccountPageState extends State<Account> {
   bool openDoor = false;
   bool selfDestruct = false;
 
-  String userName = "firstName lastName";
-  String emailAddress = "example@gmail.com";
-  String address = "1234 Example Street";
+  String userName = "Name";
+  String emailAddress = "Email";
+  String address = "Address";
 
   bool piLocked = true;
 
@@ -33,7 +33,7 @@ class _AccountPageState extends State<Account> {
 
   void onChangedSwitch(bool value) => setState(() => enablePush = value);
   void onChangedDoor(bool value) => setState(() => openDoor = value);
-  void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
+  //void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
 
   void onNameChange(String user) { if(user != "") setState(() => userName = user);}
   void onEmailChange(String email) { if(email != "") setState(() => emailAddress = email);}
@@ -112,16 +112,16 @@ class _AccountPageState extends State<Account> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     new Container(
-                      height: 100.0,
+                      height: 120.0,
                       alignment: Alignment.center,
-                      margin: new EdgeInsets.only(top: 35.0),
+                      margin: new EdgeInsets.only(top: 40.0),
                       //color: Colors.red,
                       child: new CircleAvatar(
-                        maxRadius: 45.0,
-                        backgroundImage: AssetImage('user-placeholder.png'),
+                        maxRadius: 60.0,
+                        backgroundImage: AssetImage('defaultUser.png'),
                       ),
                     ),
-                    const Text("User", style: TextStyle(fontSize: 20.0, color: Colors.white), textAlign: TextAlign.center,),
+                    //const Text("User", style: TextStyle(fontSize: 20.0, color: Colors.white), textAlign: TextAlign.center,),
                   ],
                 ),
                 centerTitle: true,
@@ -145,6 +145,7 @@ class _AccountPageState extends State<Account> {
                 child: new ListView(
 
                   children: <Widget>[
+                    /*
                     Padding(
                       padding: EdgeInsets.only(left:10),
                       child: const Align(
@@ -153,7 +154,7 @@ class _AccountPageState extends State<Account> {
                         Text("Profile", style: TextStyle(fontSize: 20),),
                       ),
                     ),
-
+                    */
                     new Card(
                       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
                       //color: Colors.amber[50],
@@ -241,14 +242,17 @@ class _AccountPageState extends State<Account> {
                         )
 
                     ),
-
+                    /*
                     Padding(
                         padding: EdgeInsets.only(left: 10.0, top: 20.0),
                         child: const Align(
                             alignment: Alignment.centerLeft,
                             child: Text("General Settings", style: TextStyle(fontSize: 20)))
                     ),
-
+                    */
+                    
+                    Padding(padding: EdgeInsets.all(10)),
+                    
                     new Card(
                       //color: Colors.amber[50],
                         child: new Column(
@@ -256,8 +260,8 @@ class _AccountPageState extends State<Account> {
                             new Container(
                               //color: Colors.red[100],
                               child: new ListTile(
-                                  title: new Text("Door Status: <UNLOCKED> "),
-                                  leading: new Icon(Icons.lock_outline, color:Colors.grey, size:25.0),
+                                  title: new Text("Door Status"),
+                                  leading: openDoor==true?new Icon(Icons.lock_open, color:Colors.grey, size:25.0):new Icon(Icons.lock, color:Colors.grey, size:25.0),
                                   trailing: new Switch(value: openDoor, onChanged: onChangedDoor, activeColor: Colors.blue[700],)
                               ),
                             ),

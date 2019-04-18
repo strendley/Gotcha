@@ -37,8 +37,8 @@ class _UserRowState extends State<UserRow> {
 
   Widget get userCard {
     return new Container(
-      height: 124.0,
-      margin: new EdgeInsets.only(left: 30.0),
+      height: 130.0,
+      margin: new EdgeInsets.only(left: 0.0),
       decoration: new BoxDecoration(
         color: new Color(0xff4c346d),
           shape: BoxShape.rectangle,
@@ -79,8 +79,8 @@ class _UserRowState extends State<UserRow> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  new Text(user.residentStatus + ', ' + user.unlockOptions,
-                    style: TextStyle(fontSize: 15, color: Colors.white),),
+                  new Text(user.residentStatus + '\n' + user.unlockOptions,
+                    style: TextStyle(fontSize: 18, color: Colors.white),),
                   new Container(
                     alignment: Alignment.bottomRight,
                     child: new IconButton(

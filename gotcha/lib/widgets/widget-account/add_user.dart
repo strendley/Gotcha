@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'homepage.dart';
 
-//import '../widget-camera/test_pictures.dart';
+import '../widget-camera/test_pictures.dart';
 
 class AddUser extends StatefulWidget {
   AddUser({Key key, this.email}) : super(key: key);
@@ -290,7 +290,7 @@ class _AddUserState extends State<AddUser>{
                           child: Text("Continue", style: new TextStyle(fontSize: 20),),
                           onPressed: () { 
                             _add();
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures()));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)

@@ -2,104 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c8da5df-352c-4fc9-8a34-6b2546981047" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/.metadata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/java/com/example/gotcha/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/app/src/profile/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/android/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/flutter_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Flutter/Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Flutter/Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/AppDelegate.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/AppDelegate.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/ios/Runner/main.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/creds_dart_readme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/crud.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/img/bkr.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/img/furry_george.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/img/gotcha.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/img/gotcha_placeholder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/mock/user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/data/model/user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/account-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/account-settings-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/add-user-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/create-account-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/forgot-password-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/personal-info-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/pi-settings-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/screens/pictures-screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/services/authentication.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/services/camera.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/services/firebase-firestore-users.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/accountSettings.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/add_user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/createAccount.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/features.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/homepage.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/household.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/personalInfo.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/pi_settings.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-account/widget-account.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-alert/faild-sign-alert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-boxes/password-login-box.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-boxes/username-login-box.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-buttons/sign-in-button.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-camera/test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-camera/test_pictures.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-camera/view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-sign-in/sign-in.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/lib/widgets/widget-unknown-account/forgotPassword.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/pubspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/test/widget_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gotcha_old/user-placeholder.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -157,14 +60,15 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="creds_dart_readme" value="1" />
-          <entry key="dart" value="42" />
+          <entry key="dart" value="50" />
           <entry key="gitignore" value="1" />
           <entry key="gradle" value="7" />
           <entry key="gradlew" value="1" />
@@ -175,7 +79,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="42" />
+          <entry key="Dart" value="50" />
           <entry key="Groovy" value="7" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="Properties" value="1" />
@@ -185,7 +89,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="709" />
+          <entry key="dart" value="745" />
           <entry key="txt" value="48" />
           <entry key="xml" value="8" />
           <entry key="yaml" value="60" />
@@ -193,7 +97,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="709" />
+          <entry key="Dart" value="745" />
           <entry key="PLAIN_TEXT" value="48" />
           <entry key="XML" value="8" />
           <entry key="YAML" value="60" />
@@ -203,11 +107,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="37" column="68" selection-start-line="37" selection-start-column="68" selection-end-line="37" selection-end-column="68" />
+            <state relative-caret-position="272">
+              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -216,32 +132,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/android/app/build.gradle">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="61" column="14" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+            <state relative-caret-position="153">
+              <caret line="99" column="27" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/android/gradle.properties">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/android/gradlew">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/view.dart">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/routes.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-549">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -276,7 +182,6 @@
         <option value="$PROJECT_DIR$/gotcha/lib/creds.dart" />
         <option value="$PROJECT_DIR$/gotcha/pubspec.yaml" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart" />
-        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/view.dart" />
         <option value="$PROJECT_DIR$/gotcha/gotcha/android/app/src/profile/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/gotcha/gotcha/android/app/src/main/AndroidManifest.xml" />
@@ -284,12 +189,13 @@
         <option value="$PROJECT_DIR$/gotcha/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/gotcha/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="631" />
-    <option name="width" value="1298" />
+    <option name="x" value="448" />
+    <option name="width" value="1479" />
     <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -298,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -315,37 +220,37 @@
               <item name="Gotcha" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gotcha" type="462c0819:PsiDirectoryNode" />
               <item name="gotcha" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Gotcha" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gotcha" type="462c0819:PsiDirectoryNode" />
               <item name="gotcha" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Gotcha" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gotcha" type="462c0819:PsiDirectoryNode" />
               <item name="gotcha" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
+              <item name="widget-account" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Gotcha" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gotcha" type="462c0819:PsiDirectoryNode" />
               <item name="gotcha" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
+              <item name="widget-camera" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -358,6 +263,121 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gitignore</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/remote_unlock.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/test.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/camera_serveillance_system.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/css.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/video.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -408,29 +428,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="830" extended-state="0" />
+    <frame x="359" y="0" width="1183" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.31900138" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.28406054" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49932885" weight="0.3328551" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.4986643" visible="true" weight="0.3328551" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.32998565" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50067115" side_tool="true" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49955475" weight="0.32998565" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5013357" side_tool="true" visible="true" weight="0.3328551" />
       <window_info anchor="bottom" id="Flutter Performance" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49955475" weight="0.32998565" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32907802" />
       <window_info anchor="bottom" id="Find" order="8" />
       <window_info anchor="bottom" id="Messages" order="9" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
-      <window_info anchor="right" id="Flutter Inspector" order="2" visible="true" weight="0.0020134228" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" visible="true" weight="8.90472E-4" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
     </layout>
@@ -470,7 +490,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="made changes to navigation" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flutter_course/.idea/flutter_course.iml" />
     <entry file="file://$PROJECT_DIR$/flutter_course/.idea/modules.xml" />
     <entry file="file://$PROJECT_DIR$/flutter_course/.idea/vcs.xml" />
     <entry file="file://$PROJECT_DIR$/login.axml" />
@@ -519,9 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/features.dart">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -551,16 +567,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/crud.dart">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/creds_dart_readme">
       <provider selected="true" editor-type-id="text-editor">
@@ -609,16 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
@@ -626,13 +622,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/lib/main.dart" />
     <entry file="file://$PROJECT_DIR$/gotcha/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -643,30 +633,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/src/profile/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-130" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-725" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/src/main/AndroidManifest.xml" />
+    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/src/profile/AndroidManifest.xml" />
+    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/build.gradle" />
+    <entry file="file://$PROJECT_DIR$/gotcha/gotcha/android/app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/gotcha/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -680,12 +650,6 @@
           <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/android/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/android/gradlew">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -701,27 +665,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/android/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="61" column="14" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/gotcha/android/gradlew">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/view.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="133">
+          <caret line="32" column="11" lean-forward="true" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/android/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/android/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="37" column="68" selection-start-line="37" selection-start-column="68" selection-end-line="37" selection-end-column="68" />
+        <state relative-caret-position="272">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/routes.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1887" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="99" column="27" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -50,6 +50,7 @@ flutter:
   
   assets:
     #- assets/george_credentials.json
+    - defaultUser.png
     - user-placeholder.png
     - furry_george.jpg
     - gotcha.png

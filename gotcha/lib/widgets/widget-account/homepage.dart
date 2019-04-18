@@ -6,6 +6,7 @@ import 'features.dart';
 //import '../widget-camera/test.dart';
 import '../widget-account/widget-account.dart';
 import '../widget-camera/test.dart';
+import '../widget-camera/test_pictures.dart';
 class Home extends StatelessWidget {
   // This widget is the root of your application.
   @override

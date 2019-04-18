@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'view.dart';
@@ -15,6 +16,7 @@ class Pictures extends StatefulWidget {
 }
 
 class _PicturePageState extends State<Pictures> {
+  /*
   List<Asset> images = List<Asset>();
   String _error;
 
@@ -54,6 +56,23 @@ class _PicturePageState extends State<Pictures> {
       if (error == null) _error = 'No Error Dectected';
     });
   }
+*/
+
+  File _image;
+
+  Future getImageFromCam() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image;    });
+  }
+
+  Future getImageFromGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    }
+    );
+  }
 
 
   @override
@@ -69,14 +88,14 @@ class _PicturePageState extends State<Pictures> {
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: const Align(
                   alignment: Alignment.topCenter,
-                  child: Text("Please Add 10 User Photos", style: TextStyle(fontSize: 25)))
+                  child: Text("Please Add A Guest User Photo", style: TextStyle(fontSize: 25)))
           ),
 
           ButtonTheme(
             buttonColor: Theme.of(context).buttonColor,
             minWidth: double.infinity,
             child: RaisedButton(
-              onPressed: () {loadAssets();},
+              onPressed: () {getImageFromGallery();},
               child: Text('Add Old Pictures From Gallery'),
             ),
           ),
@@ -85,7 +104,7 @@ class _PicturePageState extends State<Pictures> {
             buttonColor: Theme.of(context).buttonColor,
             minWidth: double.infinity,
             child: RaisedButton(
-              onPressed: () {/*getImageFromCam();*/},
+              onPressed: () {getImageFromCam();},
               child: Text('Add New Pictures From Camera'),
             ),
           ),
@@ -96,16 +115,16 @@ class _PicturePageState extends State<Pictures> {
                   alignment: Alignment.topCenter,
                   child: Text("Percent Completion: ???", style: TextStyle(fontSize: 20)))
           ),
-          Expanded(
-              child: SafeArea(
-                child:
-                new GridView.count(
-                  crossAxisCount: 5,
-                  children: new List<Widget>.generate(images.length, (index) {
-                    return AssetView(index, images[index]);
-                  }),
-                ),
-              )
+
+          new Column(
+            children: <Widget>[
+              new Container(
+                alignment: Alignment.center,
+                child: _image == null? new Text('No Image to show'): new Image.file(_image),
+                height: 250.0,
+                width: 250.0,
+              ),
+            ],
           ),
 
           new Padding(

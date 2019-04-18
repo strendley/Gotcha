@@ -8,6 +8,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:gotcha/creds.dart';
+import '../widget-account/homepage.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -58,25 +59,68 @@ class _TestCameraState extends State<TestCamera> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Test Pictures',
+      theme: ThemeData(
+        primaryColor: Color(0xff314c66),
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: new IconButton(icon: Icon(Icons.arrow_back, color: Colors.white,), onPressed: () {Navigator.pop(context);}),
           title: Text('Test Pictures'),
           centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+              icon: Image.asset("gotcha.png"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                );
+              },
+            ),
+          ],
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              new Padding(
-                padding: EdgeInsets.only(top:10.0),
-                child: new Align(
-                  alignment: Alignment.topCenter,
-                  child: new Text('Test Your Setup With a Picture!', style: new TextStyle(fontSize: 26),)
-                ),
+
+              SizedBox(height: 10),
+
+              new Row(
+
+                children: <Widget>[
+                  new Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: RaisedButton(
+                          color: Color(0xffFFF0D1),
+                          child: Text("+  Gallery", style: new TextStyle(fontSize: 20),),
+                          onPressed: () {getImageFromGallery();},
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3)
+                          ),
+                        ),
+                        //padding: EdgeInsets.only(left: 10, right: 10),
+                      )
+                  ),
+                  new Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: RaisedButton(
+                          color: Color(0xffFFF0D1),
+                          child: Text("+  Camera", style: new TextStyle(fontSize: 20),),
+                          onPressed: () {getImageFromCam();},
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2)
+                          ),
+                        ),
+                        //padding: EdgeInsets.only(left: 10, right: 10),
+                      )
+                  ),
+                ],
               ),
 
               new Padding(
-                padding: EdgeInsets.only(top:15.0),
+                padding: EdgeInsets.only(top:5.0),
                 child: new Align(
                   alignment: Alignment.topCenter,
                 //child: new Text('click the image to crop', style: new TextStyle(fontSize: 15),)
@@ -87,56 +131,34 @@ class _TestCameraState extends State<TestCamera> {
                 children: <Widget>[
                   new Container(
                     alignment: Alignment.center,
-                    child: _image == null? new Text('No Image to show'): new Image.file(_image),
-                    height: 250.0,
-                    width: 250.0,
-                  ),
-                ],
-              ),
-
-              new Row(
-                children: <Widget>[
-                  new Expanded(
-                      child: Padding(
-                        child: RaisedButton(
-                          child: Text("Gallery", style: new TextStyle(fontSize: 20),),
-                          onPressed: () {getImageFromGallery();},
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3)
-                          ),
-                        ),
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                      )
-                  ),
-                  new Expanded(
-                      child: Padding(
-                        child: RaisedButton(
-                          child: Text("Camera", style: new TextStyle(fontSize: 20),),
-                          onPressed: () {getImageFromCam();},
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2)
-                          ),
-                        ),
-                        padding: EdgeInsets.only(left: 7, right: 7),
+                    child: _image == null? new Image.asset('defaultUser.png', height: 250, width: 250):
+                                           new Image.file(_image, height: 250, width: 250,),
+                    height: 265.0,
+                    width: 260.0,
+                      decoration: new BoxDecoration(
+                        color: const Color(0xFF314c66), // border color
+                        shape: BoxShape.rectangle,
                       )
                   ),
                 ],
               ),
-
 
               new Padding(
-                  padding: EdgeInsets.only(top:7.0),
+                  padding: EdgeInsets.only(top:15.0),
               ),
 
-              new Row(
+              new Column(
                 children: <Widget>[
-                  new Expanded(
-                    child: Padding(
+                  //new Expanded(
+                    //child: Padding(
+                SizedBox(
+                    height: 60,
+                      width: 160,
                       child: RaisedButton(
+                        color: Color(0xffFFF0D1),
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
                         onPressed: () {
                           // get prediction here
-
 
 
                           showDialog(
@@ -154,14 +176,13 @@ class _TestCameraState extends State<TestCamera> {
                             borderRadius: BorderRadius.circular(3)
                         ),
                       ),
-                      padding: EdgeInsets.only(left: 7, right: 7),
-                    )
-                  ),
-                ],
+                      //padding: EdgeInsets.only(left: 7, right: 7),
+                    ),
+                  ],
               ),
 
               new Padding(
-                padding: EdgeInsets.only(top:15.0),
+                padding: EdgeInsets.only(top:30.0),
                     child: new Text('Results: ', style: new TextStyle(fontSize: 25),)
               ),
 
@@ -170,7 +191,7 @@ class _TestCameraState extends State<TestCamera> {
                   child: new Text('<RESULT OF TEST>', style: new TextStyle(fontSize: 25, color: Colors.red),)
                 //),
               ),
-
+/*
               new Row(
                 children: <Widget>[
                   new Expanded(
@@ -187,6 +208,7 @@ class _TestCameraState extends State<TestCamera> {
                   ),
                 ],
               ),
+              */
             ],
           )
         ),

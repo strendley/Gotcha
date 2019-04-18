@@ -4,6 +4,7 @@
 #  
 import subprocess
 import re
+import sys
 
 def get_paired_devices():
     #p_devices = subprocess.Popen('./get_paired_devices.sh', shell=True, stdout=subprocess.PIPE)
@@ -26,11 +27,10 @@ def get_paired_devices():
 def is_phone_present():
     pair_macs = get_paired_devices()
     
-    for mac in range(1, len(pair_macs)):
-        ping_addr = pair_macs[mac]
-        p = subprocess.Popen('sudo l2ping -c 1 {}'.format(ping_addr), shell=True, stdout=subprocess.PIPE)
-        
-        # TODO: parse results
-        # 
+    with open('paired_devices.log') as log: 
+        for mac in range(0, len(pair_macs)):
+            ping_addr = pair_macs[mac]
+            p = subprocess.Popen('sudo l2ping -c 1 {}'.format(ping_addr), shell=True, stdout=subprocess.PIPE)
+            print(sys.stdout.read())
         
 is_phone_present()

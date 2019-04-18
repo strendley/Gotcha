@@ -6,3 +6,7 @@
 gotcha_old/* 
 
 multi_image
+
+*.txt
+*.log
+*.h264

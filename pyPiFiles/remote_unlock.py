@@ -65,20 +65,17 @@ def callback1(encoded_message):
     print(decoded_message)
     
     # Unlocks door 
-    if '{"door": "unlock"}' in decoded_message:
+    if '"door": "unlock"' in decoded_message:
       print('Door Unlocking\n')
       unlocked()
       
-    if '{"faces": "update"}' in decoded_message:
+    if '"faces": "update"' in decoded_message:
       print('Updating local authorized images\n')
-      # TODO:
-      # update local feces & encodings -> db changed, pull images
+      update_local_faces()
     
-    if '{"tmp_picture": "test"}' in decoded_message:
+    if '"tmp_picture": "test"' in decoded_message:
       print('Checking user photo against local encodings')
-      # TODO:  
-      # test the temporary picture in firebase, update firebase field
-      # update_document('flutter_updates', 'picture_test', 'passed') # or 'failed'
+      picture_test()
       
     print(decoded_message)
     #Acknowledge message
@@ -108,12 +105,12 @@ def update_document(doc, field, value):
     # Set the specified field
     ref.update({u'{}'.format(field): value})
 
-'''
+
 def check_user_requests():
     db = firestore.Client()
     requests_ref = db.collection(u'pi_config_states').document(u'{flutter_updates}')
     print(requests_ref)
-'''
+
 
 def locked():
     # Set pi_config_states -> pi_status -> door locked
@@ -173,12 +170,13 @@ def is_phone_present():
         ping_addr = pair_macs[mac]
         p = subprocess.run(['sudo', 'l2ping', '-c', '1', '{}'.format(ping_addr)], universal_newlines=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         lines = p.stdout.split('\n')
+        # If ping successful 
         if '1 sent, 1 received, 0% loss' in lines[2]:
-            #print('ping successful')
             return True
-        else # Auth user not present
+        else: # Auth user not present
             return False
-    
+
+####### TODO ###########################################################
 def is_user_home():
     # getter for auth user home/away settings
     # user can allow system to know which registered occupants are inside 
@@ -194,7 +192,17 @@ def on_lockdown():
 def is_auth():
     # determines if user is authenticated
     # checks local storage of authorized face_encodings
+    
     return True
+
+def picture_test(): 
+    # test the temporary picture in firebase, update firebase field
+    # update_document('flutter_updates', 'picture_test', 'passed') # or 'failed'
+    update_document('flutter_updates', 'picture_test', 'failed')
+'''    
+def update_local_faces():
+    # update local feces & encodings -> db changed, pull images
+'''
 
 # Driver
 def main():
@@ -222,7 +230,7 @@ def main():
             # If motion is detected
             if GPIO.input(pir) == True:
                 # Set pi_config_states -> motion -> detected : true
-                update_document('pi_status', 'motion', 'true')
+                update_document('pi_status', 'motion', True)
                 
                 GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
@@ -244,62 +252,63 @@ def main():
                     # Check encodings only if faces are found
                     if(len(face_locations) > 0):
                       
-                            # Set pi_config_states -> faces -> detected : true
-                            update_document('pi_status', 'faces', 'true')
-                            
-                            # Crop all faces from photo
-                            for face_location in face_locations:
-                                    i = 1                       # face id
-                                    top,right,bottom,left = face_location
-                                    face_image = face[top-50:bottom+50, left-50:right+50]
-                                    pil_image = Image.fromarray(face_image)
-                                    print(face_location)
-                                    
-                                    # save image to upload
-                                    path = 'result_{}.jpg'.format(i)  
-                                    pil_image.save(path)
+                        # Set pi_config_states -> faces -> detected : true
+                        update_document('pi_status', 'faces', True)
+                        
+                        # Crop all faces from photo
+                        for face_location in face_locations:
+                                i = 1                       # face id
+                                top,right,bottom,left = face_location
+                                face_image = face[top-50:bottom+50, left-50:right+50]
+                                pil_image = Image.fromarray(face_image)
+                                print(face_location)
+                                
+                                # save image to upload
+                                path = 'result_{}.jpg'.format(i)  
+                                pil_image.save(path)
 
-                                    # If user is not home proceed to assess face credentials and ping phone
-                                    if (not is_user_home()):
-                                    
-                                        # Authenticate photographed persons  
-                                        if (is_auth()) and (is_phone_present()): 
-                                              
-                                                # Unlock the door
-                                                print('face_{} Authorized with prediction score: {}'.format(i, score))
-                                                print('Door Unlocking')
-                                                unlocked()
-                                                
-                                                # Allow user to enter before arming
-                                                #time.sleep(60)
-                                                #locked()
-                                                
-                                        #Else, unauthorized entry
-                                        else:
-                                                print('face_{} Not Authorized with prediction score: {}'.format(i, score))
-                                                locked()
-                                    
-                                    # face counter++        
-                                    i += 1
-                            
-                            delete_local_data()
-                            
-                            ## Reset for next cycle
-                            # Set pi_config_states -> faces -> detected : false
-                            update_document('pi_status', 'faces', 'false')
-                            # Set pi_config_states -> motion -> detected : true
-                            update_document('pi_status', 'motion', 'false')
-                            
-                            # Blue LED ON to indicate motion sensor ready
-                            GPIO.output(blue, False)
-                            print("End of detection cycle")
+                                # If user is not home proceed to assess face credentials and ping phone
+                                if (not is_user_home()):
+                                
+                                    # Authenticate photographed persons  
+                                    # name var is path to photo
+                                    if (is_auth(name)) and (is_phone_present()): 
+                                          
+                                            # Unlock the door
+                                            print('face_{} Authorized with prediction score: {}'.format(i, score))
+                                            print('Door Unlocking')
+                                            unlocked()
+                                            
+                                            # Allow user to enter before arming
+                                            #time.sleep(60)
+                                            #locked()
+                                            
+                                    #Else, unauthorized entry
+                                    else:
+                                            print('face_{} Not Authorized with prediction score: {}'.format(i, score))
+                                            locked()
+                                
+                                # face counter++        
+                                i += 1
+                        
+                        delete_local_data()
+                        
+                        ## Reset for next cycle
+                        # Set pi_config_states -> faces -> detected : false
+                        update_document('pi_status', 'faces', False)
+                        # Set pi_config_states -> motion -> detected : true
+                        update_document('pi_status', 'motion', False)
+                        
+                        # Blue LED ON to indicate motion sensor ready
+                        GPIO.output(blue, False)
+                        print("End of detection cycle")
                             
                     # No faces in image taken 
                     else:
                             print('No faces found')
                             print("End of detection cycle")
                             # Set pi_config_states -> motion -> detected : false
-                            update_document('pi_status', 'motion', 'false')
+                            update_document('pi_status', 'motion', False)
                             
                             # Blue LED ON to indicate motion sensor ready
                             GPIO.output(blue, False)

@@ -3,13 +3,13 @@
 #  
 #  Description:
 #   
-#  Remote unlock triggered via motion sensor and verified by AutoML API 
+#  Remote unlock triggered via motion sensor, verified by local face encodings 
 #       & Bluetooth proximity of a registered user's smartphone MAC address
 #  
-#  Manual unlock triggered by Flutter app publishing to topic, pi is subscribed, parses new config -> unlocks
+#  Manual unlock triggered by Flutter app publishing to topic, pi is subscribed, parses new config & performs desired function
 #
 #  Must run before startup:
-#  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/george_credentials.json"
+#  export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/pi_auth_keys/<file_name>.json"
 
 
 import RPi.GPIO as GPIO
@@ -27,17 +27,14 @@ import re
 
 from PIL import Image
 #'''
-
-from google.cloud import automl_v1beta1
-from google.cloud.automl_v1beta1.proto import service_pb2
 from google.cloud import pubsub_v1
 from google.cloud import firestore
 
 subscriber_door = pubsub_v1.SubscriberClient()
-
-project_id = 'gotcha-233622'
-model_id = 'ICN8341606992171376246'
 camera = picamera.PiCamera()
+
+#project_id = 'gotcha-233622'
+#model_id = 'ICN8341606992171376246'
 #db = firestore.Client()
 
 pir = 8     # Pin 8  : PIR
@@ -58,16 +55,30 @@ GPIO.setup(blue, GPIO.OUT)
 GPIO.setup(pair_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
-# Example: Message pulled from subscription 'door_sub'
+# Message pulled from subscription 'pi_configurations'
 # encoded_message is a byte string literal, utf-8
 def callback1(encoded_message): 
 
     decoded_message = bytes.decode(encoded_message.data)
-     
+    
+    # Split json message by line, check for all conditions
+    print(decoded_message)
+    
     # Unlocks door 
-    if decoded_message == '{"door": "unlock"}':
+    if '{"door": "unlock"}' in decoded_message:
       print('Door Unlocking\n')
       unlocked()
+      
+    if '{"faces": "update"}' in decoded_message:
+      print('Updating local authorized images\n')
+      # TODO:
+      # update local feces & encodings -> db changed, pull images
+    
+    if '{"tmp_picture": "test"}' in decoded_message:
+      print('Checking user photo against local encodings')
+      # TODO:  
+      # test the temporary picture in firebase, update firebase field
+      # update_document('flutter_updates', 'picture_test', 'passed') # or 'failed'
       
     print(decoded_message)
     #Acknowledge message
@@ -80,17 +91,7 @@ def take_photo_picamera():
     output = numpy.empty((768,1024,3) , dtype = numpy.uint8)
     camera.capture(output, format = 'rgb')
     return output
-  
-# Contacts AutoML Vision and gets json response
-def get_prediction(content, project_id, model_id):
-    prediction_client = automl_v1beta1.PredictionServiceClient()
 
-    name = 'projects/{}/locations/us-central1/models/{}'.format(project_id, model_id)
-    payload = {'image': {'image_bytes': content }}
-    params = {}
-    request = prediction_client.predict(name, payload, params)
-    return request  # waits until request is returned
-  
 def format_picture():
     output = take_photo_picamera()
     picture = Image.fromarray(output)
@@ -102,39 +103,29 @@ def format_picture():
 ### Functions for locked and unlocked states, updating configuration states in db
 def update_document(doc, field, value):
     db = firestore.Client()
-    door_ref = db.collection(u'pi_config_states').document(u'{}'.format(doc))
+    ref = db.collection(u'pi_config_states').document(u'{}'.format(doc))
 
     # Set the specified field
-    door_ref.update({u'{}'.format(field): value})
+    ref.update({u'{}'.format(field): value})
 
+'''
 def check_user_requests():
     db = firestore.Client()
-    requests_ref = db.collection(u'pi_config_states').document(u'{flutter_request}')
+    requests_ref = db.collection(u'pi_config_states').document(u'{flutter_updates}')
     print(requests_ref)
-    
-'''
-# Listen for updates
-def on_snapshot(doc_snapshot, changes, read_time):
-        for doc in doc_snapshot:
-          print(doc.to_dict())
-        
-def listen_requests():
-    doc_ref = db.collection(u'pi_config_states').document(u'flutter_request')
-    doc_watch = doc_ref.on_snapshot(on_snapshot)
-    print(doc_watch)
 '''
 
 def locked():
-    # Set pi_config_states -> door -> locked : true
-    update_document('door', 'locked', True)
+    # Set pi_config_states -> pi_status -> door locked
+    update_document('pi_status', 'door', 'locked')
   
     GPIO.output(lock, False)
     GPIO.output(red, False)
     GPIO.output(green, True)
     
 def unlocked():
-    # Set pi_config_states -> door -> locked : false
-    update_document('door', 'locked', False)
+    # Set pi_config_states -> pi_status -> door unlocked
+    update_document('pi_status', 'door', 'unlocked')
   
     GPIO.output(lock, True)
     GPIO.output(red,True)
@@ -163,6 +154,7 @@ def get_paired_devices():
         lines = log.read().splitlines()
         for line in lines:
             mac = re.compile('([a-fA-F0-9]{2}[:|\-]?){6}').search(line)
+            # pattern matched
             if mac:
                 pair_macs.append(line[mac.start():mac.end()])
                 
@@ -176,19 +168,16 @@ def get_paired_devices():
 # User considered present if ping of paired device is successful
 def is_phone_present():
     pair_macs = get_paired_devices()
-    '''
-    with open('paired_devices.log') as log: 
-        for mac in range(1, len(pair_macs)):
-            ping_addr = pair_macs[mac]
-            p = subrpocess.Popen('sudo l2ping -c 1 {}'.format(ping_addr), stdin=PIPE, stdout=PIPE, universal_newline=TRUE)
-            #print sys.stdin.read()
-    '''
-    # if any paired macs exist in the output
-    #     return True
-    # else
-    #     return False
     
-    return True
+    for mac in range(0, len(pair_macs)):
+        ping_addr = pair_macs[mac]
+        p = subprocess.run(['sudo', 'l2ping', '-c', '1', '{}'.format(ping_addr)], universal_newlines=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        lines = p.stdout.split('\n')
+        if '1 sent, 1 received, 0% loss' in lines[2]:
+            #print('ping successful')
+            return True
+        else # Auth user not present
+            return False
     
 def is_user_home():
     # getter for auth user home/away settings
@@ -202,6 +191,10 @@ def on_lockdown():
     
     return False
 
+def is_auth():
+    # determines if user is authenticated
+    # checks local storage of authorized face_encodings
+    return True
 
 # Driver
 def main():
@@ -216,7 +209,8 @@ def main():
     # Sensing motion infinitely
     try:
         # Open the subscription, passing the callback async with While loop
-        future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_door_sub', callback1)
+        future = subscriber_door.subscribe('projects/gotcha-233622/subscriptions/pi_config_sub', callback1)
+        
         
         while True:
             # Check if pairing button is pressed
@@ -228,7 +222,7 @@ def main():
             # If motion is detected
             if GPIO.input(pir) == True:
                 # Set pi_config_states -> motion -> detected : true
-                update_document('motion', 'detected', 'true')
+                update_document('pi_status', 'motion', 'true')
                 
                 GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
@@ -247,11 +241,11 @@ def main():
                 # No need to predict while all occupants are away from home 
                 if (not on_lockdown()):
                     
-                    # Get a prediction from AutoML only if faces are found
+                    # Check encodings only if faces are found
                     if(len(face_locations) > 0):
                       
                             # Set pi_config_states -> faces -> detected : true
-                            update_document('faces', 'detected', 'true')
+                            update_document('pi_status', 'faces', 'true')
                             
                             # Crop all faces from photo
                             for face_location in face_locations:
@@ -265,30 +259,14 @@ def main():
                                     path = 'result_{}.jpg'.format(i)  
                                     pil_image.save(path)
 
-                                    # Read .jpg file as bytes
-                                    with open(path, 'rb') as ff:
-                                            content = ff.read()
-                                    
-                                    # AutoML request
-                                    json_response = get_prediction(content, project_id, model_id)
-                                    print(json_response)
-                                    json_str = str(json_response)
-                                    
-                                    # Regex for score 
-                                    match = re.search('([0-9]*\.[0-9]+|[0-9]+)', json_str)
-                                    score = match.group(0)
-                                    
-                                    # Regex for model prediciton
-                                    #user = 
-                                    
                                     # If user is not home proceed to assess face credentials and ping phone
-                                    if (not is_user_home())):
+                                    if (not is_user_home()):
                                     
-                                        #If score is above 89.999%, unlock door  
-                                        if (float(score) > 0.8999999999999999) and (is_phone_present()): 
+                                        # Authenticate photographed persons  
+                                        if (is_auth()) and (is_phone_present()): 
                                               
                                                 # Unlock the door
-                                                print(f'face_{i} Authorized with prediction score: {score}')
+                                                print('face_{} Authorized with prediction score: {}'.format(i, score))
                                                 print('Door Unlocking')
                                                 unlocked()
                                                 
@@ -298,7 +276,7 @@ def main():
                                                 
                                         #Else, unauthorized entry
                                         else:
-                                                print(f'face_{i} Not Authorized with prediction score: {score}')
+                                                print('face_{} Not Authorized with prediction score: {}'.format(i, score))
                                                 locked()
                                     
                                     # face counter++        
@@ -308,9 +286,9 @@ def main():
                             
                             ## Reset for next cycle
                             # Set pi_config_states -> faces -> detected : false
-                            update_document('faces', 'detected', 'false')
+                            update_document('pi_status', 'faces', 'false')
                             # Set pi_config_states -> motion -> detected : true
-                            update_document('motion', 'detected', 'false')
+                            update_document('pi_status', 'motion', 'false')
                             
                             # Blue LED ON to indicate motion sensor ready
                             GPIO.output(blue, False)
@@ -320,15 +298,15 @@ def main():
                     else:
                             print('No faces found')
                             print("End of detection cycle")
-                            # Set pi_config_states -> motion -> detected : true
-                            update_document('motion', 'detected', 'false')
+                            # Set pi_config_states -> motion -> detected : false
+                            update_document('pi_status', 'motion', 'false')
                             
                             # Blue LED ON to indicate motion sensor ready
                             GPIO.output(blue, False)
             
             
     # End of testing TODO item: create and modify permissions for /etc/network/if-up.d/{bash_script_name.sh}
-    # *.sh will execute this python script when the network becomes availiable
+    # *.sh will execute this python script when the network becomes availiable - remove interrupt
             
     # At keyboard interrupt, cease to sense motion
     except KeyboardInterrupt: 

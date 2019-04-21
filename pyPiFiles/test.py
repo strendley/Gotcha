@@ -2,37 +2,13 @@
 # -*- coding: utf-8 -*-
 #
 #  
-import subprocess
-import re
-import sys
-
-def get_paired_devices():
-    #p_devices = subprocess.Popen('./get_paired_devices.sh', shell=True, stdout=subprocess.PIPE)
-    #p_devices.wait()
-    # parse paired_devices.log
-    pair_macs = []
-    with open('paired_devices.log') as log: 
-        lines = log.read().splitlines()
-        for line in lines:
-            mac = re.compile('([a-fA-F0-9]{2}[:|\-]?){6}').search(line)
-            if mac:
-                pair_macs.append(line[mac.start():mac.end()])
-                
-        del pair_macs[-1]   #remove last mac - raspberry pi bt address
-        #print(pair_macs)
-    
-    log.close()
-    return pair_macs
-    
-def is_phone_present():
-    pair_macs = get_paired_devices()
-    
-    for mac in range(0, len(pair_macs)):
-        ping_addr = pair_macs[mac]
-        p = subprocess.run(['sudo', 'l2ping', '-c', '1', '{}'.format(ping_addr)], universal_newlines=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-        lines = p.stdout.split('\n')
-        if '1 sent, 1 received, 0% loss' in lines[2]:
-            #print('ping successful')
-            return True
+from google.cloud import firestore
         
-is_phone_present()
+def read_db_value(document, field):
+    db = firestore.Client()
+    doc_ref = db.collection(u'pi_config_states').document(u'{}'.format(document))
+    doc = doc_ref.get()
+    config = '{}'.format(doc.to_dict())       
+    return config
+    
+read_db_value('settings', 'on_vacation')

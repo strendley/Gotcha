@@ -61,8 +61,8 @@ def callback1(encoded_message):
 
     decoded_message = bytes.decode(encoded_message.data)
     
-    # Split json message by line, check for all conditions
-    print(decoded_message)
+    # Check for each type of message
+    #print(decoded_message)
     
     # Unlocks door 
     if '"door": "unlock"' in decoded_message:
@@ -105,12 +105,12 @@ def update_document(doc, field, value):
     # Set the specified field
     ref.update({u'{}'.format(field): value})
 
-
-def check_user_requests():
+def get_db_value(document, field):
     db = firestore.Client()
-    requests_ref = db.collection(u'pi_config_states').document(u'{flutter_updates}')
-    print(requests_ref)
-
+    doc_ref = db.collection(u'pi_config_states').document(u'{}'.format(document))
+    doc = doc_ref.get()
+    config = '{}'.format(doc.to_dict())       
+    return config
 
 def locked():
     # Set pi_config_states -> pi_status -> door locked
@@ -175,24 +175,28 @@ def is_phone_present():
             return True
         else: # Auth user not present
             return False
-
-####### TODO ###########################################################
-def is_user_home():
+            
+def on_lockdown():
+    # getter for global home/away setting
+    lockdown = get_db_value('settings', 'on_vacation')
+    if 'true' in lockdown:
+      return True
+    else:
+      return False
+      
+def is_user_home(user):
     # getter for auth user home/away settings
     # user can allow system to know which registered occupants are inside 
-    
-    return False
-    
-def on_lockdown():
-    # getter for vacation setting in app
-    # disables all entry
-    
-    return False
+    home = get_db_value('is_home', user)
+    if 'true' in home:
+      return True
+    else:
+      return False
 
+####### TODO ###########################################################
 def is_auth():
     # determines if user is authenticated
     # checks local storage of authorized face_encodings
-    
     return True
 
 def picture_test(): 
@@ -266,9 +270,11 @@ def main():
                                 # save image to upload
                                 path = 'result_{}.jpg'.format(i)  
                                 pil_image.save(path)
+                                
+                                user = 'luke'
 
                                 # If user is not home proceed to assess face credentials and ping phone
-                                if (not is_user_home()):
+                                if (not is_user_home('{}'.format(user))): # var user is the '<user_name>'
                                 
                                     # Authenticate photographed persons  
                                     # name var is path to photo

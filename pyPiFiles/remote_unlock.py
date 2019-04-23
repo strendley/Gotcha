@@ -67,19 +67,18 @@ def callback1(encoded_message):
     # Unlocks door 
     if '"door": "unlock"' in decoded_message:
       print('Door Unlocking\n')
+      encoded_message.ack()
       unlocked()
       
     if '"faces": "update"' in decoded_message:
       print('Updating local authorized images\n')
+      encoded_message.ack()
       update_local_faces()
     
     if '"tmp_picture": "test"' in decoded_message:
       print('Checking user photo against local encodings')
+      encoded_message.ack()
       picture_test()
-      
-    print(decoded_message)
-    #Acknowledge message
-    encoded_message.ack()
     
 # Takes photo and returns output  
 def take_photo_picamera():
@@ -203,10 +202,10 @@ def picture_test():
     # test the temporary picture in firebase, update firebase field
     # update_document('flutter_updates', 'picture_test', 'passed') # or 'failed'
     update_document('flutter_updates', 'picture_test', 'failed')
-'''    
+  
 def update_local_faces():
     # update local feces & encodings -> db changed, pull images
-'''
+    return False
 
 # Driver
 def main():

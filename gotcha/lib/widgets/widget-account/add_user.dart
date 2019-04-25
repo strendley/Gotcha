@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_info/device_info.dart';
 import 'homepage.dart';
 
 import '../widget-camera/test_pictures.dart';
@@ -14,7 +13,6 @@ class AddUser extends StatefulWidget {
 }
 
 class _AddUserState extends State<AddUser>{
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   var _first_name = new TextEditingController();
   var _middle_name = new TextEditingController();
   var _last_name = new TextEditingController();
@@ -87,9 +85,7 @@ class _AddUserState extends State<AddUser>{
     };
 
     documentReference.setData(data).whenComplete(() async{
-      print("Document Added");
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      print('Running on ${androidInfo.device}');
+      print('setData');
     }).catchError((e)=> print(e));
   }
 
@@ -290,7 +286,7 @@ class _AddUserState extends State<AddUser>{
                           child: Text("Continue", style: new TextStyle(fontSize: 20),),
                           onPressed: () { 
                             _add();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures(text:_first_name.text + _last_name.text)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures(text:"face_" + _first_name.text + _last_name.text+ '.jpg')));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)

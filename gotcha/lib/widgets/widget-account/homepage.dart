@@ -5,7 +5,8 @@ import 'add_user.dart';
 import 'features.dart';
 import '../widget-camera/test.dart';
 import '../widget-account/widget-account.dart';
-import '../widget-camera/test_pictures.dart';
+import 'package:flutter_vlc_player/vlc_player.dart';
+import 'package:flutter_vlc_player/vlc_player_controller.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -31,6 +32,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
+  final String urlToStreamVideo = 'http://192.168.0.16:8000/stream.mjpg';
+  final VlcPlayerController controller = VlcPlayerController();
+  final int playerWidth = 640;
+  final int playerHeight = 360;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +47,12 @@ class _MyHomePageState extends State<HomePage> {
             new SliverAppBar(
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  "lib/data/img/gotcha_placeholder.png",
-                  fit: BoxFit.cover,
-
+                background:  VlcPlayer(
+                  defaultWidth: playerWidth,
+                  defaultHeight: playerHeight,
+                  url: urlToStreamVideo,
+                  controller: controller,
+                  placeholder: Center(child: CircularProgressIndicator()),
                 ),
                 centerTitle: true,
               ),

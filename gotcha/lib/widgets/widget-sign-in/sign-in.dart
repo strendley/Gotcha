@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import '../widget-boxes/username-login-box.dart';
-import '../widget-boxes/password-login-box.dart';
 import '../../services/authentication.dart';
 import '../widget-unknown-account/forgotPassword.dart';
-import '../widget-buttons/sign-in-button.dart';
-import '../widget-account/widget-account.dart';
 import '../widget-account/createAccount.dart';
 import '../widget-account/homepage.dart';
-import '../widget-account/personalInfo.dart';
 
 class SignIn extends StatefulWidget {
   SignIn({Key key, this.auth}) : super(key: key);

@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'view.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
-import 'package:image/image.dart' as img;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart' as fbc;
 
 
 class Pictures extends StatefulWidget {

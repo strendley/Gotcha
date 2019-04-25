@@ -59,6 +59,7 @@ flutter:
     - furry_george.jpg
     - gotcha.png
     - lib/data/img/gotcha_placeholder.png
+    - gotcha_signin.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

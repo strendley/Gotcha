@@ -5,38 +5,63 @@ import 'dart:convert';
 import 'package:gotcha/creds.dart'; //isolate sensitive data
 import 'package:gotcha/crud.dart';
 import 'homepage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/firebase-firestore-accounts.dart';
+import 'dart:async';
+import '../../data/model/account.dart';
 const _SCOPES = const [PubsubApi.PubsubScope];
 
-class Account extends StatefulWidget {
-  Account({Key key, this.title}) : super(key: key);
+class AccountPage extends StatefulWidget {
+  AccountPage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
   _AccountPageState createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<Account> {
+class _AccountPageState extends State<AccountPage> {
   bool enablePush = false;
   bool openDoor = false;
-  bool selfDestruct = false;
 
   String userName = "Name";
-  String emailAddress = "Email";
+  String phoneNumber = "Phone Number";
   String address = "Address";
 
   bool piLocked = true;
 
   final TextEditingController nameController = new TextEditingController();
-  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneController = new TextEditingController();
   final TextEditingController addressController = new TextEditingController();
+
+  List<Account> accounts;
+  FirebaseFirestoreService db = new FirebaseFirestoreService();
+
+  StreamSubscription<QuerySnapshot> accountSub;
+
+  @override
+  void initState() {
+    super.initState();
+
+    accounts = new List();
+
+    accountSub?.cancel();
+    accountSub = db.getNoteList().listen((QuerySnapshot snapshot) {
+      final List<Account> accounts = snapshot.documents
+          .map((documentSnapshot) => Account.fromMap(documentSnapshot.data))
+          .toList();
+
+      setState(() {
+        this.accounts = accounts;
+      });
+    });
+  }
 
   void onChangedSwitch(bool value) => setState(() => enablePush = value);
   void onChangedDoor(bool value) => setState(() => openDoor = value);
   //void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
 
   void onNameChange(String user) { if(user != "") setState(() => userName = user);}
-  void onEmailChange(String email) { if(email != "") setState(() => emailAddress = email);}
+  void onPhoneChange(String phone) { if(phone != "") setState(() => phoneNumber = phone);}
   void onAddressChange(String addr) { if(addr != "") setState(() => address = addr);}
 
 
@@ -89,7 +114,7 @@ class _AccountPageState extends State<Account> {
   void dispose()
   {
     nameController.dispose();
-    emailController.dispose();
+    phoneController.dispose();
     addressController.dispose();
     super.dispose();
   }
@@ -102,7 +127,7 @@ class _AccountPageState extends State<Account> {
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             new SliverAppBar(
-              leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);}),
+              leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () { initState(); Navigator.pop(context);}),
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
                 title: new Text("Account Settings"),
@@ -176,7 +201,7 @@ class _AccountPageState extends State<Account> {
                                     ),
 
                                     actions: <Widget>[
-                                      new FlatButton(onPressed:() {onNameChange(nameController.text); Navigator.of(context).pop();}, child: new Text("OK"))
+                                      new FlatButton(onPressed:() {onNameChange(nameController.text); Navigator.of(context, rootNavigator: true).pop('dialog');}, child: new Text("OK"))
                                     ],
                                   )
                                   );
@@ -194,21 +219,21 @@ class _AccountPageState extends State<Account> {
                                   showDialog(
                                       context: context, child:
                                   AlertDialog(
-                                    title: new Text("Email: "),
+                                    title: new Text("Phone Number: "),
                                     content: new TextField(
                                         decoration: InputDecoration(
-                                          hintText: emailAddress,
+                                          hintText: phoneNumber,
                                         ),
-                                      controller: emailController,
+                                      controller: phoneController,
                                     ),
                                     actions: <Widget>[
-                                      new FlatButton(onPressed:() {onEmailChange(emailController.text); Navigator.of(context).pop();}, child: new Text("OK"))
+                                      new FlatButton(onPressed:() {onPhoneChange(phoneController.text); Navigator.of(context, rootNavigator: true).pop('dialog');}, child: new Text("OK"))
                                     ],
                                   )
                                   );
                                 },
-                                title: new Text(emailAddress),
-                                leading: new Icon(Icons.email, color:Colors.grey, size:25.0),
+                                title: new Text(phoneNumber),
+                                leading: new Icon(Icons.phone_iphone, color:Colors.grey, size:25.0),
                                 trailing: new Icon(Icons.edit, color:Colors.grey, size:25.0),
                               ),
                             ),
@@ -228,7 +253,7 @@ class _AccountPageState extends State<Account> {
                                         controller: addressController,
                                       ),
                                       actions: <Widget>[              // here for testing, TODO: Assign to first switch on this page // updateData('pi_config_states','door', true)
-                                        new FlatButton(onPressed:() { publishTopic('door'); /*onAddressChange(addressController.text); Navigator.of(context).pop();*/}, child: new Text("OK"))
+                                        new FlatButton(onPressed:() { onAddressChange(addressController.text); Navigator.of(context, rootNavigator: true).pop('dialog');}, child: new Text("OK"))
                                       ],
                                     )
                                     );

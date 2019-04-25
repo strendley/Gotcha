@@ -3,6 +3,9 @@ import 'pi_settings.dart';
 import 'household.dart';
 import 'add_user.dart';
 import 'features.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/firebase-firestore-users.dart';
+
 //import '../widget-camera/test.dart';
 class AccountSettings extends StatelessWidget {
   // This widget is the root of your application.
@@ -28,6 +31,12 @@ class AccountSettingsPage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<AccountSettingsPage> {
+  var Name = new TextEditingController();
+  var Email = new TextEditingController();
+  var Address = new TextEditingController();
+  FirebaseFirestoreService db = new FirebaseFirestoreService();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

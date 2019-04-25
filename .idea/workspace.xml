@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c8da5df-352c-4fc9-8a34-6b2546981047" name="Default Changelist" comment="" />
+    <list default="true" id="9c8da5df-352c-4fc9-8a34-6b2546981047" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Gotcha.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gotcha.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,16 +62,20 @@
     <session id="-17747404">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.23" value="1" />
+          <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="creds_dart_readme" value="1" />
-          <entry key="dart" value="50" />
+          <entry key="dart" value="69" />
           <entry key="gitignore" value="1" />
           <entry key="gradle" value="7" />
           <entry key="gradlew" value="1" />
@@ -77,7 +86,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="50" />
+          <entry key="Dart" value="69" />
           <entry key="Groovy" value="7" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="Properties" value="1" />
@@ -87,7 +96,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="802" />
+          <entry key="dart" value="3086" />
           <entry key="txt" value="48" />
           <entry key="xml" value="8" />
           <entry key="yaml" value="60" />
@@ -95,7 +104,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="802" />
+          <entry key="Dart" value="3086" />
           <entry key="PLAIN_TEXT" value="48" />
           <entry key="XML" value="8" />
           <entry key="YAML" value="60" />
@@ -106,10 +115,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/widget-account.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+            <state relative-caret-position="1360">
+              <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -118,10 +127,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="153">
+              <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -130,10 +139,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/personalInfo.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="81" column="50" lean-forward="true" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
+            <state relative-caret-position="34">
+              <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -142,10 +151,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gotcha/lib/routes.dart">
+        <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-549">
-              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="68">
+              <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -166,6 +175,15 @@
       <find>im</find>
       <find>co</find>
       <find>compile</find>
+      <find>_check_password</find>
+      <find>user</find>
+      <find>ok</find>
+      <find>sign</find>
+      <find>personalInfo</find>
+      <find>person</find>
+      <find>naviga</find>
+      <find>email</find>
+      <find>initState</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -176,10 +194,8 @@
       <list>
         <option value="$PROJECT_DIR$/flutter_course/.packages" />
         <option value="$PROJECT_DIR$/flutter_course/android/local.properties" />
-        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart" />
         <option value="$PROJECT_DIR$/gotcha/lib/creds.dart" />
         <option value="$PROJECT_DIR$/gotcha/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/view.dart" />
         <option value="$PROJECT_DIR$/gotcha/gotcha/android/app/src/profile/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/gotcha/gotcha/android/app/src/main/AndroidManifest.xml" />
@@ -187,13 +203,23 @@
         <option value="$PROJECT_DIR$/gotcha/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/gotcha/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/data/model/user.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/services/firebase-firestore-accounts.dart" />
         <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-unknown-account/forgotPassword.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/screens/account-screen.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/widget-account.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/data/model/account.dart" />
+        <option value="$PROJECT_DIR$/gotcha/lib/widgets/widget-account/personalInfo.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="448" />
-    <option name="width" value="1479" />
+    <option name="x" value="-8" />
+    <option name="width" value="1302" />
     <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -202,6 +228,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -241,14 +269,20 @@
               <item name="gotcha" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="widgets" type="462c0819:PsiDirectoryNode" />
-              <item name="widget-camera" type="462c0819:PsiDirectoryNode" />
+              <item name="widget-sign-in" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gotcha" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gotcha" type="462c0819:PsiDirectoryNode" />
+              <item name="gotcha" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
+              <item name="widget-unknown-account" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -276,9 +310,15 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gitignore</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/remote_unlock.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/test.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/Gotcha.iml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/android/app/build.gradle</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/pubspec.lock</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gotcha/pubspec.yaml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/camera_serveillance_system.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -286,9 +326,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/camera_serveillance_system.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/css.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/pyPiFiles/video.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -426,21 +463,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="359" y="0" width="1183" height="830" extended-state="0" />
+    <frame x="-6" y="0" width="882" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.28406054" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.37469587" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.4986643" visible="true" weight="0.3328551" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.49632052" visible="true" weight="0.33142036" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49955475" weight="0.32998565" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5013357" side_tool="true" visible="true" weight="0.3328551" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50367945" side_tool="true" weight="0.33094555" />
       <window_info anchor="bottom" id="Flutter Performance" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49955475" weight="0.32998565" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32907802" />
@@ -448,31 +485,31 @@
       <window_info anchor="bottom" id="Messages" order="9" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
-      <window_info anchor="right" id="Flutter Inspector" order="2" visible="true" weight="8.90472E-4" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" weight="8.1766146E-4" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
     </layout>
     <layout-to-restore>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23288591" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25756338" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" visible="true" weight="0.32907802" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.49632052" visible="true" weight="0.33094555" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.32907802" />
-      <window_info anchor="bottom" id="Terminal" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49955475" weight="0.32998565" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50367945" side_tool="true" visible="true" weight="0.33094555" />
       <window_info anchor="bottom" id="Flutter Performance" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49955475" weight="0.32998565" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32907802" />
       <window_info anchor="bottom" id="Find" order="8" />
       <window_info anchor="bottom" id="Messages" order="9" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
-      <window_info anchor="right" id="Flutter Inspector" order="2" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" visible="true" weight="8.1766146E-4" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
     </layout-to-restore>
@@ -488,11 +525,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="made changes to navigation" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flutter_course/.idea/modules.xml" />
-    <entry file="file://$PROJECT_DIR$/flutter_course/.idea/vcs.xml" />
-    <entry file="file://$PROJECT_DIR$/login.axml" />
-    <entry file="file://$PROJECT_DIR$/addPictures.PNG" />
-    <entry file="file://$PROJECT_DIR$/flutter_course/android/local.properties" />
     <entry file="file://$PROJECT_DIR$/flutter_course/.idea/workspace.xml" />
     <entry file="file://$PROJECT_DIR$/pyPiFiles/pic.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -500,9 +532,6 @@
           <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/screens/account-screen.dart">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/screens/account-settings-screen.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -541,11 +570,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/household.dart">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/personalInfo.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2193" />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-buttons/sign-in-button.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -590,34 +614,6 @@
     <entry file="file://$PROJECT_DIR$/gotcha/lib/services/authentication.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-184" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-286">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2040">
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/widget-account.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1641">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" column="23" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/gotcha/lib/main.dart" />
@@ -670,9 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="32" column="11" lean-forward="true" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -686,42 +679,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/routes.dart">
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-549">
-          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        <state relative-caret-position="1258">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart">
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/routes.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1887" />
+        <state relative-caret-position="238">
+          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test.dart">
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/accountSettings.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="510">
+          <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/services/firebase-firestore-users.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="30" selection-end-line="81" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-unknown-account/forgotPassword.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="67" column="29" lean-forward="true" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-camera/test_pictures.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+        <state relative-caret-position="1989">
+          <caret line="117" selection-start-line="117" selection-end-line="117" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/services/firebase-firestore-accounts.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="81" column="50" lean-forward="true" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/screens/account-screen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="1" column="55" lean-forward="true" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/homepage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="63" column="48" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/data/model/account.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-sign-in/sign-in.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="168" column="93" selection-start-line="168" selection-start-column="93" selection-end-line="168" selection-end-column="93" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/data/model/user.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/createAccount.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/widget-account.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/add_user.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gotcha/lib/widgets/widget-account/personalInfo.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

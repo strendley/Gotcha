@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/gotcha/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/gotcha/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/gotcha/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gotcha_old/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/gotcha_old/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gotcha_old/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

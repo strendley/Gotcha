@@ -31,6 +31,10 @@ dependencies:
   googleapis: ^0.53.0
   googleapis_auth: any
   device_info: 0.4.0+1
+  firebase_ml_vision: ^0.7.0
+  image: ^2.0.7
+  firebase_storage: any
+
 
 dev_dependencies:
   flutter_test:

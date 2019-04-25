@@ -290,7 +290,7 @@ class _AddUserState extends State<AddUser>{
                           child: Text("Continue", style: new TextStyle(fontSize: 20),),
                           onPressed: () { 
                             _add();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Pictures(text:_first_name.text + _last_name.text)));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)

@@ -5,15 +5,20 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'view.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'package:image/image.dart' as img;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart' as fbc;
+
 
 class Pictures extends StatefulWidget {
-  Pictures({Key key, this.title}) : super(key: key);
-
+  Pictures({Key key, this.title, @required this.text}) : super(key: key);
+  final text;
   final String title;
-
   @override
   _PicturePageState createState() => _PicturePageState();
 }
+
 
 class _PicturePageState extends State<Pictures> {
   /*
@@ -59,19 +64,18 @@ class _PicturePageState extends State<Pictures> {
 */
 
   File _image;
-
+  var image;
   Future getImageFromCam() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;    });
   }
 
   Future getImageFromGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
+    image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState((){
       _image = image;
-    }
-    );
+    });
   }
 
 
@@ -146,7 +150,15 @@ class _PicturePageState extends State<Pictures> {
             buttonColor: Theme.of(context).buttonColor,
             minWidth: double.infinity,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                //Add new user to database
+                Navigator.pop(context);
+                Navigator.pop(context);
+                var _name = widget.text;
+                FirebaseStorage _storage = FirebaseStorage.instance;
+                StorageReference ref =  _storage.ref().child(_name);
+                StorageUploadTask uploadTask = ref.putFile(image);
+              },
               child: Text('Finish'),
             ),
           ),

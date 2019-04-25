@@ -69,5 +69,7 @@ dependencies {
     implementation "android.arch.core:common:1.1.1"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Add the fb ml model api
+    api 'com.google.firebase:firebase-ml-vision-image-label-model:17.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

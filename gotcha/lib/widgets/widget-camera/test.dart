@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:gotcha/creds.dart';
 import '../widget-account/homepage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info/device_info.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -54,7 +56,26 @@ class _TestCameraState extends State<TestCamera> {
     }
     );
   }
+  bool testPic(){
+    var result = false;
+    final DocumentReference documentReference = Firestore.instance.collection('pi_config_states').document('image_test');
+    Map<String, bool> data = <String, bool>{
+      "toTest" : true,
+      "testResult": false,
+      "hasTested": false
+    };
+    documentReference.setData(data);
 
+    var gotResult = false;
+    while(!gotResult)
+      {
+        var dataStuff = documentReference.get();
+        print(dataStuff.toString());
+        print('hi');
+        gotResult = true;
+      }
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -159,7 +180,7 @@ class _TestCameraState extends State<TestCamera> {
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
                         onPressed: () {
                           // get prediction here
-
+                          var result = testPic();
 
                           showDialog(
                               context: context, child:

@@ -286,7 +286,8 @@ class _AccountPageState extends State<AccountPage> {
                               //color: Colors.red[100],
                               child: new ListTile(
                                   title: new Text("Door Status"),
-                                  leading: openDoor==true?new Icon(Icons.lock_open, color:Colors.grey, size:25.0):new Icon(Icons.lock, color:Colors.grey, size:25.0),
+                                  leading: openDoor==true?new Icon(Icons.lock_open, color:Colors.grey, size:25.0):
+                                                          new Icon(Icons.lock, color:Colors.grey, size:25.0),
                                   trailing: new Switch(value: openDoor, onChanged: onChangedDoor, activeColor: Colors.blue[700],)
                               ),
                             ),
@@ -297,7 +298,8 @@ class _AccountPageState extends State<AccountPage> {
                               //color: Colors.blue[100],
                               child: new ListTile(
                                   title: new Text("Push Notifications"),
-                                  leading: new Icon(Icons.notifications, color:Colors.grey, size:25.0),
+                                  leading: enablePush==true?new Icon(Icons.notifications_active, color:Colors.grey, size:25.0):
+                                                            new Icon(Icons.notifications_off, color:Colors.grey, size:25.0),
                                   trailing: new Switch(value: enablePush, onChanged: onChangedSwitch, activeColor:Colors.blue[700])
                               ),
                             ),

@@ -9,6 +9,7 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:image/image.dart' as img;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as fbc;
+import '../widget-account/homepage.dart';
 
 
 class Pictures extends StatefulWidget {
@@ -85,6 +86,17 @@ class _PicturePageState extends State<Pictures> {
       appBar: new AppBar(
         title: new Text('Add User Pictures'),
         centerTitle: true,
+        actions: <Widget>[
+          new IconButton(
+            icon: Image.asset("gotcha.png"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) => Home(),),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget> [
@@ -95,72 +107,98 @@ class _PicturePageState extends State<Pictures> {
                   child: Text("Please Add A Guest User Photo", style: TextStyle(fontSize: 25)))
           ),
 
-          ButtonTheme(
-            buttonColor: Theme.of(context).buttonColor,
-            minWidth: double.infinity,
-            child: RaisedButton(
-              onPressed: () {getImageFromGallery();},
-              child: Text('Add Old Pictures From Gallery'),
-            ),
-          ),
+          new Row(
 
-          ButtonTheme(
-            buttonColor: Theme.of(context).buttonColor,
-            minWidth: double.infinity,
-            child: RaisedButton(
-              onPressed: () {getImageFromCam();},
-              child: Text('Add New Pictures From Camera'),
-            ),
-          ),
-
-          new Padding(
-              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: const Align(
-                  alignment: Alignment.topCenter,
-                  child: Text("Percent Completion: ???", style: TextStyle(fontSize: 20)))
-          ),
-
-          new Column(
             children: <Widget>[
-              new Container(
-                alignment: Alignment.center,
-                child: _image == null? new Text('No Image to show'): new Image.file(_image),
-                height: 250.0,
-                width: 250.0,
+              new Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RaisedButton(
+                      color: Color(0xffFFF0D1),
+                      child: Text("+  Gallery", style: new TextStyle(fontSize: 20),),
+                      onPressed: () {getImageFromGallery();},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3)
+                      ),
+                    ),
+                    //padding: EdgeInsets.only(left: 10, right: 10),
+                  )
+              ),
+              new Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RaisedButton(
+                      color: Color(0xffFFF0D1),
+                      child: Text("+  Camera", style: new TextStyle(fontSize: 20),),
+                      onPressed: () {getImageFromCam();},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2)
+                      ),
+                    ),
+                    //padding: EdgeInsets.only(left: 10, right: 10),
+                  )
               ),
             ],
           ),
 
-          new Padding(
-              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Text("Click on image to crop or remove it", style: TextStyle(fontSize: 15))
+          SizedBox(height: 20,),
+
+          new Column(
+            children: <Widget>[
+              new Container(
+                  alignment: Alignment.center,
+                  child: _image == null? new Image.asset('defaultUser.png', height: 250, width: 250):
+                  new Image.file(_image, height: 250, width: 250,),
+                  height: 265.0,
+                  width: 260.0,
+                  decoration: new BoxDecoration(
+                    color: const Color(0xFF314c66), // border color
+                    shape: BoxShape.rectangle,
+                  )
+              ),
+            ],
           ),
 
+          SizedBox(height: 20,),
 
-          ButtonTheme(
-            buttonColor: Theme.of(context).buttonColor,
-            minWidth: double.infinity,
-            child: RaisedButton(
-              onPressed: () {Navigator.pop(context);},
-              child: Text('Previous'),
+          new Row(
+          children: <Widget>[
+            new Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: RaisedButton(
+                    color: Color(0xffFFF0D1),
+                    child: Text("Back", style: new TextStyle(fontSize: 20),),
+                    onPressed: () {Navigator.pop(context);},
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3)
+                    ),
+                  ),
+                  //padding: EdgeInsets.only(left: 10, right: 10),
+                )
             ),
-          ),
 
-          ButtonTheme(
-            buttonColor: Theme.of(context).buttonColor,
-            minWidth: double.infinity,
-            child: RaisedButton(
-              onPressed: () {
-                //Add new user to database
-                Navigator.pop(context);
-                Navigator.pop(context);
-                var _name = widget.text;
-                FirebaseStorage _storage = FirebaseStorage.instance;
-                StorageReference ref =  _storage.ref().child(_name);
-                StorageUploadTask uploadTask = ref.putFile(image);
-              },
-              child: Text('Finish'),
+            new Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: RaisedButton(
+                    color: Color(0xffFFF0D1),
+                    child: Text("Done", style: new TextStyle(fontSize: 20),),
+                    onPressed: () {//Add new user to database
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      var _name = widget.text;
+                      FirebaseStorage _storage = FirebaseStorage.instance;
+                      StorageReference ref =  _storage.ref().child(_name);
+                      StorageUploadTask uploadTask = ref.putFile(image);},
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3)
+                    ),
+                  ),
+                  //padding: EdgeInsets.only(left: 10, right: 10),
+                )
             ),
+            ],
           ),
 
 

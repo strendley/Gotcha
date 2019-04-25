@@ -45,7 +45,7 @@ class _CreateAccount extends State<CreateAccount> {
         {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (BuildContext context) => PersonalInfo())
+            MaterialPageRoute(builder: (BuildContext context) => PersonalInfo(email: _email.text))
           );
         }
       }

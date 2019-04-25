@@ -73,14 +73,14 @@ class _SignInState extends State<SignIn> {
             padding: EdgeInsets.all(30),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-
                 children: <Widget>[
 
-                  SizedBox(height: 50),
-                  Image.asset('gotcha.png'),
                   SizedBox(height: 40),
 
-                
+                  new Image.asset('lib/data/img/gotcha_signin.png', height: 190, width: 190,),
+
+                  SizedBox(height: 30),
+
                   Column ( 
                     children: <Widget> [
                       Row(
@@ -142,7 +142,7 @@ class _SignInState extends State<SignIn> {
                     ],
                   ),
 
-                  SizedBox(height: 30,),
+                  SizedBox(height: 15,),
 
                   SizedBox(
                     width: 125,

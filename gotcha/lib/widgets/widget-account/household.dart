@@ -14,6 +14,9 @@ class UserRow extends StatefulWidget
 
 class _UserRowState extends State<UserRow> {
   User user;
+  bool isHome = false;
+
+  void onChangedSwitch(bool value) => setState(() => isHome = value);
 
   _UserRowState(this.user);
 
@@ -23,24 +26,18 @@ class _UserRowState extends State<UserRow> {
       alignment: FractionalOffset.centerLeft,
       child: new CircleAvatar(
         backgroundImage: AssetImage(user.image),
-        maxRadius: 50,
+        maxRadius: 55,
       ),
-        width: 105.0,
-        height: 105.0,
         padding: const EdgeInsets.all(5.0), // borde width
-        decoration: new BoxDecoration(
-          color: const Color(0xFF4c346d), // border color
-          shape: BoxShape.circle,
-        )
     );
   }
 
   Widget get userCard {
     return new Container(
-      height: 130.0,
+      height: 150.0,
       margin: new EdgeInsets.only(left: 0.0),
       decoration: new BoxDecoration(
-        color: new Color(0xff4c346d),
+        color: new Color(0xff314c66),
           shape: BoxShape.rectangle,
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
@@ -56,7 +53,7 @@ class _UserRowState extends State<UserRow> {
 
   Widget get userContent {
     return new Container(
-      margin: new EdgeInsets.fromLTRB(110.0, 10.0, 16.0, 10.0),
+      margin: new EdgeInsets.fromLTRB(120.0, 0.0, 15.0, 5.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +61,7 @@ class _UserRowState extends State<UserRow> {
           new Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -73,9 +71,9 @@ class _UserRowState extends State<UserRow> {
                     icon: const Icon(Icons.edit, color: Colors.white,),
                     onPressed: () {},
                   ),
-
                 ],
               ),
+
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -101,7 +99,23 @@ class _UserRowState extends State<UserRow> {
                     ),
                   ),
                 ],
-              )
+              ),
+
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+
+                  Text("Home Status", style: TextStyle(fontSize: 18, color: Colors.white)),
+
+                  isHome==true?new Icon(Icons.home, color:Colors.white, size:25.0):
+                        new Icon(Icons.directions_walk, color:Colors.white, size:25.0),
+
+                  new Switch(value: isHome, onChanged: onChangedSwitch,
+                              activeColor:Colors.white),
+
+                ],
+              ),
+
             ],
           ),
         ],
@@ -112,10 +126,10 @@ class _UserRowState extends State<UserRow> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        height: 120.0,
+        height: 150.0,
         margin: EdgeInsets.symmetric(
             vertical: 16.0,
-            horizontal: 24.0
+            horizontal: 15.0
         ),
         child: new Stack(
           children: <Widget>[

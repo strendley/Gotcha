@@ -10,7 +10,7 @@ class AccountPage extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.blue
       ),
-      home: Account(title: 'Account Settings'),
+     // home: AccountPage(title: 'Account Settings'),
     );
   }
 }

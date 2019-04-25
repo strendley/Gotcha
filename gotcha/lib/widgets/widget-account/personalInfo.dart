@@ -8,9 +8,10 @@ import '../../data/model/user.dart';
 import 'homepage.dart';
 
 class PersonalInfo extends StatefulWidget {
-  PersonalInfo({Key key, this.title}) : super(key: key);
+  PersonalInfo({Key key, this.title, this.email}) : super(key: key);
 
   final String title;
+  final String email;
 
   @override
   _PersonalInfo createState() => _PersonalInfo();
@@ -30,7 +31,29 @@ class _PersonalInfo extends State<PersonalInfo> {
   FirebaseFirestoreService db = new FirebaseFirestoreService();
   
   StreamSubscription<QuerySnapshot> userSub;
-  
+
+  void _add() {
+    String document_name = widget.email;
+    final DocumentReference documentReference = Firestore.instance.collection('accounts').document(document_name);
+    Map<String, String> data = <String, String>{
+      "name_first" : firstName.text,
+      "name_middle": middleName.text,
+      "name_last": lastName.text,
+      "address_city": addressCity.text,
+      "address_state": addressState.text,
+      "address_zip" : addressZip.text,
+      "phone_number": phoneNumber.text,
+      "country": country.text,
+    };
+
+    documentReference.setData(data).whenComplete(() async{
+      print("Document Added");
+      print(documentReference.get().whenComplete(() async{
+
+      }));
+    }).catchError((e)=> print(e));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -267,6 +290,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   child: RaisedButton(
                     color: Color(0xffFFF0D1),
                     onPressed: () =>{
+                        _add(),
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (BuildContext context) => Home(),),

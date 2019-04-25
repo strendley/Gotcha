@@ -67,7 +67,7 @@ class _ForgotPassword extends State<ForgotPassword> {
           onPressed: () =>
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => Account(),),
+                MaterialPageRoute(builder: (BuildContext context) => AccountPage(),),
               ),
           child: const Text('Send Email', style: TextStyle(fontSize: 15)),
         ),

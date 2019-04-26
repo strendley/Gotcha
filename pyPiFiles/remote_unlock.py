@@ -75,7 +75,7 @@ def callback1(encoded_message):
       update_local_faces()
     
     if '"tmp_picture": "test"' in decoded_message:
-      print('Checking user photo against local encodings')
+      print('Checking user photo against local encodings\n')
       encoded_message.ack()
       picture_test()
       
@@ -93,13 +93,14 @@ def format_picture():
     output = take_photo_picamera()
     picture = Image.fromarray(output)
     timestamp = datetime.datetime.now().strftime('%d_%b_%H:%M:%S')
-    name = 'face_{}.jpg'.format(timestamp)
+    name = 'door_img_{}.jpg'.format(timestamp)
     picture.save(name)
     return name
     
 def delete_local_data():
-    remove_faces = 'rm -f result_*.jpg'
-    remove_photos = 'rm -f face_*.jpg'
+    # reomove faces in current working directory
+    remove_photos = 'rm -f door_img_*.jpg'
+    remove_faces = 'rm -f face_*.jpg'
     p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
     p_photos = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
     
@@ -198,12 +199,19 @@ def check_phone():
                 return True
             else: # Auth user not present
                 return False
+    else: # bt auth not used
+        return True
 
 
 ### Face Authentication Functions:-------------------------------------------------------------------------------------------
 
 # updates local face encodings from remote images in firebase
 def update_local_faces():
+    # remove all faces from /home/pi/Desktop/faces
+    remove_faces = 'rm -f face_*.jpg'
+    p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+    p_faces.wait()
+    
     # pull images from firebase storage, exclude *test*.jpg
     download_blob('gotcha-233622.appspot.com', 'face_')
     
@@ -224,41 +232,54 @@ def update_local_faces():
         # append encoding to global auth list
         authorized_encodings.append(encoding)
     
-# downloads all pictures in bucket to local pi storage
-def download_blob(bucket_name, prefix):
-    client = storage.Client()
+# updates local face encodings from remote images in firebase
+def update_local_faces():
+    update_start = time.time()
+    # remove all faces from /home/pi/Desktop/faces
+    remove_faces = 'rm -f face_*.jpg'
+    p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+    p_faces.wait()
+    print('All local authorized face images removed')
     
-    # Retrieve all blobs with a prefix matching the file.
-    bucket = client.get_bucket(bucket_name)
-        
-    bucket_name = 'gotcha-233622.appspot.com'
-    folder='/home/pi/Desktop/faces'
-    delimiter='/'
-    prefix_ = 'face_'
-
-    # List only face_*.jpg images in bucket
-    blobs=bucket.list_blobs(prefix=prefix_, delimiter=delimiter)
+    # pull images from firebase storage, exclude *test*.jpg
+    download_blob('gotcha-233622.appspot.com', 'face_')
     
-    for blob in blobs:
-       # get name of resident
-       name = (blob.name)[len(prefix_):]
-       print(name)
-       dest_path = '{}/{}'.format(folder, blob.name) 
-       blob.download_to_filename(dest_path)
-       #print('{}\'s face downloaded to {}.'.format(name, dest_path))
+    # Get all images from test directory (no test images)
+    pics = glob.glob('/home/pi/Desktop/faces/face_*')
+    
+    # clear face encodings list
+    authorized_encodings.clear()
+    
+    i = 0
+    # create new encodings for each image, append to auth array
+    for img in pics:
+        print('Encoding: %s ' % pics[i])
+        input_file = img
+        # process image
+        image = face_recognition.load_image_file(input_file)
+        # create encoding
+        encoding = face_recognition.face_encodings(image)[0]
+        # append encoding to global auth list
+        authorized_encodings.append(encoding)
+        i += 1
+    print('Encoding Update Cost: %s seconds' % (time.time() - update_start))
 
 # UNDER CONSTRUCTION:______------------++++++++++++___________-------------+++++++++++++________----------++++++++++
 
 # determines if user at door is authentic
 def is_auth(encoding):
     # compares encoding of face with authorized encodings on disk
-    key_string = ''
-    
+    auth_name = ''
+    # check global list
     for auth_encoding in authorized_encodings:
-        match = face_recognition.compare_faces(auth_encoding, face_encoding)
+        match = face_recognition.compare_faces(auth_encoding, encoding)
         if match:
-            auth_name = ''
-            return auth_name
+            # extract the name of the person from the face encoding
+            return 'authorized'
+            
+    # not authenticated if still empty at end of testing
+    if auth_name == '':
+        return 'unknown'
     
 
 # tests the temporary picture in firebase, update firebase field
@@ -267,41 +288,44 @@ def picture_test():
     download_blob('gotcha-233622.appspot.com', 'test')
     
     # Get test image from faces folder on disk 
-    img = glob.glob('/home/pi/Desktop/faces/test*')
+    img = glob.glob('/home/pi/Desktop/faces/test.jpg')
     
-    # crop the image
-    input_file = pics[img]
     # process image
+    input_file = pics[img]
+   
     image = face_recognition.load_image_file(input_file)
     face_locations = face_recognition.face_locations(image)
     
     # assert single face in test image
-    if(len(face_locations) > 0 and len(face_locations) < 2):
+    if(len(face_locations) == 1):
         
         # crop image
         top,right,bottom,left = face_location
         face_image = face[top-50:bottom+50, left-50:right+50]
         pil_image = Image.fromarray(face_image)
         
-        # save image to upload
-        path = 'result_{}.jpg' 
+        # save image
+        path = 'test_img_{}.jpg' 
         pil_image.save(path)
     
         # encoding of test face
         test_encoding = face_recognition.face_encodings(path)[0]
         
-        # remove the .jpg or seek alternative to local save
-    
         # test against authorized face encodings
         auth_name = is_auth(test_encoding)
         
+        # remove test image
+        remove_faces = 'rm -f face_*.jpg'
+        p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+        p_faces.wait()
+        
     else:
-        #update_document('image_test', 'testResult', 'error')
+        update_document('image_test', 'testResult', 'Error: Multiple Faces')
     
     # update db with test_name
-    if(not 'unknown' in auth_name ):  # compare the face encoding with face encodings on disk
+    if(not 'unknown' in auth_name):
       update_document('image_test', 'hasTested', 'true')
-      update_document('image_test', 'testResult', '{}'.format(test_name))
+      update_document('image_test', 'testResult', '{}'.format(auth_name)
     else:
       update_document('image_test', 'hasTested', 'true')  
       update_document('image_test', 'testResult', 'unknown')
@@ -368,7 +392,7 @@ def main():
                                 print(face_location)
                                 
                                 # save image to upload
-                                path = 'result_{}.jpg'.format(i)  
+                                path = 'face_{}.jpg'.format(i)  
                                 pil_image.save(path)
                                 
                                 # encoding of face at door - path to cropped image
@@ -377,29 +401,28 @@ def main():
                                 # pass encoding to auth fn for test
                                 key = is_auth(door_encoding)
                                 
-                                
-                                # If user is not home proceed to assess face credentials and ping phone # add option to disable as well?
-                                if (not is_user_home('{}'.format(user))): # var user is the '<user_name>'
+                                # If user is not home proceed to assess face credentials
+                                #if (not is_user_home('{}'.format(key))): # var user is the '<user_name>'
                                 
                                     # Authenticate photographed persons  
-                                    # variable 'name' is path to photo
-                                    if (not ('unknown' in key)) and (check_phone()): 
-                                          
-                                        # Unlock the door
-                                        print('face_{} Authorized'.format(face_encoding_name))
-                                        print('Door Unlocking')
-                                        unlocked()
+                                    # if not marked unknown, user exists in system
+                                if (not ('unknown' in key)) and (check_phone()): 
+                                      
+                                    # Unlock the door
+                                    print('face_{} Authorized'.format(key))
+                                    print('Door Unlocking')
+                                    unlocked()
+                                    
+                                    # Allow user to enter before arming if enabled,
+                                    # if disabled, assume user manually locks system to secure household
+                                    enable_lock_timeout = get_db_value('settings', 'enable_lock_timeout')
+                                    if enable_lock_timeout:
+                                        time.sleep(180)
+                                        locked()
                                         
-                                        # Allow user to enter before arming if enabled,
-                                        # if disabled, assume user manually locks system to secure household
-                                        enable_lock_timeout = get_db_value('settings', 'enable_lock_timeout')
-                                        if enable_lock_timeout:
-                                            time.sleep(180)
-                                            locked()
-                                            
-                                    #Else, unauthorized entry
-                                    else:
-                                        print('NOT AUTHORIZED')
+                                #Else, unauthorized entry
+                                else:
+                                    print('NOT AUTHORIZED')
                                 
                                 # face counter++        
                                 i += 1

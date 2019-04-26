@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-
+import 'package:gotcha/widgets/widget-account/homepage.dart';
 
 class Pictures extends StatefulWidget {
   Pictures({Key key, this.title, @required this.text}) : super(key: key);

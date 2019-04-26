@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:googleapis/pubsub//v1.dart';
-import 'package:googleapis_auth/auth_io.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
 import 'dart:async';
 import 'dart:io';
-import 'dart:convert';
 import 'dart:async' show Future;
-import 'package:gotcha/creds.dart';
 import '../widget-account/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_info/device_info.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 

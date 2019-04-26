@@ -47,14 +47,21 @@ class _MyHomePageState extends State<HomePage> {
             new SliverAppBar(
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                background:  VlcPlayer(
-                  defaultWidth: playerWidth,
-                  defaultHeight: playerHeight,
-                  url: urlToStreamVideo,
-                  controller: controller,
-                  placeholder: Center(child: CircularProgressIndicator()),
+                background:  Container(
+                  margin: EdgeInsets.all(30),
+                  
+                  decoration: BoxDecoration(
+                    borderRadius:  new BorderRadius.circular(40),
+                  ),
+                  child: VlcPlayer(
+                    defaultWidth: playerWidth,
+                    defaultHeight: playerHeight,
+                    url: urlToStreamVideo,
+                    controller: controller,
+                    placeholder: Center(child: Image.asset('gotcha.png')),
+                  ), 
                 ),
-                centerTitle: true,
+                centerTitle:true,
               ),
               pinned: true,
               floating: false,

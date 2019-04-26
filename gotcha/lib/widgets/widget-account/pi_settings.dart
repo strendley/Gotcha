@@ -11,6 +11,9 @@ class PiSettings extends StatefulWidget {
 }
 
 class _PiSettingsState extends State<PiSettings> {
+  bool isLightOn = false;
+  void onChangedSwitch(bool value) => setState(() => isLightOn = value);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,9 +39,38 @@ class _PiSettingsState extends State<PiSettings> {
             ),
           ],
         ),
-        body: Center(
-          child: Text('Hello World'),
+        body: new CustomScrollView(
+            scrollDirection: Axis.vertical,
+            slivers: <Widget>[
+              SliverFillRemaining(
+              child: new ListView(
+              children: <Widget>[
+                new Card(
+                  //color: Colors.amber[50],
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          //color: Colors.blue[100],
+                          child: new ListTile(
+                              title: new Text("Light Status"),
+                              leading: isLightOn==true?new Icon(Icons.highlight, color:Colors.grey, size:25.0):
+                              new Icon(Icons.lightbulb_outline, color:Colors.grey, size:25.0),
+                              trailing: new Switch(value: isLightOn, onChanged: onChangedSwitch, activeColor:Colors.blue[700])
+                          ),
+                        ),
+                      ],
+                    )
+
+                ),
+
+
+
+
+          ],
         ),
+      ),
+      ],
+    ),
       ),
     );
   }

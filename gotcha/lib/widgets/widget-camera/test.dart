@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/pubsub//v1.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'dart:async' show Future;
+import 'package:gotcha/creds.dart';
 import '../widget-account/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 const _SCOPES = const [PubsubApi.PubsubScope];
 
@@ -51,26 +55,72 @@ class _TestCameraState extends State<TestCamera> {
     }
     );
   }
-  bool testPic(){
-    var result = false;
-    final DocumentReference documentReference = Firestore.instance.collection('pi_config_states').document('image_test');
-    Map<String, bool> data = <String, bool>{
-      "toTest" : true,
-      "testResult": false,
-      "hasTested": false
-    };
-    documentReference.setData(data);
+  void uploadTest(){
+    FirebaseStorage _storage = FirebaseStorage.instance;
+    StorageReference ref =  _storage.ref().child("test.jpg");
+    StorageUploadTask uploadTask = ref.putFile(_image);
+  }
 
-    var gotResult = false;
-    while(!gotResult)
-      {
-        var dataStuff = documentReference.get();
-        print(dataStuff.toString());
-        print('hi');
-        gotResult = true;
-      }
+
+  Future<String> testPic() async{
+    var result;
+    final DocumentReference documentReference = Firestore.instance.collection('pi_config_states').document('image_test');
+    publishTopic("pi_configuration");
+    var info;
+    var hasTested = false;
+
+    while (!hasTested){
+      info = await documentReference.get().then((docSnap) {
+        print(docSnap['hasTested']);
+        if (docSnap['hasTested'] == 'true')
+          {
+            print('madeIt');
+            hasTested = true;
+            return docSnap['testResult'];
+          }
+
+      });
+    }
+    result = info;
+    Map<String, String> dataEnd = <String, String>{
+      "testResult": 'unknown',
+      "hasTested":  'false'
+    };
+    documentReference.setData(dataEnd);
     return result;
   }
+  final TextEditingController c1 = new TextEditingController();
+
+  void publishTopic(topic){
+    debugPrint("Publishing a message to a topic");
+
+    //debugPrint(_SCOPES[0]);
+    final _credentials = returnJson();
+    //debugPrint(json_string);
+    clientViaServiceAccount(_credentials, _SCOPES)
+        .then((http_client) {
+      var pubSubClient = new PubsubApi(http_client);
+      var messages = {
+        'messages': [
+          {
+            'data': base64Encode(utf8.encode('{"tmp_picture": "test"}')),
+          },
+        ]
+      };
+
+      pubSubClient.projects.topics
+          .publish(new PublishRequest.fromJson(messages), "projects/gotcha-233622/topics/$topic")
+          .then((publishResponse) {
+        debugPrint(publishResponse.toString());
+      }).catchError((e,m){
+        debugPrint(e.toString());
+      });
+    }); // clientViaServiceAccount
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -173,21 +223,15 @@ class _TestCameraState extends State<TestCamera> {
                       child: RaisedButton(
                         color: Color(0xffFFF0D1),
                         child: Text("Test Picture!", style: new TextStyle(fontSize: 20),),
-                        onPressed: () {
+                        onPressed: () async {
                           // get prediction here
-                          var result = testPic();
+                          uploadTest();
+                          var result = await testPic();
 
-                          showDialog(
-                              context: context, child:
-                              AlertDialog(
-                              title: new Text("Prediction score of: "),
-                          actions: <Widget>[
-                          //new FlatButton(onPressed:() {}, child: new Text("Yes")),
-                          new FlatButton(onPressed:() {Navigator.of(context).pop();}, child: new Text("Okay")),
-                          ],
-                          ),
-                          ); // showDialog()
-                        }, // onPressed:
+                          print('*************');
+                          setState((){ c1.text = result;
+                          }); // onPressed:
+                        },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(3)
                         ),
@@ -201,12 +245,14 @@ class _TestCameraState extends State<TestCamera> {
                 padding: EdgeInsets.only(top:30.0),
                     child: new Text('Results: ', style: new TextStyle(fontSize: 25),)
               ),
-
               new Padding(
-                  padding: EdgeInsets.only(top:10.0, bottom: 10.0),
-                  child: new Text('<RESULT OF TEST>', style: new TextStyle(fontSize: 25, color: Colors.red),)
-                //),
-              ),
+              padding: EdgeInsets.only(top:10.0, bottom: 10.0),
+              child: new Text(c1.text, style: new TextStyle(fontSize:20, color:Colors.red))//style: new TextStyle(fontSize: 25, color: Colors.red),controller:c1,)
+
+              //),
+              ,)
+
+
 /*
               new Row(
                 children: <Widget>[

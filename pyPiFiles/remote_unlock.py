@@ -204,35 +204,7 @@ def check_phone():
 
 
 ### Face Authentication Functions:-------------------------------------------------------------------------------------------
-
-# updates local face encodings from remote images in firebase
-def update_local_faces():
-    # remove all faces from /home/pi/Desktop/faces
-    remove_faces = 'rm -f face_*.jpg'
-    p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-    p_faces.wait()
-    
-    # pull images from firebase storage, exclude *test*.jpg
-    download_blob('gotcha-233622.appspot.com', 'face_')
-    
-    # Get all images from test directory (no test images)
-    pics = glob.glob('/home/pi/Desktop/faces/face_*')
-    
-    # clear face encodings list
-    authorized_encodings.clear()
-    
-    # create new encodings for each image, append to auth array
-    for img in pics:
-        #print(pics[0])
-        input_file = pics[img]
-        # process image
-        image = face_recognition.load_image_file(input_file)
-        # create encoding
-        encoding = face_recognition.face_encodings(image)[0]
-        # append encoding to global auth list
-        authorized_encodings.append(encoding)
-    
-# updates local face encodings from remote images in firebase
+# updates local face encodings from remote images in google cloud platform bucket resource
 def update_local_faces():
     update_start = time.time()
     # remove all faces from /home/pi/Desktop/faces
@@ -250,19 +222,60 @@ def update_local_faces():
     # clear face encodings list
     authorized_encodings.clear()
     
-    i = 0
-    # create new encodings for each image, append to auth array
-    for img in pics:
-        print('Encoding: %s ' % pics[i])
-        input_file = img
+    i = 0 # track image number in blob
+    # crop the faces and create new encodings for each image, append to auth array
+    for image in pics:
+        
+        # load image into user_face
+        user_face = face_recognition.load_image_file(image)
+        # recognize faces: should only be a single face, asserted in test image
+        # all pi photos may contain more than one face
+        face_locations = face_recognition.face_locations(user_face)
+        
+        # TODO: create single crop function - third use
+        # crop image
+        top,right,bottom,left = face_locations[0]
+        # error if adding 50 pixels to cropped image
+        face_image = user_face[top:bottom, left:right]
+        pil_image = Image.fromarray(face_image)
+        
+        # save image
+        path = 'face_{}.jpg'.format(i) 
+        pil_image.save(path)
+    
         # process image
-        image = face_recognition.load_image_file(input_file)
+        print('Encoding: %s ' % pics[i])
+        cropped = face_recognition.load_image_file(path)
         # create encoding
-        encoding = face_recognition.face_encodings(image)[0]
+        encoding = face_recognition.face_encodings(cropped)[0]
         # append encoding to global auth list
         authorized_encodings.append(encoding)
+        print(authorized_encodings)
         i += 1
-    print('Encoding Update Cost: %s seconds' % (time.time() - update_start))
+    print('Editing and Encoding Update Cost: %s seconds' % (time.time() - update_start))
+    
+# downloads all pictures in bucket to local pi storage
+def download_blob(bucket_name, prefix):
+    client = storage.Client()
+    
+    # Retrieve all blobs with a prefix matching the file.
+    bucket = client.get_bucket(bucket_name)
+        
+    bucket_name = 'gotcha-233622.appspot.com'
+    folder='/home/pi/Desktop/faces'
+    delimiter='/'
+    prefix_ = 'face_'
+
+    # List only face_*.jpg images in bucket
+    blobs=bucket.list_blobs(prefix=prefix_, delimiter=delimiter)
+    
+    for blob in blobs:
+       # get name of resident
+       name = (blob.name)[len(prefix_):]
+       print(name)
+       dest_path = '{}/{}'.format(folder, blob.name) 
+       blob.download_to_filename(dest_path)
+       #print('{}\'s face downloaded to {}.'.format(name, dest_path))
 
 # UNDER CONSTRUCTION:______------------++++++++++++___________-------------+++++++++++++________----------++++++++++
 
@@ -288,19 +301,17 @@ def picture_test():
     download_blob('gotcha-233622.appspot.com', 'test')
     
     # Get test image from faces folder on disk 
-    img = glob.glob('/home/pi/Desktop/faces/test.jpg')
+    test_img = glob.glob('/home/pi/Desktop/faces/test.jpg')
     
     # process image
-    input_file = pics[img]
-   
-    image = face_recognition.load_image_file(input_file)
+    image = face_recognition.load_image_file(test_img)
     face_locations = face_recognition.face_locations(image)
     
     # assert single face in test image
     if(len(face_locations) == 1):
         
         # crop image
-        top,right,bottom,left = face_location
+        top,right,bottom,left = face_locations[0]
         face_image = face[top-50:bottom+50, left-50:right+50]
         pil_image = Image.fromarray(face_image)
         
@@ -401,11 +412,14 @@ def main():
                                 # pass encoding to auth fn for test
                                 key = is_auth(door_encoding)
                                 
+                                # SECTION: Authenticate photographed persons
+                                
+                                '''In Testing:
                                 # If user is not home proceed to assess face credentials
                                 #if (not is_user_home('{}'.format(key))): # var user is the '<user_name>'
-                                
-                                    # Authenticate photographed persons  
-                                    # if not marked unknown, user exists in system
+                                '''
+                                      
+                                # if not marked unknown, user's encoding exists in system
                                 if (not ('unknown' in key)) and (check_phone()): 
                                       
                                     # Unlock the door

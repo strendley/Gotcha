@@ -71,8 +71,9 @@ def callback1(encoded_message):
     if '"faces": "update"' in decoded_message:
       print('Updating local authorized images\n')
       encoded_message.ack()
-      update_local_faces()
-    
+      pics = update_local_faces()
+      update_encodings(pics)
+        
     if '"tmp_picture": "test"' in decoded_message:
       print('Checking user photo against local encodings\n')
       encoded_message.ack()
@@ -92,20 +93,24 @@ def format_picture():
     output = take_photo_picamera()
     picture = Image.fromarray(output)
     timestamp = datetime.datetime.now().strftime('%d_%b_%H:%M:%S')
-    name = 'door_img_{}.jpg'.format(timestamp)
+    name = '/home/pi/Desktop/door_images/door_img_{}.jpg'.format(timestamp)
     picture.save(name)
     return name
     
 def delete_local_data():
-    # reomove faces in current working directory
-    remove_photos = 'rm -f door_img_*.jpg'
-    remove_faces = 'rm -f face_*.jpg'
-    p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-    p_photos = subprocess.Popen(remove_photos, shell=True, stdout=subprocess.PIPE)
+    # remove data in Desktop directories
+    remove_door = 'rm -f /home/pi/Desktop/door_images/*.jpg'
+    remove_door_cropped = 'rm -f /home/pi/Desktop/door_cropped_faces/*.jpg'
+    #remove_cropped = 'rm -f /home/pi/Desktop/cropped_faces/*.jpg'
     
-    p_faces.wait()
-    p_photos.wait()
-
+    p_d = subprocess.Popen(remove_door, shell=True, stdout=subprocess.PIPE)
+    p_dc = subprocess.Popen(remove_door_cropped, shell=True, stdout=subprocess.PIPE)
+    #p_c = subprocess.Popen(remove_cropped, shell=True, stdout=subprocess.PIPE)
+    
+    p_d.wait()
+    p_dc.wait()
+    #p_c.wait()
+    
 ### Firebase & Internal Config functions:------------------------------------------------------------------------------------
 def update_document(doc, field, value):
     db = firestore.Client()
@@ -208,18 +213,25 @@ def check_phone():
 # updates local face encodings from remote images in google cloud platform bucket resource
 def update_local_faces():
     update_start = time.time()
+    print('Updating local authorized faces...')
     # remove all faces from /home/pi/Desktop/faces
-    remove_faces = 'rm -f face_*.jpg'
+    
+    remove_faces = 'rm -f /home/pi/Desktop/faces/face_*.jpg'
     p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
     p_faces.wait()
-    print('All local authorized face images removed')
+    print('Local face images removed from Desktop/faces/')
     
     # pull images from firebase storage, exclude *test*.jpg
-    download_blob('gotcha-233622.appspot.com', 'face_')
+    download_blob('gotcha-233622.appspot.com', 'face_luke')
     
     # Get all images from test directory (no test images)
     pics = glob.glob('/home/pi/Desktop/faces/face_*')
+    print('Picture Update Cost: %s seconds' % (time.time() - update_start))
     
+    return pics
+    
+def update_encodings(pics):
+    update_start = time.time()
     # clear face encodings list
     authorized_encodings.clear()
     
@@ -242,11 +254,11 @@ def update_local_faces():
         pil_image = Image.fromarray(face_image)
         
         # save image
-        path = 'face_{}.jpg'.format(i) 
+        path = '/home/pi/Desktop/cropped_faces/cropped_{}.jpg'.format(i) 
         pil_image.save(path)
     
         # process image
-        print('Encoding: %s ' % pics[i])
+        print('Encoding image: %s ' % pics[i])
         cropped = face_recognition.load_image_file(path)
         # create encoding
         encoding = face_recognition.face_encodings(cropped)[0]
@@ -254,7 +266,7 @@ def update_local_faces():
         authorized_encodings.append(encoding)
         #print(authorized_encodings)
         i += 1
-    print('Editing and Encoding Update Cost: %s seconds' % (time.time() - update_start))
+    print('Editing & Encoding Cost: %s seconds' % (time.time() - update_start))
     
 # downloads all pictures in bucket to local pi storage
 def download_blob(bucket_name, prefix_):
@@ -277,6 +289,7 @@ def download_blob(bucket_name, prefix_):
        dest_path = '{}/{}'.format(folder, blob.name) 
        blob.download_to_filename(dest_path)
        #print('{}\'s face downloaded to {}.'.format(name, dest_path))
+    print('Blob downloaded to Desktop/faces/')
 
 # determines if user at door is authentic
 def is_auth(encoding):
@@ -296,7 +309,8 @@ def is_auth(encoding):
     
 
 # tests the temporary picture in firebase, update firebase field
-def picture_test(): 
+def picture_test():
+    print('Downloading and cropping test.jpg in bucket\n')
     # get test picture from blob, filter with 'test' prefix
     download_blob('gotcha-233622.appspot.com', 'test')
     
@@ -316,7 +330,7 @@ def picture_test():
         pil_image = Image.fromarray(face_image)
         
         # save image
-        path = 'test_img.jpg'
+        path = '/home/pi/Desktop/test_images/test_cropped.jpg'
         pil_image.save(path)
 
         #load
@@ -326,12 +340,13 @@ def picture_test():
         test_encoding = face_recognition.face_encodings(cropped)[0]
         
         # test against authorized face encodings
+        print('Testing test.jpg encoding\n')
         auth_name = is_auth(test_encoding)
         
         # remove test image
-        #remove_faces = 'rm -f test_img.jpg'
-        #p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-        #p_faces.wait()
+        remove_faces = 'rm -f /home/pi/Desktop/test_images/test*.jpg'
+        p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+        p_faces.wait()
         
     else:
         update_document('image_test', 'testResult', 'Error: Multiple Faces')
@@ -340,31 +355,35 @@ def picture_test():
     if(not 'unknown' in auth_name):
       update_document('image_test', 'hasTested', 'true')
       update_document('image_test', 'testResult', '{}'.format(auth_name))
+      print('Remote image passed test')
     else:
       update_document('image_test', 'hasTested', 'true')  
       update_document('image_test', 'testResult', 'unknown')
+      print('Remote image failed test')
 
 # Driver:--------------------------------------------------------------------------------------------------------------------:
 def main():
   
-    print("Sensor initializing\n")
+    print("Sensor initializing...")
     locked()
     GPIO.output(yellow, True)
     GPIO.output(blue, False)                    # Blue ON
     print("Armed & Ready to detect motion\n")
-    print("Press Ctrl + C to end program\n")
+    #print("Press Ctrl + C to end program\n")
 	
     # Sensing motion infinitely
     try:
         # Open the subscription, passing the callback async with While loop
         future = subscriber_pi.subscribe('projects/gotcha-233622/subscriptions/pi_config_sub', callback1)
         
+        ''' download pictures ''' 
+        pics = update_local_faces()
         
         while True:
             # Check if pairing button is pressed
             if GPIO.input(pair_switch) == False:
                 time.sleep(0.5)
-                print('Attempting to pair devices')
+                print('Attempting to pair devices...\n')
                 pair_smartphone()
             
             # If motion is detected
@@ -403,10 +422,10 @@ def main():
                                 top,right,bottom,left = face_location
                                 face_image = face[top:bottom, left:right]
                                 pil_image = Image.fromarray(face_image)
-                                print(face_location)
+                                print('Face location {}: {}'.format(i, face_location))
                                 
-                                # save image to upload
-                                path = 'face_{}.jpg'.format(i)  
+                                # save image
+                                path = '/home/pi/Desktop/door_cropped_faces/face_{}.jpg'.format(i)  
                                 pil_image.save(path)
                                 
                                 # load cropped image
@@ -417,7 +436,7 @@ def main():
                                 
                                 """TESTING"""
                                 ''' load encodings to global array '''
-                                update_local_faces()
+                                update_encodings(pics)
                                 ''' end '''
                                 
                                 # pass encoding to auth fn for test
@@ -434,17 +453,22 @@ def main():
                                 if (not ('unknown' in key)) and (check_phone()): 
                                       
                                     # Unlock the door
-                                    print('face_{} Authorized'.format(key))
-                                    print('Door Unlocking')
-                                    unlocked()
+                                    print('User is: {}'.format(key))
+                                    
                                     
                                     # Allow user to enter before arming if enabled,
                                     # if disabled, assume user manually locks system to secure household
                                     enable_lock_timeout = get_db_value('settings', 'enable_lock_timeout')
                                     if enable_lock_timeout:
+                                        print('Door Unlocking: 3 minute timeout ENABLED')
+                                        unlocked()
                                         time.sleep(180)
                                         locked()
                                         
+                                    else:
+                                        print('Door Unlocking: 3 minute timeout DISABLED')
+                                        unlocked()
+
                                 #Else, unauthorized entry
                                 else:
                                     print('NOT AUTHORIZED')
@@ -462,12 +486,12 @@ def main():
                         
                         # Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
-                        print("End of detection cycle")
+                        print("End of detection cycle\n\n")
                             
                     # No faces in image taken 
                     else:
                             print('No faces found')
-                            print("End of detection cycle")
+                            print("End of detection cycle\n")
                             # Set pi_config_states -> motion -> detected : false
                             update_document('pi_status', 'motion', False)
                             

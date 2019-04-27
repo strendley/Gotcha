@@ -120,7 +120,7 @@ def get_db_value(document, field):
     db = firestore.Client()
     doc_ref = db.collection(u'pi_config_states').document(u'{}'.format(document))
     doc = doc_ref.get()
-    config = '{}'.format(doc.to_dict())       
+    config = '{}'.format(doc.to_dict()['{}'.format(field)])      
     return config
 
 def locked():

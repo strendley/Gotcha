@@ -235,7 +235,8 @@ def update_local_faces():
         # TODO: create single crop function - third use
         # crop image
         top,right,bottom,left = face_locations[0]
-        # error if adding 50 pixels to cropped image
+        
+        # error if adding 50 pixel perimeter around face detected by library # use standard?
         face_image = user_face[top:bottom, left:right]
         pil_image = Image.fromarray(face_image)
         
@@ -250,12 +251,12 @@ def update_local_faces():
         encoding = face_recognition.face_encodings(cropped)[0]
         # append encoding to global auth list
         authorized_encodings.append(encoding)
-        print(authorized_encodings)
+        #print(authorized_encodings)
         i += 1
     print('Editing and Encoding Update Cost: %s seconds' % (time.time() - update_start))
     
 # downloads all pictures in bucket to local pi storage
-def download_blob(bucket_name, prefix):
+def download_blob(bucket_name, prefix_):
     client = storage.Client()
     
     # Retrieve all blobs with a prefix matching the file.
@@ -264,15 +265,14 @@ def download_blob(bucket_name, prefix):
     bucket_name = 'gotcha-233622.appspot.com'
     folder='/home/pi/Desktop/faces'
     delimiter='/'
-    prefix_ = 'face_'
 
-    # List only face_*.jpg images in bucket
+    # List images in bucket with prefix
     blobs=bucket.list_blobs(prefix=prefix_, delimiter=delimiter)
     
     for blob in blobs:
        # get name of resident
        name = (blob.name)[len(prefix_):]
-       print(name)
+       #print('%s downloaded' % name)
        dest_path = '{}/{}'.format(folder, blob.name) 
        blob.download_to_filename(dest_path)
        #print('{}\'s face downloaded to {}.'.format(name, dest_path))
@@ -287,6 +287,7 @@ def is_auth(encoding):
     for auth_encoding in authorized_encodings:
         match = face_recognition.compare_faces(auth_encoding, encoding)
         if match:
+            # TODO
             # extract the name of the person from the face encoding
             return 'authorized'
             
@@ -295,13 +296,13 @@ def is_auth(encoding):
         return 'unknown'
     
 
-# tests the temporary picture in firebase, update firebase field
+# tests the temporary picture in firebase, updates firebase field
 def picture_test(): 
     # get test picture from blob, filter with 'test' prefix
     download_blob('gotcha-233622.appspot.com', 'test')
     
     # Get test image from faces folder on disk 
-    test_img = glob.glob('/home/pi/Desktop/faces/test.jpg')
+    test_img = glob.glob('/home/pi/Desktop/faces/test.*')
     
     # process image
     image = face_recognition.load_image_file(test_img)
@@ -312,21 +313,24 @@ def picture_test():
         
         # crop image
         top,right,bottom,left = face_locations[0]
-        face_image = face[top-50:bottom+50, left-50:right+50]
+        face_image = face[top+50:bottom-50, left-50:right+50]
         pil_image = Image.fromarray(face_image)
         
         # save image
-        path = 'test_img_{}.jpg' 
+        path = 'test_img.jpg'
         pil_image.save(path)
-    
-        # encoding of test face
-        test_encoding = face_recognition.face_encodings(path)[0]
+
+        #load
+        cropped = face_recognition.load_image_file(path)
+        
+        # create encoding of test face
+        test_encoding = face_recognition.face_encodings(cropped)[0]
         
         # test against authorized face encodings
         auth_name = is_auth(test_encoding)
         
         # remove test image
-        remove_faces = 'rm -f face_*.jpg'
+        remove_faces = 'rm -f test_img.jpg'
         p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
         p_faces.wait()
         
@@ -398,7 +402,7 @@ def main():
                         for face_location in face_locations:
                                 i = 1                       # face id
                                 top,right,bottom,left = face_location
-                                face_image = face[top-50:bottom+50, left-50:right+50]
+                                face_image = face[top+50:bottom-50, left-50:right+50]
                                 pil_image = Image.fromarray(face_image)
                                 print(face_location)
                                 

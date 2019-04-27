@@ -28,7 +28,7 @@ from PIL import Image
 from google.cloud import pubsub_v1
 from google.cloud import firestore
 from google.cloud import storage
-from google.cloud import Blob
+#from google.cloud import Blob
 
 subscriber_pi = pubsub_v1.SubscriberClient()
 camera = picamera.PiCamera()
@@ -115,6 +115,7 @@ def update_document(doc, field, value):
     # Set the specified field
     ref.update({u'{}'.format(field): value})
 
+# currently returns the entire document, need to parse further in applications
 def get_db_value(document, field):
     db = firestore.Client()
     doc_ref = db.collection(u'pi_config_states').document(u'{}'.format(document))
@@ -266,13 +267,13 @@ def download_blob(bucket_name, prefix_):
     folder='/home/pi/Desktop/faces'
     delimiter='/'
 
-    # List images in bucket with prefix
+    # List only face_*.jpg images in bucket
     blobs=bucket.list_blobs(prefix=prefix_, delimiter=delimiter)
     
     for blob in blobs:
        # get name of resident
        name = (blob.name)[len(prefix_):]
-       #print('%s downloaded' % name)
+       #print(name)
        dest_path = '{}/{}'.format(folder, blob.name) 
        blob.download_to_filename(dest_path)
        #print('{}\'s face downloaded to {}.'.format(name, dest_path))
@@ -285,7 +286,7 @@ def is_auth(encoding):
     auth_name = ''
     # check global list
     for auth_encoding in authorized_encodings:
-        match = face_recognition.compare_faces(auth_encoding, encoding)
+        match = face_recognition.compare_faces([auth_encoding], encoding)
         if match:
             # TODO
             # extract the name of the person from the face encoding
@@ -296,24 +297,24 @@ def is_auth(encoding):
         return 'unknown'
     
 
-# tests the temporary picture in firebase, updates firebase field
+# tests the temporary picture in firebase, update firebase field
 def picture_test(): 
     # get test picture from blob, filter with 'test' prefix
     download_blob('gotcha-233622.appspot.com', 'test')
     
     # Get test image from faces folder on disk 
-    test_img = glob.glob('/home/pi/Desktop/faces/test.*')
+    img = glob.glob('/home/pi/Desktop/faces/test.*')
     
     # process image
-    image = face_recognition.load_image_file(test_img)
-    face_locations = face_recognition.face_locations(image)
+    test_image = face_recognition.load_image_file(img[0])
+    face_locations = face_recognition.face_locations(test_image)
     
     # assert single face in test image
     if(len(face_locations) == 1):
         
         # crop image
         top,right,bottom,left = face_locations[0]
-        face_image = face[top+50:bottom-50, left-50:right+50]
+        face_image = test_image[top:bottom, left:right]
         pil_image = Image.fromarray(face_image)
         
         # save image
@@ -330,9 +331,9 @@ def picture_test():
         auth_name = is_auth(test_encoding)
         
         # remove test image
-        remove_faces = 'rm -f test_img.jpg'
-        p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
-        p_faces.wait()
+        #remove_faces = 'rm -f test_img.jpg'
+        #p_faces = subprocess.Popen(remove_faces, shell=True, stdout=subprocess.PIPE)
+        #p_faces.wait()
         
     else:
         update_document('image_test', 'testResult', 'Error: Multiple Faces')
@@ -340,7 +341,7 @@ def picture_test():
     # update db with test_name
     if(not 'unknown' in auth_name):
       update_document('image_test', 'hasTested', 'true')
-      update_document('image_test', 'testResult', '{}'.format(auth_name)
+      update_document('image_test', 'testResult', '{}'.format(auth_name))
     else:
       update_document('image_test', 'hasTested', 'true')  
       update_document('image_test', 'testResult', 'unknown')
@@ -402,7 +403,7 @@ def main():
                         for face_location in face_locations:
                                 i = 1                       # face id
                                 top,right,bottom,left = face_location
-                                face_image = face[top+50:bottom-50, left-50:right+50]
+                                face_image = face[top:bottom, left:right]
                                 pil_image = Image.fromarray(face_image)
                                 print(face_location)
                                 
@@ -410,8 +411,14 @@ def main():
                                 path = 'face_{}.jpg'.format(i)  
                                 pil_image.save(path)
                                 
+                                # load cropped image
+                                cropped = face_recognition.load_image_file(path)
+                                
                                 # encoding of face at door - path to cropped image
-                                door_encoding = face_recognition.face_encodings(path)[0]
+                                door_encoding = face_recognition.face_encodings(cropped)[0]
+                                
+                                ''' for testing, load images to acquire global auth list within script '''
+                                update_local_faces()
                                 
                                 # pass encoding to auth fn for test
                                 key = is_auth(door_encoding)

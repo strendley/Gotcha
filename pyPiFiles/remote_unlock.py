@@ -28,7 +28,6 @@ from PIL import Image
 from google.cloud import pubsub_v1
 from google.cloud import firestore
 from google.cloud import storage
-#from google.cloud import Blob
 
 subscriber_pi = pubsub_v1.SubscriberClient()
 camera = picamera.PiCamera()
@@ -186,13 +185,14 @@ def get_paired_devices():
 def check_phone():
     # Check firebase field to store user (on/off) for 2nd factor by phone
     use_bt_auth = get_db_value('settings', 'use_bt_auth')
-    if use_bt_auth:
+    if use_bt_auth == 'true':
         # get updated paired devices list and check if phone is in bt range
         pair_macs = get_paired_devices()
         
         # ping each mac in list
         for mac in range(0, len(pair_macs)):
             ping_addr = pair_macs[mac]
+            print('Pinging paired devices')
             p = subprocess.run(['sudo', 'l2ping', '-c', '1', '{}'.format(ping_addr)], universal_newlines=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             lines = p.stdout.split('\n')
             # If ping successful 
@@ -277,8 +277,6 @@ def download_blob(bucket_name, prefix_):
        dest_path = '{}/{}'.format(folder, blob.name) 
        blob.download_to_filename(dest_path)
        #print('{}\'s face downloaded to {}.'.format(name, dest_path))
-
-# UNDER CONSTRUCTION:______------------++++++++++++___________-------------+++++++++++++________----------++++++++++
 
 # determines if user at door is authentic
 def is_auth(encoding):
@@ -417,8 +415,10 @@ def main():
                                 # encoding of face at door - path to cropped image
                                 door_encoding = face_recognition.face_encodings(cropped)[0]
                                 
-                                ''' for testing, load images to acquire global auth list within script '''
+                                """TESTING"""
+                                ''' load encodings to global array '''
                                 update_local_faces()
+                                ''' end '''
                                 
                                 # pass encoding to auth fn for test
                                 key = is_auth(door_encoding)

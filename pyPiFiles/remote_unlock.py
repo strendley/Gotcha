@@ -391,7 +391,7 @@ def main():
             if GPIO.input(lock_switch) == False:
                 time.sleep(0.05)
                 if GPIO.input(lock) == 0:
-                    print('Interior request to lock door: Unlocking')
+                    print('Interior request to unlock door: Unlocking')
                     unlocked()
                 elif GPIO.input(lock) == 1:
                     print('Interior request to lock door: Locking')

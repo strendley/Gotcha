@@ -33,13 +33,14 @@ subscriber_pi = pubsub_v1.SubscriberClient()
 camera = picamera.PiCamera()
 authorized_encodings = []
 
-pir = 8     # Pin 8  : PIR
-yellow = 10 # Pin 10 : yellow LED
-lock = 12   # Pin 12 : door lock
-green = 16  # Pin 16 : green LED
-red = 18    # Pin 18 : red LED
-blue = 22   # Pin 22 : blue LED
-pair_switch = 24 #   : user pairing button
+pir = 8            # Pin 8  : PIR
+yellow = 10        # Pin 10 : yellow LED
+lock = 12          # Pin 12 : door lock
+green = 16         # Pin 16 : green LED
+red = 18           # Pin 18 : red LED
+blue = 22          # Pin 22 : blue LED
+pair_switch = 24   # Pin 24 : user pairing button
+lock_switch = 26   # Pin 26 : toggles door lock
 
 GPIO.setmode(GPIO.BOARD)      # set GPIO mode to correct physical numbering
 GPIO.setup(pir, GPIO.IN)      # setup GPIO pin PIR as input
@@ -49,6 +50,7 @@ GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)   
 GPIO.setup(blue, GPIO.OUT)
 GPIO.setup(pair_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(lock_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Remote System Management:---------------------------------------------------------------------------------------------------:
 
@@ -382,10 +384,19 @@ def main():
         while True:
             # Check if pairing button is pressed
             if GPIO.input(pair_switch) == False:
-                time.sleep(0.5)
+                time.sleep(0.3)
                 print('Attempting to pair devices...\n')
                 pair_smartphone()
-            
+                
+            if GPIO.input(lock_switch) == False:
+                time.sleep(0.05)
+                if GPIO.input(lock) == 0:
+                    print('Interior request to lock door: Unlocking')
+                    unlocked()
+                elif GPIO.input(lock) == 1:
+                    print('Interior request to lock door: Locking')
+                    locked()
+                
             # If motion is detected
             if GPIO.input(pir) == True:
                 # Set pi_config_states -> motion -> detected : true

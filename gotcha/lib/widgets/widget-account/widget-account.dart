@@ -134,7 +134,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Color(0xff314C66),
         body: new CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
@@ -145,7 +145,10 @@ class _AccountPageState extends State<AccountPage> {
                   Navigator.pop(context);
                 }),expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: new Text("Account Settings"),
+                title: new Text("Account Settings",
+                style: new TextStyle(
+                  color: Colors.white,
+                ),),
                 background: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -183,7 +186,6 @@ class _AccountPageState extends State<AccountPage> {
             ),
             SliverFillRemaining(
                 child: new ListView(
-
                   children: <Widget>[
                     /*
                     Padding(

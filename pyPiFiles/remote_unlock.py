@@ -80,6 +80,16 @@ def callback1(encoded_message):
       print('Checking user photo against local encodings\n')
       encoded_message.ack()
       picture_test()
+    '''
+    if '"video_feed": "on"' in decoded_message:
+      print('Streaming video')
+      encoded_message.ack()
+      stream_video()
+    '''  
+    if '"video_feed": "off"' in decoded_message:
+      print('Stop Streaming Video')
+      encoded_message.ack()
+      stop_stream()
       
 ### System Resource Functions:-----------------------------------------------------------------------------------------------:
     
@@ -109,8 +119,8 @@ def delete_local_data():
     p_dc = subprocess.Popen(remove_door_cropped, shell=True, stdout=subprocess.PIPE)
     #p_c = subprocess.Popen(remove_cropped, shell=True, stdout=subprocess.PIPE)
     
-    p_d.wait()
-    p_dc.wait()
+    #p_d.wait()
+    #p_dc.wait()
     #p_c.wait()
     
 ### Firebase & Internal Config functions:------------------------------------------------------------------------------------
@@ -121,7 +131,7 @@ def update_document(doc, field, value):
     # Set the specified field
     ref.update({u'{}'.format(field): value})
 
-# currently returns the entire document, need to parse further in applications
+# returns value 
 def get_db_value(document, field):
     db = firestore.Client()
     doc_ref = db.collection(u'pi_config_states').document(u'{}'.format(document))
@@ -131,20 +141,21 @@ def get_db_value(document, field):
 
 def locked():
     # Set pi_config_states -> pi_status -> door locked
-    update_document('pi_status', 'door', 'locked')
+    #update_document('pi_status', 'door', 'locked')
   
-    GPIO.output(lock, False)
+    GPIO.output(lock, True)
     GPIO.output(red, False)
     GPIO.output(green, True)
     
 def unlocked():
     # Set pi_config_states -> pi_status -> door unlocked
-    update_document('pi_status', 'door', 'unlocked')
+    #update_document('pi_status', 'door', 'unlocked')
   
-    GPIO.output(lock, True)
+    GPIO.output(lock, False)
     GPIO.output(red,True)
     GPIO.output(green, False)
-    
+
+
 def on_lockdown():
     # getter for global home/away setting
     lockdown = get_db_value('settings', 'on_vacation')
@@ -224,10 +235,10 @@ def update_local_faces():
     print('Local face images removed from Desktop/faces/')
     
     # pull images from firebase storage, exclude *test*.jpg
-    download_blob('gotcha-233622.appspot.com', 'face_luke')
+    download_blob('gotcha-233622.appspot.com', 'face_1_')
     
     # Get all images from test directory (no test images)
-    pics = glob.glob('/home/pi/Desktop/faces/face_*')
+    pics = glob.glob('/home/pi/Desktop/faces/face_1_*')
     print('Picture Update Cost: %s seconds' % (time.time() - update_start))
     
     return pics
@@ -298,12 +309,13 @@ def is_auth(encoding):
     # compares encoding of face with authorized encodings on disk
     auth_name = ''
     # check global list
-    for auth_encoding in authorized_encodings:
-        match = face_recognition.compare_faces([auth_encoding], encoding)
-        if match:
+    for encodingSingle in encoding:
+        match = face_recognition.compare_faces(authorized_encodings, encodingSingle)
+        for m in match:
+            if m:
             # TODO
             # extract the name of the person from the face encoding
-            return 'authorized'
+                return 'authorized'
             
     # not authenticated if still empty at end of testing
     if auth_name == '':
@@ -380,6 +392,7 @@ def main():
         
         ''' download pictures ''' 
         pics = update_local_faces()
+        update_encodings(pics)
         
         while True:
             # Check if pairing button is pressed
@@ -388,19 +401,22 @@ def main():
                 print('Attempting to pair devices...\n')
                 pair_smartphone()
                 
+            # Check inside lock/unlock switch  
             if GPIO.input(lock_switch) == False:
-                time.sleep(0.05)
+                time.sleep(0.3)
                 if GPIO.input(lock) == 0:
-                    print('Interior request to unlock door: Unlocking')
-                    unlocked()
-                elif GPIO.input(lock) == 1:
-                    print('Interior request to lock door: Locking')
+                    print('Interior request to unlock door: Locking')
                     locked()
+                    time.sleep(0.3)
+                elif GPIO.input(lock) == 1:
+                    print('Interior request to lock door: Unlocking')
+                    unlocked()
+                    time.sleep(0.3)
                 
             # If motion is detected
             if GPIO.input(pir) == True:
                 # Set pi_config_states -> motion -> detected : true
-                update_document('pi_status', 'motion', True)
+                #update_document('pi_status', 'motion', True)
                 
                 GPIO.output(blue, True)          # Blue OFF - motion detected
                 print("Motion Detected!")
@@ -425,7 +441,7 @@ def main():
                     if(len(face_locations) > 0):
                       
                         # Set pi_config_states -> faces -> detected : true
-                        update_document('pi_status', 'faces', True)
+                        #update_document('pi_status', 'faces', True)
                         
                         # Crop all faces from photo
                         for face_location in face_locations:
@@ -445,11 +461,6 @@ def main():
                                 # encoding of face at door - path to cropped image
                                 door_encoding = face_recognition.face_encodings(cropped)[0]
                                 
-                                """TESTING"""
-                                ''' load encodings to global array '''
-                                update_encodings(pics)
-                                ''' end '''
-                                
                                 # pass encoding to auth fn for test
                                 key = is_auth(door_encoding)
                                 
@@ -461,7 +472,7 @@ def main():
                                 '''
                                       
                                 # if not marked unknown, user's encoding exists in system
-                                if (not ('unknown' in key)) and (check_phone()): 
+                                if(not ('unknown' in key)) and (check_phone()): 
                                       
                                     # Unlock the door
                                     print('User is: {}'.format(key))
@@ -481,7 +492,7 @@ def main():
                                         unlocked()
 
                                 #Else, unauthorized entry
-                                else:
+                                elif('unknown' in key):
                                     print('NOT AUTHORIZED')
                                 
                                 # face counter++        
@@ -491,9 +502,9 @@ def main():
                         
                         ## Reset for next cycle
                         # Set pi_config_states -> faces -> detected : false
-                        update_document('pi_status', 'faces', False)
+                        #update_document('pi_status', 'faces', False)
                         # Set pi_config_states -> motion -> detected : true
-                        update_document('pi_status', 'motion', False)
+                        #update_document('pi_status', 'motion', False)
                         
                         # Blue LED ON to indicate motion sensor ready
                         GPIO.output(blue, False)
@@ -504,7 +515,7 @@ def main():
                             print('No faces found')
                             print("End of detection cycle\n")
                             # Set pi_config_states -> motion -> detected : false
-                            update_document('pi_status', 'motion', False)
+                            #update_document('pi_status', 'motion', False)
                             
                             # Blue LED ON to indicate motion sensor ready
                             GPIO.output(blue, False)

@@ -30,7 +30,10 @@ class _Household extends State<Household> {
             actions: <Widget>[
               new Padding(
                 padding: EdgeInsets.only(right:10),
-                child: new IconButton(icon: Icon(Icons.group_add, color: Colors.white), onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser()));})
+                child: new IconButton(
+                  icon: Icon(Icons.group_add, 
+                  color: Colors.white), 
+                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser(email: widget.email,)));})
               )
             ],
             centerTitle: true,
@@ -76,7 +79,7 @@ class UserList extends StatelessWidget {
     return ListView.builder(
       itemCount: context.length,
       itemBuilder: (documents, int)  {
-        return UserRow(name: context[int].data['users'].toString());
+        return UserRow(name: context[int].data['users'].toString(), email: email);
       },
     );
   }
@@ -85,9 +88,11 @@ class UserList extends StatelessWidget {
 class UserRow extends StatefulWidget
 {
   final String name;
+  final String email;
   UserRow({
         Key key, 
         this.name,
+        this.email,
         }) 
         :super(key:key);
 

@@ -139,8 +139,11 @@ class _AccountPageState extends State<AccountPage> {
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             new SliverAppBar(
-              leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () { initState(); Navigator.pop(context);}),
-              expandedHeight: 200.0,
+                leading: new IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white,),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
                 title: new Text("Account Settings"),
                 background: Column(

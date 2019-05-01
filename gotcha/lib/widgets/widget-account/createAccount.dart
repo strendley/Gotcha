@@ -57,8 +57,8 @@ class _CreateAccount extends State<CreateAccount> {
     {
       print(e);
     }
-    
   }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../widget-account/widget-account.dart';
 import '../../services/firebase-firestore-users.dart';
 import '../../data/model/user.dart';
 import 'homepage.dart';
@@ -48,29 +47,7 @@ class _PersonalInfo extends State<PersonalInfo> {
 
     documentReference.setData(data).whenComplete(() async{
       print("Document Added");
-      print(documentReference.get().whenComplete(() async{
-      //print(data);
-
-      }));
     }).catchError((e)=> print(e));
-  }
-
-  @override
-  void initState() {
-    super.initState();
- 
-    users = new List();
- 
-    userSub?.cancel();
-    userSub = db.getNoteList().listen((QuerySnapshot snapshot) {
-      final List<User> users = snapshot.documents
-          .map((documentSnapshot) => User.fromMap(documentSnapshot.data))
-          .toList();
- 
-      setState(() {
-        this.users = users;
-      });
-    });
   }
 
   @override

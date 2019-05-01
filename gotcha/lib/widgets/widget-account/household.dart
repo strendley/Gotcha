@@ -1,50 +1,157 @@
 import 'add_user.dart';
 import 'package:flutter/material.dart';
 import 'package:gotcha/data/mock/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import '../../services/firebase-firestore-users.dart';
+
+class Household extends StatefulWidget{
+  Household({Key key, this.email}): super(key: key);
+
+  final String email;
+
+  @override
+  _Household createState() => _Household();
+}
+
+
+class _Household extends State<Household> {
+  String _email;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Color(0xff314C66),
+      ),
+      title: 'Gotcha',
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Manage Users'),
+            actions: <Widget>[
+              new Padding(
+                padding: EdgeInsets.only(right:10),
+                child: new IconButton(icon: Icon(Icons.group_add, color: Colors.white), onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser()));})
+              )
+            ],
+            centerTitle: true,
+            leading: new IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white,),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ),
+        body: new Container(
+          child: UserList(email: widget.email),
+        ),
+      ),
+    );
+  }
+}
+
+class UserList extends StatelessWidget {
+  final String email;
+  UserList({Key key, this.email}): super(key: key);
+
+ 
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance
+                       .collection('accounts')
+                       .document(email)
+                       .collection('users')
+                       .snapshots(),
+      builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot){
+                  switch (snapshot.connectionState){
+                    case ConnectionState.waiting:
+                      return new Center(child: new CircularProgressIndicator());
+                    default:
+                      return _buildList(snapshot.data.documents);
+                  }
+                }
+    );
+  }
+  ListView _buildList(context) {
+    return ListView.builder(
+      itemCount: context.length,
+      itemBuilder: (documents, int)  {
+        return UserRow(name: context[int].data['users'].toString());
+      },
+    );
+  }
+}
 
 class UserRow extends StatefulWidget
 {
-  final User user;
-  UserRow(this.user);
+  final String name;
+  UserRow({
+        Key key, 
+        this.name,
+        }) 
+        :super(key:key);
+
 
   @override
-  _UserRowState createState() => _UserRowState(user);
+  _UserRowState createState() => _UserRowState();
 
 }
 
 class _UserRowState extends State<UserRow> {
-  User user;
+  // User user;
   bool isHome = false;
+  Map<String, String> _user = <String, String>{
+      "name_first" : "",
+      "name_middle": "",
+      "name_last": "",
+      "notify": "",
+      "resident_status": "",
+      "unlock_option" : "",
+    };
+  
+  @override
+  void initState() { 
+    DocumentReference documentReference = Firestore.instance
+                                                  .collection('users')
+                                                  .document(widget.name); 
+    
+    documentReference.get().then((res) {
+    setState(() {
+      res.data.forEach((k,v)=>{
+          _user[k]=v,
+          print("${k},${v}")
+        });
+      });
+    });
+  }
 
   void onChangedSwitch(bool value) => setState(() => isHome = value);
-
-  _UserRowState(this.user);
 
   Widget get userThumbnail {
     return new Container(
       margin: new EdgeInsets.symmetric(vertical: 10.0),
       alignment: FractionalOffset.centerLeft,
       child: new CircleAvatar(
-        backgroundImage: AssetImage(user.image),
+        backgroundImage: AssetImage('gotcha_signin.png'),
         maxRadius: 55,
       ),
-        padding: const EdgeInsets.all(5.0), // borde width
+        padding: const EdgeInsets.all(10.0), // borde width
     );
   }
 
   Widget get userCard {
     return new Container(
-      height: 150.0,
+      height: 250.0,
       margin: new EdgeInsets.only(left: 0.0),
       decoration: new BoxDecoration(
-        color: new Color(0xff314c66),
+        color:  new Color(0xff314c66),
           shape: BoxShape.rectangle,
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
             new BoxShadow(
                 color: Colors.black12,
                 blurRadius: 10.0,
-                offset: new Offset(0.0, 10.0)
+                offset: new Offset(0.0, 5.0)
             )
           ]
       ),
@@ -65,7 +172,7 @@ class _UserRowState extends State<UserRow> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  new Text(user.name,
+                  new Text("${_user["name_first"]}",
                     style: TextStyle(fontSize: 25, color: Colors.white),),
                   new IconButton(
                     icon: const Icon(Icons.edit, color: Colors.white,),
@@ -77,8 +184,8 @@ class _UserRowState extends State<UserRow> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  new Text(user.residentStatus + '\n' + user.unlockOptions,
-                    style: TextStyle(fontSize: 18, color: Colors.white),),
+                  new Text('Resident Status:\n\t ${_user["resident_status"]} \nUnlock Options:\n\t ${_user["unlock_option"]}',
+                    style: TextStyle(fontSize: 16, color: Colors.white),),
                   new Container(
                     alignment: Alignment.bottomRight,
                     child: new IconButton(
@@ -105,10 +212,10 @@ class _UserRowState extends State<UserRow> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
 
-                  Text("Home Status", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  Text("Home Status", style: TextStyle(fontSize: 12, color: Colors.white)),
 
-                  isHome==true?new Icon(Icons.home, color:Colors.white, size:25.0):
-                        new Icon(Icons.directions_walk, color:Colors.white, size:25.0),
+                  isHome==true?new Icon(Icons.home, color:Colors.white, size:20.0):
+                        new Icon(Icons.directions_walk, color:Colors.white, size:20.0),
 
                   new Switch(value: isHome, onChanged: onChangedSwitch,
                               activeColor:Colors.white),
@@ -126,9 +233,9 @@ class _UserRowState extends State<UserRow> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        height: 150.0,
+        height: 190.0,
         margin: EdgeInsets.symmetric(
-            vertical: 16.0,
+            vertical: 18.0,
             horizontal: 15.0
         ),
         child: new Stack(
@@ -141,53 +248,4 @@ class _UserRowState extends State<UserRow> {
     );
   }
 
-}
-class UserList extends StatelessWidget {
-  final List<User> users;
-  UserList(this.users);
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildList(context);
-  }
-
-  ListView _buildList(context) {
-    return ListView.builder(
-      itemCount: users.length,
-      itemBuilder: (context, int) {
-        return UserRow(users[int]);
-      },
-    );
-  }
-}
-class Household extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Color(0xff314C66),
-      ),
-      title: 'Gotcha',
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Manage Household'),
-            actions: <Widget>[
-              new Padding(
-                padding: EdgeInsets.only(right:10),
-                child: new IconButton(icon: Icon(Icons.group_add, color: Colors.white), onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser()));})
-              )
-            ],
-            centerTitle: true,
-            leading: new IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white,),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ),
-        body: new Container(
-          child: UserList(users),
-        ),
-      ),
-    );
-  }
 }

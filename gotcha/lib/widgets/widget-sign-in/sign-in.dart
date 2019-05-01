@@ -18,7 +18,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   var _email = new TextEditingController();
   var _password = new TextEditingController();
-
+  static const int _color = 0xffD9E8FD;
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -48,6 +48,7 @@ class _SignInState extends State<SignIn> {
       if(userId != null)
       {
         print("user signed in "+ userId );
+        print("EMAIL: ${_email.text}");
         Navigator.push(
           context,
             MaterialPageRoute(builder: (BuildContext context) => HomePage(email: _email.text))
@@ -89,7 +90,7 @@ class _SignInState extends State<SignIn> {
                         Text(
                           'EMAIL',
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(_color), fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -97,7 +98,7 @@ class _SignInState extends State<SignIn> {
                       controller: _email,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        fillColor: Color(0xffD9E8FD), filled: true,
+                        fillColor: Color(_color), filled: true,
                       ),
                     ),
                   ]
@@ -112,7 +113,7 @@ class _SignInState extends State<SignIn> {
                         Text(
                           'PASSWORD',
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Color(0xffD9E8FD), fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(_color), fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -121,7 +122,7 @@ class _SignInState extends State<SignIn> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        fillColor: Color(0xffD9E8FD), filled: true,
+                        fillColor: Color(_color), filled: true,
                       ),
                     ),
                   ]
@@ -131,7 +132,7 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       FlatButton(
                         child: const Text('Forgot password?',
-                          style: TextStyle(color: Color(0xffD9E8FD), fontStyle: FontStyle.italic,
+                          style: TextStyle(color: Color(_color), fontStyle: FontStyle.italic,
                           ),
                         ),
                         onPressed: () =>
@@ -157,7 +158,7 @@ class _SignInState extends State<SignIn> {
 
                   FlatButton(
                     child: const Text('New Account?',
-                      style: TextStyle(color: Color(0xffD9E8FD), fontStyle: FontStyle.italic),
+                      style: TextStyle(color: Color(_color), fontStyle: FontStyle.italic),
                       //textAlign: TextAlign.right,
                     ),
                     onPressed: () =>

@@ -23,6 +23,7 @@ class _AddUserState extends State<AddUser>{
   int _residentRadioValue = -1;
   int _notifyRadioValue = -1;
   int _unlockRadioValue = -1;
+  var _email;
 
   void _setResidentStatus(int value) {
 
@@ -73,8 +74,41 @@ class _AddUserState extends State<AddUser>{
     });
   }
 
+  void _addRefToAccount(email, userRef) async {
+    Map<String, String> data = <String, String>{
+      "users" : userRef,
+    };
+    
+    final DocumentReference dr = Firestore.instance
+                                          .collection('accounts')
+                                          .document(email);
+
+    // create a document snap shot that we can modify and save to
+    await  Firestore.instance
+                    .collection('accounts')
+                    .document(email)
+                    .collection('users')
+                    .add(data);
+  }
+
+  // function for creating a new user document
   void _add() {
-    final DocumentReference documentReference = Firestore.instance.collection('users').document(_first_name.text+"/"+_middle_name.text+"/"+_last_name.text);
+    // hopefully email is not null
+    _email = widget.email;
+    print("email: ${widget.email}");
+
+    // store the information about a user
+    String document_name =  _first_name.text + "-" + 
+                            _middle_name.text + "-" +
+                            _last_name.text;
+
+    // This is a document reference object that we have create to emulate
+    // an active user
+    final DocumentReference documentReference = Firestore.instance
+                                                         .collection('users')
+                                                         .document(document_name);
+    
+    // Create a new document for a user
     Map<String, String> data = <String, String>{
       "name_first" : _first_name.text,
       "name_middle": _middle_name.text,
@@ -83,8 +117,10 @@ class _AddUserState extends State<AddUser>{
       "resident_status": _resident_status.text,
       "unlock_option" : _unlock_status.text
     };
-
+    
+    // Saving data to firebase
     documentReference.setData(data).whenComplete(() async{
+      _addRefToAccount(_email, document_name);
       print("Document Added");
     }).catchError((e)=> print(e));
   }
@@ -261,24 +297,7 @@ class _AddUserState extends State<AddUser>{
               ),
 
               new Row(
-                children: <Widget>[
-                  /*
-                  new Expanded(
-                      child: Padding(
-                        child: RaisedButton(
-                          color: Color(0xffFFF0D1),
-                          child: Text("Menu", style: new TextStyle(fontSize: 20),),
-                          onPressed: () => {
-                            Navigator.of(context).pop()
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3)
-                          ),
-                        ),
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                      )
-                  ),
-                  */
+                children: <Widget>[                
                   new Expanded(
                       child: Padding(
                         child: RaisedButton(

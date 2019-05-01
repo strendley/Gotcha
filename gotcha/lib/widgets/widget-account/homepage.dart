@@ -41,11 +41,12 @@ class _MyHomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: new Color(0xff314c66),
         body: new CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             new SliverAppBar(
+              backgroundColor: new Color(0xff314c66),
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
                 background:  Container(
@@ -53,13 +54,14 @@ class _MyHomePageState extends State<HomePage> {
                   
                   decoration: BoxDecoration(
                     borderRadius:  new BorderRadius.circular(40),
+                    color:  new Color(0xff314c66),
                   ),
                   child: VlcPlayer(
                     defaultWidth: playerWidth,
                     defaultHeight: playerHeight,
                     url: urlToStreamVideo,
                     controller: controller,
-                    placeholder: Center(child: Image.asset('gotcha.png')),
+                    placeholder: Center(child: Image.asset('gotcha_signin.png')),
                   ), 
                 ),
                 centerTitle:true,
@@ -119,7 +121,7 @@ class _MyHomePageState extends State<HomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household()));},
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household(email: widget.email,)));},
                               title: new Text("Manage Household"),
                               leading: new Icon(Icons.people, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),
@@ -130,7 +132,7 @@ class _MyHomePageState extends State<HomePage> {
 
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser())); },
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser(email: widget.email,))); },
                               title: new Text("Add New User"),
                               leading: new Icon(Icons.person_add, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),

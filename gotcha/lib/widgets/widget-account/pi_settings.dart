@@ -46,11 +46,9 @@ class _PiSettingsState extends State<PiSettings> {
               child: new ListView(
               children: <Widget>[
                 new Card(
-                  //color: Colors.amber[50],
                     child: new Column(
                       children: <Widget>[
                         new Container(
-                          //color: Colors.blue[100],
                           child: new ListTile(
                               title: new Text("Light Status"),
                               leading: isLightOn==true?new Icon(Icons.highlight, color:Colors.grey, size:25.0):
@@ -62,10 +60,6 @@ class _PiSettingsState extends State<PiSettings> {
                     )
 
                 ),
-
-
-
-
           ],
         ),
       ),

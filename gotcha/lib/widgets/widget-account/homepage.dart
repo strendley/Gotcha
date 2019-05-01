@@ -23,9 +23,10 @@ class Home extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key key, this.title, this.email}) : super(key: key);
 
   final String title;
+  final String email;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<HomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage())); },
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage(email: widget.email))); },
                               title: new Text("Account Settings"),
                               leading: new Icon(Icons.account_circle, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color: Colors.grey, size:25.0),

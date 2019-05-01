@@ -10,6 +10,7 @@ class SignIn extends StatefulWidget {
   SignIn({Key key, this.auth}) : super(key: key);
   final BaseAuth auth;
 
+
   @override
   _SignInState createState() => new _SignInState();
 }
@@ -49,7 +50,7 @@ class _SignInState extends State<SignIn> {
         print("user signed in "+ userId );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => Home())
+            MaterialPageRoute(builder: (BuildContext context) => HomePage(email: _email.text))
         );
       }
     }catch(e)

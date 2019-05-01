@@ -12,7 +12,8 @@ import '../../data/model/account.dart';
 const _SCOPES = const [PubsubApi.PubsubScope];
 
 class AccountPage extends StatefulWidget {
-  AccountPage({Key key, this.title}) : super(key: key);
+  AccountPage({Key key, this.title, this.email}) : super(key: key);
+  final String email;
   final String title;
 
   @override
@@ -63,6 +64,17 @@ class _AccountPageState extends State<AccountPage> {
   void onNameChange(String user) { if(user != "") setState(() => userName = user);}
   void onPhoneChange(String phone) { if(phone != "") setState(() => phoneNumber = phone);}
   void onAddressChange(String addr) { if(addr != "") setState(() => address = addr);}
+
+  Future getData() async {
+    String document_name = widget.email;
+    final DocumentReference documentReference = Firestore.instance.collection('accounts').document(document_name);
+    /*documentReference.get().then(function(document))
+    {
+
+    };*/
+
+
+  }
 
 
   // Publishes a message to open the door, pi will pull from subscription

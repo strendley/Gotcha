@@ -49,6 +49,7 @@ class _PersonalInfo extends State<PersonalInfo> {
     documentReference.setData(data).whenComplete(() async{
       print("Document Added");
       print(documentReference.get().whenComplete(() async{
+      //print(data);
 
       }));
     }).catchError((e)=> print(e));
@@ -293,7 +294,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                         _add(),
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                          MaterialPageRoute(builder: (BuildContext context) => HomePage(email: widget.email),),
                         )
                     },
                     child: const Text('Finish', style: TextStyle(fontSize: 20)),

@@ -15,18 +15,25 @@ class _PiSettingsState extends State<PiSettings> {
   bool isLightOn = false;
   void onChangedSwitch(bool value) => setState(() => isLightOn = value);
 
+  bool bluetooth = true;
+  void onChangedtooth(bool value) => setState(() => bluetooth = value);
+
+  bool delay = false;
+  void onChangeddelay(bool value) => setState(() => delay = value);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      title: 'Pi Settings',
+      title: 'Camera Settings',
       theme: ThemeData(
         primaryColor: Color(0xff314c66),
       ),
       home: Scaffold(
+        backgroundColor: Color(0xff314c66),
         appBar: AppBar(
           leading: new IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);}),
-          title: Text('Pi Settings'),
+          title: Text('Camera Settings'),
           centerTitle: true,
           actions: <Widget>[
             new IconButton(
@@ -46,6 +53,9 @@ class _PiSettingsState extends State<PiSettings> {
               SliverFillRemaining(
               child: new ListView(
               children: <Widget>[
+
+                SizedBox(height: 20),
+
                 new Card(
                     child: new Column(
                       children: <Widget>[
@@ -59,8 +69,39 @@ class _PiSettingsState extends State<PiSettings> {
                         ),
                       ],
                     )
-
                 ),
+
+                new Card(
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          child: new ListTile(
+                              title: new Text("Bluetooth Identification"),
+                              leading: bluetooth==true?new Icon(Icons.bluetooth, color:Colors.grey, size:25.0):
+                              new Icon(Icons.bluetooth_disabled, color:Colors.grey, size:25.0),
+                              trailing: new Switch(value: bluetooth, onChanged: onChangedtooth, activeColor:Colors.blue[700])
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+
+                new Card(
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          child: new ListTile(
+                              title: new Text("Automatic Delayed Lock"),
+                              leading: delay==true?new Icon(Icons.timer, color:Colors.grey, size:25.0):
+                              new Icon(Icons.timer_off, color:Colors.grey, size:25.0),
+                              trailing: new Switch(value: delay, onChanged: onChangeddelay, activeColor:Colors.blue[700])
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+
+
           ],
         ),
       ),

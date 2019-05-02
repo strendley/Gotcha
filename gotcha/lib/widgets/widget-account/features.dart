@@ -82,7 +82,12 @@ class _FeaturesState extends State<Features> {
         body: Container(
           child: SingleChildScrollView(
           padding: EdgeInsets.all(20),
-          child: Text('Gotcha was designed and developed by a small team of undergradute students at MST.'
+            child: Column(
+            children: <Widget>[
+
+              SizedBox(height: 20),
+
+          Text('Gotcha was designed and developed by a small team of undergradute students at MST.'
               ' The project was done for Software Systems Development, a class taught by our lord and savior,'
               ' Mr. Gilbert Gosenell.',
           textAlign: TextAlign.center,
@@ -90,6 +95,11 @@ class _FeaturesState extends State<Features> {
             color: Color(0xffD9E8FD), 
             fontWeight: FontWeight.bold, 
             fontSize: 18),
+          ),
+
+          new Image.asset('lib/data/img/gosnellgod.png', height: 400, width: 400,),
+
+              ],
           ),
         ),
       ),

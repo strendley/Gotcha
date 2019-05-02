@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 
 class PiSettings extends StatefulWidget {
-  PiSettings({Key key, this.title}) : super(key: key);
+  PiSettings({Key key, this.title, this.email}) : super(key: key);
 
   final String title;
+  final String email;
 
   @override
   _PiSettingsState createState() => _PiSettingsState();
@@ -33,7 +34,7 @@ class _PiSettingsState extends State<PiSettings> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                  MaterialPageRoute(builder: (BuildContext context) => Home(email: widget.email),),
                 );
               },
             ),

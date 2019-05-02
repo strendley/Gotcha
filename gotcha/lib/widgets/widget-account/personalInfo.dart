@@ -26,6 +26,10 @@ class _PersonalInfo extends State<PersonalInfo> {
   var addressZip = new TextEditingController();
   var phoneNumber = new TextEditingController();
   var country = new TextEditingController();
+  Color _primaryColor = Color(0xff314C66);
+  Color _secondaryColor =  Color(0xffFFF0D1);
+  Color _fillColor = Color(0xfffffffff);
+  Color _textColor = Colors.white;
   List<User> users;
   FirebaseFirestoreService db = new FirebaseFirestoreService();
   
@@ -54,7 +58,7 @@ class _PersonalInfo extends State<PersonalInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Color(0xff314C66),
+        primaryColor: _primaryColor,
       ),
       home: Scaffold(
         appBar: AppBar(title: Text('Gotcha'),
@@ -70,7 +74,8 @@ class _PersonalInfo extends State<PersonalInfo> {
         ),
 
         body: Container(
-          decoration: BoxDecoration(color: Colors.grey[100]),//(0xffD9E8FD)),
+          color: _primaryColor,
+          //decoration: BoxDecoration(color: Colors.grey[100]),//(0xffD9E8FD)),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -81,7 +86,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Create Account',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(color: _textColor, fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ],
                 ),
@@ -93,7 +98,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'First Name',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -113,7 +118,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Middle Name',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -122,7 +127,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: middleName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
@@ -133,7 +138,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Last Name',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -142,14 +147,14 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: lastName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
                 SizedBox(height: 10),
 
                 Divider(
-                  color: Colors.black,
+                  color:_textColor,
 
                 ),
 
@@ -160,7 +165,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Street Address',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -169,7 +174,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: addressStreet,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
@@ -180,7 +185,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'City',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -189,7 +194,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: addressCity,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
@@ -200,7 +205,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Zipcode',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -209,7 +214,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: addressZip,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
@@ -220,7 +225,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Country',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -229,14 +234,14 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: country,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 
                 SizedBox(height: 10),
 
                 Divider(
-                  color: Colors.black,
+                  color:_textColor,
 
                 ),
 
@@ -247,7 +252,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                     Text(
                       'Phone number',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color:_textColor, fontWeight: FontWeight.bold,),
                     ),
                   ],
                 ),
@@ -256,7 +261,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                   controller: phoneNumber,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: Color(0xffffffff), filled: true,
+                    fillColor: _fillColor, filled: true,
                   ),
                 ),
 

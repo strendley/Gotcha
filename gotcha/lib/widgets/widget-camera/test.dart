@@ -16,6 +16,9 @@ const _SCOPES = const [PubsubApi.PubsubScope];
 //void main() => runApp(MyApp());
 
 class TestCameraPage extends StatelessWidget {
+  TestCameraPage({Key key, this.email}):super(key:key);
+
+  final String email;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,9 @@ class TestCameraPage extends StatelessWidget {
 }
 
 class TestCamera extends StatefulWidget {
-  TestCamera({Key key, this.title}) : super(key: key);
+  TestCamera({Key key, this.title, this.email}) : super(key: key);
   final String title;
-
+  final String email;
   @override
   _TestCameraState createState() => _TestCameraState();
 
@@ -41,6 +44,8 @@ class TestCamera extends StatefulWidget {
 
 class _TestCameraState extends State<TestCamera> {
   File _image;
+  Color _primaryColor = Color(0xff314C66);
+  Color _secondaryColor = Color(0xffFFF0D1);
 
   Future getImageFromCam() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -126,9 +131,10 @@ class _TestCameraState extends State<TestCamera> {
     return MaterialApp(
       title: 'Test Pictures',
       theme: ThemeData(
-        primaryColor: Color(0xff314c66),
+        primaryColor:_primaryColor,
       ),
       home: Scaffold(
+        backgroundColor: _primaryColor,
         appBar: AppBar(
           leading: new IconButton(icon: Icon(Icons.arrow_back, color: Colors.white,), onPressed: () {Navigator.pop(context);}),
           title: Text('Test Pictures'),
@@ -139,13 +145,14 @@ class _TestCameraState extends State<TestCamera> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (BuildContext context) => Home(),),
+                  MaterialPageRoute(builder: (BuildContext context) => Home(email:widget.email),),
                 );
               },
             ),
           ],
         ),
         body: Center(
+          
           child: Column(
             children: <Widget>[
 
@@ -158,7 +165,7 @@ class _TestCameraState extends State<TestCamera> {
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: RaisedButton(
-                          color: Color(0xffFFF0D1),
+                          color: _secondaryColor,
                           child: Text("+  Gallery", style: new TextStyle(fontSize: 20),),
                           onPressed: () {getImageFromGallery();},
                           shape: RoundedRectangleBorder(
@@ -172,7 +179,7 @@ class _TestCameraState extends State<TestCamera> {
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: RaisedButton(
-                          color: Color(0xffFFF0D1),
+                          color: _secondaryColor,
                           child: Text("+  Camera", style: new TextStyle(fontSize: 20),),
                           onPressed: () {getImageFromCam();},
                           shape: RoundedRectangleBorder(
@@ -202,7 +209,7 @@ class _TestCameraState extends State<TestCamera> {
                     height: 265.0,
                     width: 260.0,
                       decoration: new BoxDecoration(
-                        color: const Color(0xFF314c66), // border color
+                        color: _secondaryColor, // border color
                         shape: BoxShape.rectangle,
                       )
                   ),
@@ -243,34 +250,15 @@ class _TestCameraState extends State<TestCamera> {
 
               new Padding(
                 padding: EdgeInsets.only(top:30.0),
-                    child: new Text('Results: ', style: new TextStyle(fontSize: 25),)
+                    child: new Text('Results: ', 
+                    style: new TextStyle(
+                      fontSize: 25,
+                      color: Colors.white),)
               ),
               new Padding(
               padding: EdgeInsets.only(top:10.0, bottom: 10.0),
-              child: new Text(c1.text, style: new TextStyle(fontSize:20, color:Colors.red))//style: new TextStyle(fontSize: 25, color: Colors.red),controller:c1,)
-
-              //),
+              child: new Text(c1.text, style: new TextStyle(fontSize:20, color:Colors.red))
               ,)
-
-
-/*
-              new Row(
-                children: <Widget>[
-                  new Expanded(
-                      child: Padding(
-                        child: RaisedButton(
-                          child: Text("Return to Menu", style: new TextStyle(fontSize: 20),),
-                          onPressed: () { Navigator.pop(context);},
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3)
-                          ),
-                        ),
-                        padding: EdgeInsets.only(left: 7, right: 7),
-                      )
-                  ),
-                ],
-              ),
-              */
             ],
           )
         ),

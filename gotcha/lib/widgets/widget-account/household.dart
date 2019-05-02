@@ -26,7 +26,7 @@ class _Household extends State<Household> {
       title: 'Gotcha',
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Manage Users'),
+            title: Text('Manage Household'),
             actions: <Widget>[
               new Padding(
                 padding: EdgeInsets.only(right:10),
@@ -70,6 +70,7 @@ class UserList extends StatelessWidget {
                     case ConnectionState.waiting:
                       return new Center(child: new CircularProgressIndicator());
                     default:
+                      print("${email} - found: "+ snapshot.data.documents.toString());
                       return _buildList(snapshot.data.documents);
                   }
                 }
@@ -79,6 +80,7 @@ class UserList extends StatelessWidget {
     return ListView.builder(
       itemCount: context.length,
       itemBuilder: (documents, int)  {
+        print( 'found now: ' + context[int].data['users'].toString() + "\n\n\n\n\n\n");
         return UserRow(name: context[int].data['users'].toString(), email: email);
       },
     );
@@ -140,7 +142,7 @@ class _UserRowState extends State<UserRow> {
         backgroundImage: AssetImage('gotcha_signin.png'),
         maxRadius: 55,
       ),
-        padding: const EdgeInsets.all(10.0), // borde width
+        padding: const EdgeInsets.all(10.0), 
     );
   }
 

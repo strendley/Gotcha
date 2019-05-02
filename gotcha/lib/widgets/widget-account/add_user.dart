@@ -19,6 +19,7 @@ class _AddUserState extends State<AddUser>{
   var _resident_status = new TextEditingController();
   var _unlock_status = new TextEditingController();
   var _notify_me = new TextEditingController();
+  Color _primaryColor = Color(0xffFFF0D1);
   
   int _residentRadioValue = -1;
   int _notifyRadioValue = -1;
@@ -301,7 +302,7 @@ class _AddUserState extends State<AddUser>{
                   new Expanded(
                       child: Padding(
                         child: RaisedButton(
-                          color: Color(0xffFFF0D1),
+                          color: _primaryColor,
                           child: Text("Continue", style: new TextStyle(fontSize: 20),),
                           onPressed: () { 
                             _add();

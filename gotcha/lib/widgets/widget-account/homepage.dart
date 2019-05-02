@@ -9,6 +9,9 @@ import 'package:flutter_vlc_player/vlc_player.dart';
 import 'package:flutter_vlc_player/vlc_player_controller.dart';
 
 class Home extends StatelessWidget {
+  Home({Key key, this.email}):super(key:key);
+
+  final String email;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class Home extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xff314C66),
       ),
-      home: HomePage(title: 'Gotcha'),
+      home: HomePage(title: 'Gotcha', email: email),
     );
   }
 }
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xff314C66),
+        backgroundColor: _primaryColor,
         floatingActionButton: Switch(
           value: _switched,
           onChanged: (value) =>{
@@ -99,7 +102,13 @@ class _MyHomePageState extends State<HomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage(email: widget.email))); },
+                              onTap:() { 
+                                Navigator.push(context, 
+                                MaterialPageRoute(
+                                  builder: (context) => AccountPage(email: widget.email)
+                                  )
+                                ); 
+                              },
                               title: new Text("Account Settings"),
                               leading: new Icon(Icons.account_circle, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color: Colors.grey, size:25.0),
@@ -108,8 +117,15 @@ class _MyHomePageState extends State<HomePage> {
                           new Divider(color:Colors.grey, indent:5.0),
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => PiSettings())); },
-                              title: new Text("Pi Settings"),
+                              onTap:() { 
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PiSettings(email: widget.email)
+                                    )
+                                ); 
+                              },
+                              title: new Text("Camera Settings"),
                               leading: new Icon(Icons.settings, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),
                             ),
@@ -117,7 +133,7 @@ class _MyHomePageState extends State<HomePage> {
                           new Divider(color:Colors.grey, indent:5.0),
                           new Container(
                               child: new ListTile(
-                                onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => TestCamera())); },
+                                onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => TestCamera(email: widget.email))); },
                                 title: new Text("Test Camera"),
                                 leading: new Icon(Icons.linked_camera, color:Colors.grey, size:25.0),
                                 trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),
@@ -140,7 +156,7 @@ class _MyHomePageState extends State<HomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household()));},
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household(email: widget.email,)));},
                               title: new Text("Manage Household"),
                               leading: new Icon(Icons.people, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),
@@ -162,7 +178,7 @@ class _MyHomePageState extends State<HomePage> {
 
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Features()));},
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Features(email: widget.email)));},
                               title: new Text("About"),
                               leading: new Icon(Icons.favorite_border, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),

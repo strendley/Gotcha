@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
       title: 'Gotcha App',
       theme: ThemeData(
-        primaryColor: Color(0xff314c66),
+        primaryColor: Color(0xff314C66),
       ),
       home: HomePage(title: 'Gotcha'),
     );
@@ -33,36 +33,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
-  final String urlToStreamVideo = 'http://192.168.0.16:8000/stream.mjpg';
+  final String urlToStreamVideo = 'http://192.168.0.19:8000/stream.mjpg';
   final VlcPlayerController controller = VlcPlayerController();
   final int playerWidth = 640;
   final int playerHeight = 360;
-
+  bool _switched = true;
+  Color _primaryColor = Color(0xff314C66);
+  Color _secondaryColor = Color(0xffFFF0D1);
+  
+  Widget _getMainWindow(){
+    if(_switched){
+      return VlcPlayer(
+                      defaultWidth: playerWidth,
+                      defaultHeight: playerHeight,
+                      url: urlToStreamVideo,
+                      controller: controller,
+                      placeholder: Center(child: Image.asset('gotcha_signin.png')),
+                    ); 
+    } else {
+      return Center(child: Image.asset('gotcha_signin.png'));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: new Color(0xff314c66),
+        backgroundColor: Color(0xff314C66),
+        floatingActionButton: Switch(
+          value: _switched,
+          onChanged: (value) =>{
+            setState(() {
+              _switched = value;
+            })
+          },
+          activeTrackColor: Colors.grey,
+          activeColor: _primaryColor,
+        ),
+        
         body: new CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             new SliverAppBar(
-              backgroundColor: new Color(0xff314c66),
               expandedHeight: 200.0,
+              backgroundColor: _primaryColor,
               flexibleSpace: FlexibleSpaceBar(
                 background:  Container(
-                  margin: EdgeInsets.all(30),
-                  
+                  margin: EdgeInsets.only(top:70,left: 20, right:20),
                   decoration: BoxDecoration(
                     borderRadius:  new BorderRadius.circular(40),
-                    color:  new Color(0xff314c66),
                   ),
-                  child: VlcPlayer(
-                    defaultWidth: playerWidth,
-                    defaultHeight: playerHeight,
-                    url: urlToStreamVideo,
-                    controller: controller,
-                    placeholder: Center(child: Image.asset('gotcha_signin.png')),
-                  ), 
+                  child: _getMainWindow()
                 ),
                 centerTitle:true,
               ),
@@ -121,7 +140,7 @@ class _MyHomePageState extends State<HomePage> {
                         children: <Widget>[
                           new Container(
                             child: new ListTile(
-                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household(email: widget.email,)));},
+                              onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => Household()));},
                               title: new Text("Manage Household"),
                               leading: new Icon(Icons.people, color:Colors.grey, size:25.0),
                               trailing: new Icon(Icons.arrow_forward_ios, color:Colors.grey, size:25.0),

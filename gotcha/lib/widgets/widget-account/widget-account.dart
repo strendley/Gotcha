@@ -148,7 +148,8 @@ class _AccountPageState extends State<AccountPage> {
                 title: new Text("Account Settings",
                 style: new TextStyle(
                   color: Colors.white,
-                ),),
+                  ),
+                ),
                 background: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -158,13 +159,11 @@ class _AccountPageState extends State<AccountPage> {
                       height: 120.0,
                       alignment: Alignment.center,
                       margin: new EdgeInsets.only(top: 40.0),
-                      //color: Colors.red,
                       child: new CircleAvatar(
                         maxRadius: 60.0,
                         backgroundImage: AssetImage('defaultUser.png'),
                       ),
                     ),
-                    //const Text("User", style: TextStyle(fontSize: 20.0, color: Colors.white), textAlign: TextAlign.center,),
                   ],
                 ),
                 centerTitle: true,
@@ -187,23 +186,10 @@ class _AccountPageState extends State<AccountPage> {
             SliverFillRemaining(
                 child: new ListView(
                   children: <Widget>[
-                    /*
-                    Padding(
-                      padding: EdgeInsets.only(left:10),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child:
-                        Text("Profile", style: TextStyle(fontSize: 20),),
-                      ),
-                    ),
-                    */
                     new Card(
-                      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
-                      //color: Colors.amber[50],
-                        child: new Column(
+                          child: new Column(
                           children: <Widget>[
                             new Container(
-                              //color: Colors.red[100],
                               child: new ListTile(
                                 onTap:() {
                                   showDialog(
@@ -230,7 +216,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             new Divider(color:Colors.grey, indent:5.0),
                             new Container(
-                              //color: Colors.blue[100],
                               child: new ListTile(
                                 onTap:() {
                                   showDialog(
@@ -284,23 +269,12 @@ class _AccountPageState extends State<AccountPage> {
                         )
 
                     ),
-                    /*
-                    Padding(
-                        padding: EdgeInsets.only(left: 10.0, top: 20.0),
-                        child: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("General Settings", style: TextStyle(fontSize: 20)))
-                    ),
-                    */
-                    
                     Padding(padding: EdgeInsets.all(10)),
                     
                     new Card(
-                      //color: Colors.amber[50],
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              //color: Colors.red[100],
                               child: new ListTile(
                                   title: new Text("Door Status"),
                                   leading: openDoor==true?new Icon(Icons.lock_open, color:Colors.grey, size:25.0):
@@ -312,7 +286,6 @@ class _AccountPageState extends State<AccountPage> {
                             new Divider(color:Colors.grey, indent:5.0),
 
                             new Container(
-                              //color: Colors.blue[100],
                               child: new ListTile(
                                   title: new Text("Push Notifications"),
                                   leading: enablePush==true?new Icon(Icons.notifications_active, color:Colors.grey, size:25.0):
@@ -320,24 +293,10 @@ class _AccountPageState extends State<AccountPage> {
                                   trailing: new Switch(value: enablePush, onChanged: onChangedSwitch, activeColor:Colors.blue[700])
                               ),
                             ),
-/*
-                            new Divider(color:Colors.grey, indent:5.0),
-
-                            new Container(
-                              //color: Colors.green[100],
-                              child: new ListTile(
-                                  title: new Text("Self Destruct"),
-                                  leading: new Icon(Icons.alarm, color:Colors.grey, size:25.0),
-                                  trailing: new Switch(value: selfDestruct, onChanged: onChangedDestruct, activeColor:Colors.blue[700])
-                              ),
-                            )
-                            */
                           ],
                         )
-
                     ),
                   ],
-
                 )
             )
           ],

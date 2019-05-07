@@ -15,47 +15,8 @@ class Pictures extends StatefulWidget {
 
 
 class _PicturePageState extends State<Pictures> {
-  /*
-  List<Asset> images = List<Asset>();
-  String _error;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-  Future<void> loadAssets() async {
-
-    setState(() {
-      print("Error potentially in setState().");
-      images = List<Asset>();
-      print("ERROR Not HERE!");
-    });
-
-    List<Asset> resultList;
-    String error;
-
-    try {
-      print("trying to get images");
-      resultList = await MultiImagePicker.pickImages(maxImages: 15);
-      print("got images");
-    } on PlatformException catch (e) {
-      print("SUPER ERROR");
-      error = e.message;
-    }
-    print("not sure what's happening");
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-    print("is mounted");
-    setState(() {
-      print("images are being loaded");
-      images = resultList;
-      print("images loaded... Doesn't make sense");
-      if (error == null) _error = 'No Error Dectected';
-    });
-  }
-*/
+  Color _primaryColor = Color(0xff314C66);
+  Color _secondaryColor = Color(0xffFFF0D1);
 
   File _image;
   var image;
@@ -76,9 +37,21 @@ class _PicturePageState extends State<Pictures> {
   @override
   Widget build(BuildContext context){
     return new Scaffold(
+      backgroundColor: _primaryColor,
       appBar: new AppBar(
-        title: new Text('Add User Pictures'),
+        iconTheme: IconThemeData(
+          color: Colors.white
+        ),
+        title: new Container(
+          alignment: Alignment.center,
+          child: Text('Add User Photo',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
         centerTitle: true,
+        backgroundColor: _primaryColor,
         actions: <Widget>[
           new IconButton(
             icon: Image.asset("gotcha.png"),
@@ -97,7 +70,11 @@ class _PicturePageState extends State<Pictures> {
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: const Align(
                   alignment: Alignment.topCenter,
-                  child: Text("Please Add A Guest User Photo", style: TextStyle(fontSize: 25)))
+                  child: Text("Gotcha", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  )))
           ),
 
           new Row(
@@ -107,8 +84,9 @@ class _PicturePageState extends State<Pictures> {
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: RaisedButton(
-                      color: Color(0xffFFF0D1),
-                      child: Text("+  Gallery", style: new TextStyle(fontSize: 20),),
+                      color: _secondaryColor,
+                      child: Text("+  Gallery", 
+                      style: new TextStyle(fontSize: 20),),
                       onPressed: () {getImageFromGallery();},
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(3)
@@ -121,7 +99,7 @@ class _PicturePageState extends State<Pictures> {
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: RaisedButton(
-                      color: Color(0xffFFF0D1),
+                      color: _secondaryColor,
                       child: Text("+  Camera", style: new TextStyle(fontSize: 20),),
                       onPressed: () {getImageFromCam();},
                       shape: RoundedRectangleBorder(
@@ -145,7 +123,7 @@ class _PicturePageState extends State<Pictures> {
                   height: 265.0,
                   width: 260.0,
                   decoration: new BoxDecoration(
-                    color: const Color(0xFF314c66), // border color
+                    color: _secondaryColor, // border color
                     shape: BoxShape.rectangle,
                   )
               ),
@@ -160,7 +138,7 @@ class _PicturePageState extends State<Pictures> {
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: RaisedButton(
-                    color: Color(0xffFFF0D1),
+                    color: _secondaryColor,
                     child: Text("Back", style: new TextStyle(fontSize: 20),),
                     onPressed: () {Navigator.pop(context);},
                     shape: RoundedRectangleBorder(
@@ -175,7 +153,7 @@ class _PicturePageState extends State<Pictures> {
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: RaisedButton(
-                    color: Color(0xffFFF0D1),
+                    color: _secondaryColor,
                     child: Text("Done", style: new TextStyle(fontSize: 20),),
                     onPressed: () {//Add new user to database
                       Navigator.pop(context);

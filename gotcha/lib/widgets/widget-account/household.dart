@@ -1,8 +1,6 @@
 import 'add_user.dart';
 import 'package:flutter/material.dart';
-import 'package:gotcha/data/mock/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import '../../services/firebase-firestore-users.dart';
 
 class Household extends StatefulWidget{
   Household({Key key, this.email}): super(key: key);

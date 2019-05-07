@@ -21,6 +21,7 @@ class Home extends StatelessWidget {
         primaryColor: Color(0xff314C66),
       ),
       home: HomePage(title: 'Gotcha', email: email),
+      
     );
   }
 }
@@ -57,10 +58,13 @@ class _MyHomePageState extends State<HomePage> {
       return Center(child: Image.asset('gotcha_signin.png'));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        
         backgroundColor: _primaryColor,
+
         floatingActionButton: Switch(
           value: _switched,
           onChanged: (value) =>{
@@ -73,9 +77,13 @@ class _MyHomePageState extends State<HomePage> {
         ),
         
         body: new CustomScrollView(
+          
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             new SliverAppBar(
+              iconTheme: IconThemeData(
+                color: Colors.white
+              ),
               expandedHeight: 200.0,
               backgroundColor: _primaryColor,
               flexibleSpace: FlexibleSpaceBar(

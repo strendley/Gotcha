@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/pubsub//v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
-import 'package:gotcha/creds.dart'; //isolate sensitive data
+import 'package:gotcha/creds.dart'; 
 import 'package:gotcha/crud.dart';
 import 'homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,6 +21,31 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    accounts = new List();
+    documentRef = Firestore.instance.collection('accounts').document(widget.email);
+    documentRef.get().then((data){
+      accountSub?.cancel();
+      accountSub = db.getNoteList().listen((QuerySnapshot snapshot) {
+        final List<Account> accounts = snapshot.documents
+            .map((documentSnapshot) => Account.fromMap(documentSnapshot.data))
+            .toList();
+
+        setState(() {
+          this.accounts = accounts;
+          nameController.text = data['name_first'] + " " + data['name_middle'] + " " + data['name_last'];
+          phoneController.text = data['phone_number'];
+          addressController.text = data["address_city"] + " " + data["address_state"];
+        });
+      });
+
+    });
+
+  }
+
   bool enablePush = false;
   bool openDoor = false;
 
@@ -34,56 +59,28 @@ class _AccountPageState extends State<AccountPage> {
   final TextEditingController phoneController = new TextEditingController();
   final TextEditingController addressController = new TextEditingController();
 
+
   List<Account> accounts;
   FirebaseFirestoreService db = new FirebaseFirestoreService();
 
   StreamSubscription<QuerySnapshot> accountSub;
+  DocumentReference documentRef;
 
-  @override
-  void initState() {
-    super.initState();
-
-    accounts = new List();
-
-    accountSub?.cancel();
-    accountSub = db.getNoteList().listen((QuerySnapshot snapshot) {
-      final List<Account> accounts = snapshot.documents
-          .map((documentSnapshot) => Account.fromMap(documentSnapshot.data))
-          .toList();
-
-      setState(() {
-        this.accounts = accounts;
-      });
-    });
-  }
 
   void onChangedSwitch(bool value) => setState(() => enablePush = value);
   void onChangedDoor(bool value) => setState(() => openDoor = value);
-  //void onChangedDestruct(bool value) => setState(() => selfDestruct = value);
 
   void onNameChange(String user) { if(user != "") setState(() => userName = user);}
   void onPhoneChange(String phone) { if(phone != "") setState(() => phoneNumber = phone);}
   void onAddressChange(String addr) { if(addr != "") setState(() => address = addr);}
-
-  Future getData() async {
-    String document_name = widget.email;
-    final DocumentReference documentReference = Firestore.instance.collection('accounts').document(document_name);
-    /*documentReference.get().then(function(document))
-    {
-
-    };*/
-
-
-  }
 
 
   // Publishes a message to open the door, pi will pull from subscription
   void publishTopic(topic){
     debugPrint("Publishing a message to a topic");
 
-    //debugPrint(_SCOPES[0]);
     final _credentials = returnJson();
-    //debugPrint(json_string);
+  
     clientViaServiceAccount(_credentials, _SCOPES)
         .then((http_client) {
       var pubSubClient = new PubsubApi(http_client);
@@ -209,7 +206,7 @@ class _AccountPageState extends State<AccountPage> {
                                   )
                                   );
                                 },
-                                title: new Text(userName),
+                                title: new Text(nameController.text),
                                 leading: new Icon(Icons.account_circle, color:Colors.grey, size:25.0),
                                 trailing: new Icon(Icons.edit, color: Colors.grey, size:25.0),
                               ),
@@ -217,6 +214,10 @@ class _AccountPageState extends State<AccountPage> {
                             new Divider(color:Colors.grey, indent:5.0),
                             new Container(
                               child: new ListTile(
+                                title: new Text(phoneController.text),
+                                leading: new Icon(Icons.phone_iphone, color:Colors.grey, size:25.0),
+                                trailing: new Icon(Icons.edit, color:Colors.grey, size:25.0),
+                                
                                 onTap:() {
                                   showDialog(
                                       context: context, child:
@@ -234,9 +235,6 @@ class _AccountPageState extends State<AccountPage> {
                                   )
                                   );
                                 },
-                                title: new Text(phoneNumber),
-                                leading: new Icon(Icons.phone_iphone, color:Colors.grey, size:25.0),
-                                trailing: new Icon(Icons.edit, color:Colors.grey, size:25.0),
                               ),
                             ),
                             new Divider(color:Colors.grey, indent:5.0),
@@ -260,7 +258,7 @@ class _AccountPageState extends State<AccountPage> {
                                     )
                                     );
                                   },
-                                  title: new Text(address),
+                                  title: new Text(addressController.text),
                                   leading: new Icon(Icons.home, color:Colors.grey, size:25.0),
                                   trailing: new Icon(Icons.edit, color:Colors.grey, size:25.0),
                                 )

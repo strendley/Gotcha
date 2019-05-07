@@ -75,7 +75,6 @@ class _PersonalInfo extends State<PersonalInfo> {
 
         body: Container(
           color: _primaryColor,
-          //decoration: BoxDecoration(color: Colors.grey[100]),//(0xffD9E8FD)),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(

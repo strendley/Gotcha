@@ -1,6 +1,10 @@
 # Gotcha
 
-This project is a 4096 (Capstone) Project for a door locking mechanism. Our product consists of a motion triggered camera powered by a Raspberry Pi 3B+ that will unlock a door upon successful facial recognition. In a residence setting, the camera is isolated on the exterior of the building and records a video feed of potential guests. A request is sent from a mobile application or the Pi’s camera with a snapshot of a user’s face to the Pi, which will process the image and query a database to check if that image is recognized as a permitted user to that household. If the image is successfully recognized as a welcomed user, the Pi will then unlock the door for them to enter.
+This project is a 4096 (Capstone) Project for a door locking mechanism. Our product consists of a motion triggered camera powered by a Raspberry Pi 3B+ that will unlock a door upon successful facial recognition. 
+
+![the_problem](https://user-images.githubusercontent.com/26886594/69322007-b5a5c380-0c09-11ea-8ec0-f75e6b858fcf.PNG)
+
+In a residential setting, the camera is isolated on the exterior of the building and records a video feed of potential guests. A request is sent from a mobile application or the Pi’s camera with a snapshot of a user’s face to the Pi, which will process the image and query a database to check if that image is recognized as a permitted user to that household. If the image is successfully recognized as a welcomed user, the Pi will then unlock the door for them to enter.
 
 ## Environment
 This project was created using Flutter and FireBase.
